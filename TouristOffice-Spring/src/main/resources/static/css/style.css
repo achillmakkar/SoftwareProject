@@ -1,3 +1,9 @@
+/* Codeanfang_Achill_durchgehend */
+body {
+    background-color: steelblue;
+}
+
+
 h1 {
     color: #55ff1f;
 }
@@ -13,97 +19,137 @@ table {
 table th, table td {
     padding: 5px;
 }
-/* Stil für die obere Navigationsleiste */
+hr {
+    border: 0;
+    height: 2px;
+    background-color: #333; /* Dunkelgrau */
+}
+table
+{
+    border-color: black;
+}
+
 .topnav-upper {
-    background-color: #004A99; /* Dunkelblau für das obere Nav */
+    background-color: steelblue;
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
     align-items: center;
-    padding: 0.5rem 1rem; /* Oder die gewünschte Größe */
+    padding: 0.5rem 1rem;
 }
-
-/* Stil für die untere Navigationsleiste */
-.topnav-lower {
-    background-color: #007bff; /* Hintergrundfarbe der unteren Nav */
+.logo {
+    flex: 1;
     display: flex;
-    justify-content: center; /* Zentriert die Inhalte horizontal */
-    padding: 0.5rem 0; /* Vertikaler Padding für die Leiste */
+    justify-content: center;
+    align-items: center;
+    padding: 0.5rem;
 }
 
-/* Stil für die Navigationslinks als Buttons innerhalb der unteren Nav */
+.logo img {
+    max-height: 100px;
+    width: auto;
+}
+
+.topnav-upper .user-controls {
+    position: absolute;
+    right: 1rem;
+    top: 0.5rem;
+    display: flex;
+    gap: 10px;
+}
+
+
+
+.topnav-lower {
+    background-color: steelblue;
+    display: flex;
+    justify-content: center;
+    padding: 0.5rem 0;
+}
+
 .navigation-links {
-    display: flex; /* Flex-Container für die Links */
-    justify-content: center; /* Zentriert die Links innerhalb des Flex-Containers */
-    gap: 10px; /* Abstand zwischen den Buttons */
+    display: flex;
+    justify-content: center;
+    gap: 10px;
 }
 
 .navigation-links a {
-    padding: 8px 16px; /* Padding für die Größe der Buttons */
-    background-color: #f0ad4e; /* Orange Hintergrundfarbe */
-    color: white; /* Weiße Textfarbe */
-    text-decoration: none; /* Keine Unterstreichung */
-    border: none; /* Keine Rahmen */
-    border-radius: 4px; /* Abgerundete Ecken */
-    transition: background-color 0.3s; /* Sanfter Übergang bei Farbänderung */
+    padding: 8px 16px;
+    background-color: #f0ad4e;
+    color: white;
+    text-decoration: none;
+    border: none;
+    border-radius: 4px;
+    transition: background-color 0.3s;
 }
 
 .navigation-links a:hover {
-    background-color: #ec971f; /* Dunklere Farbe beim Hover */
+    background-color: #ec971f;
 }
 
 .navigation-links a.active {
-    background-color: #d58512; /* Dunklere Farbe für den aktiven Link */
+    background-color: #d58512;
 }
 
 @media (max-width: 768px) {
     .topnav-lower .navigation-links {
-        flex-direction: column; /* Stapelt die Buttons vertikal auf kleinen Bildschirmen */
-        gap: 0.5rem; /* Abstand zwischen den vertikal gestapelten Buttons */
+        flex-direction: column;
+        gap: 0.5rem;
     }
+}
+@media (max-width: 768px) {
+    .topnav-upper {
+        flex-direction: column;
+        align-items: center;
+    }
+}
+hr {
+    border: 0;
+    height: 2px;
+    background-color: #333;
 }
 
 /* Paginierungskontainer - zentriert die Elemente */
 .pagination-container {
         display: flex;
-        justify-content: center; /* Zentriert die Elemente horizontal */
-        align-items: center; /* Zentriert die Elemente vertikal, falls nötig */
-        margin-top: 20px; /* Optionaler Abstand von der oberen Komponente */
-        flex-wrap: wrap; /* Erlaubt das Umbrechen der Elemente auf kleinere Bildschirme */
-        width: 100%; /* Stellt sicher, dass der Container die volle Breite einnimmt */
+        justify-content: center;
+        align-items: center;
+        margin-top: 20px;
+        flex-wrap: wrap;
+        width: 100%;
     }
 
-    /* Stil für die Seitenzahlen in der Paginierung */
     .pagination a {
         margin: 0 10px; /* Abstand zwischen den Buttons */
     }
 
-    /* Stil für aktiven Zustand der Seitenzahl */
     .pagination a.active {
         font-weight: bold;
         text-decoration: underline;
     }
 
     .btn-pagination {
-        min-width: 50px; /* Stellt eine einheitliche Mindestbreite für alle Buttons ein */
-        padding: 0.5rem 0.75rem; /* Standard Padding */
-        text-align: center; /* Zentriert den Text */
-        margin: 0 5px; /* Abstand zwischen den Buttons */
-        border: 1px solid #dee2e6; /* Fügt den Buttons einen Rahmen hinzu */
-        display: inline-block; /* Stellt sicher, dass alle Buttons in einer Reihe sind */
-        margin-right: 10px; /* Rechtsabstand erhöhen */
-        margin-left: 10px; /* Linksabstand erhöhen */
+        background-color: white;
+        color:black;
+        min-width: 50px;
+        padding: 0.5rem 0.75rem;
+        text-align: center;
+        margin: 0 5px;
+        border: 1px solid #dee2e6;
+        display: inline-block;
+        margin-right: 10px;
+        margin-left: 10px;
     }
 
     /* Style für den aktiven Button */
     .btn-pagination.active {
-        background-color: #007bff; /* Blaue Hintergrundfarbe für den aktiven Button */
-        color: white; /* Weiße Textfarbe für den aktiven Button */
-        border-color: #007bff; /* Blauer Rahmen für den aktiven Button */
+        background-color: #007bff;
+        color: white;
+        border-color: #007bff;
     }
 
-    /* Optional: Style für Hover auf allen Buttons außer dem aktiven */
     .btn-pagination:not(.active):hover {
-        background-color: #5bc0de; /* Eine andere Farbe für Hover */
-        color: white; /* Weiße Textfarbe für Hover */
-        border-color: #46b8da; /* Rahmenfarbe für Hover */
+        background-color: #5bc0de;
+        color: white;
+        border-color: #46b8da;
     }
+/* Codeende_Achill_durchgehend */

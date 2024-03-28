@@ -29,134 +29,37 @@
             });
         });
     </script>
-    <style>
-        /* Paginierungskontainer - zentriert die Elemente */
-        .pagination-container {
-            display: flex;
-            justify-content: center; /* Zentriert die Elemente horizontal */
-            align-items: center; /* Zentriert die Elemente vertikal, falls nötig */
-            margin-top: 20px; /* Optionaler Abstand von der oberen Komponente */
-            flex-wrap: wrap; /* Erlaubt das Umbrechen der Elemente auf kleinere Bildschirme */
-            width: 100%; /* Stellt sicher, dass der Container die volle Breite einnimmt */
-        }
 
-        /* Stil für die Seitenzahlen in der Paginierung */
-        .pagination a {
-            margin: 0 10px; /* Abstand zwischen den Buttons */
-        }
-
-        /* Stil für aktiven Zustand der Seitenzahl */
-        .pagination a.active {
-            font-weight: bold;
-            text-decoration: underline;
-        }
-        .btn-pagination {
-            min-width: 50px; /* Stellt eine einheitliche Mindestbreite für alle Buttons ein */
-            padding: 0.5rem 0.75rem; /* Standard Padding */
-            text-align: center; /* Zentriert den Text */
-            margin: 0 5px; /* Abstand zwischen den Buttons */
-            border: 1px solid #dee2e6; /* Fügt den Buttons einen Rahmen hinzu */
-            display: inline-block; /* Stellt sicher, dass alle Buttons in einer Reihe sind */
-            margin-right: 10px; /* Rechtsabstand erhöhen */
-            margin-left: 10px;  /* Linksabstand erhöhen */
-        }
-
-        /* Style für den aktiven Button */
-        /* Style für den aktiven Button */
-        .btn-pagination.active {
-            background-color: #007bff; /* Blaue Hintergrundfarbe für den aktiven Button */
-            color: white; /* Weiße Textfarbe für den aktiven Button */
-            border-color: #007bff; /* Blauer Rahmen für den aktiven Button */
-        }
-
-        /* Optional: Style für Hover auf allen Buttons außer dem aktiven */
-        .btn-pagination:not(.active):hover {
-            background-color: #5bc0de; /* Eine andere Farbe für Hover */
-            color: white; /* Weiße Textfarbe für Hover */
-            border-color: #46b8da; /* Rahmenfarbe für Hover */
-        }
-        /* Stil für die obere Navigationsleiste */
-        .topnav-upper {
-            background-color: #004A99; /* Dunkelblau für das obere Nav */
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 0.5rem 1rem; /* Oder die gewünschte Größe */
-        }
-
-        /* Stil für die untere Navigationsleiste */
-        .topnav-lower {
-            background-color: #007bff; /* Hintergrundfarbe der unteren Nav */
-            display: flex;
-            justify-content: center; /* Zentriert die Inhalte horizontal */
-            padding: 0.5rem 0; /* Vertikaler Padding für die Leiste */
-        }
-
-        /* Stil für die Navigationslinks als Buttons innerhalb der unteren Nav */
-        .navigation-links {
-            display: flex; /* Flex-Container für die Links */
-            justify-content: center; /* Zentriert die Links innerhalb des Flex-Containers */
-            gap: 10px; /* Abstand zwischen den Buttons */
-        }
-
-        .navigation-links a {
-            padding: 8px 16px; /* Padding für die Größe der Buttons */
-            background-color: #f0ad4e; /* Orange Hintergrundfarbe */
-            color: white; /* Weiße Textfarbe */
-            text-decoration: none; /* Keine Unterstreichung */
-            border: none; /* Keine Rahmen */
-            border-radius: 4px; /* Abgerundete Ecken */
-            transition: background-color 0.3s; /* Sanfter Übergang bei Farbänderung */
-        }
-
-        .navigation-links a:hover {
-            background-color: #ec971f; /* Dunklere Farbe beim Hover */
-        }
-
-        .navigation-links a.active {
-            background-color: #d58512; /* Dunklere Farbe für den aktiven Link */
-        }
-
-        @media (max-width: 768px) {
-            .topnav-lower .navigation-links {
-                flex-direction: column; /* Stapelt die Buttons vertikal auf kleinen Bildschirmen */
-                gap: 0.5rem; /* Abstand zwischen den vertikal gestapelten Buttons */
-            }
-        }
-    </style>
-    <!-- Codeende_Achill_24.03.2024_Page-Navigation -->
+    <!-- Codeende_Achill_24.03.2024/27.08.2024/28.08.2024_Page-Navigation -->
 </head>
 <body>
-<!-- Codeanfang_#1_Achill_22.03.2024_Menue-Top -->
+<!-- Codeanfang_#1_Achill_22.03.2024/27.08.2024/28.08.2024_Menue-Top -->
 <div class="topnav topnav-upper">
     <div class="logo">
-        <img src="images/Logo.jpg" alt="Logo">
-    </div>
-    <div class="language-controls">
-        <!-- Sprachauswahl und andere globale Steuerelemente -->
+        <img src="/images/Logo.jpg" alt="Logo" >
     </div>
     <div class="user-controls">
-        <img src="\images\deutsch-flagge.jpg" alt="Language 1">
-        <img src="\images\england-flagge.jpg" alt="Language 2">
-        <a class="btn btn-secondary" href="#help">Help</a>
-        <a class="btn btn-secondary" href="#logout">Logout</a>
+        <img src="/images/germanflag.png" alt="Language 1" style="width: 70px; height: 50px;">
+        <img src="/images/englishflag.jpg" alt="Language 2" style="width: 55px; height: 45px;">
+        <a class="btn btn-secondary" href="#help" style="width: 80px; height: 42px;color:black; background-color: #dee2e6; font-weight: bold; border: 2px solid #004d40;">Help</a>
+        <a class="btn btn-secondary" href="#logout" style="width: 80px; height: 42px;color:black; background-color: #dee2e6; font-weight: bold; border: 2px solid #004d40;">Logout</a>
     </div>
+
 </div>
 <!-- Zweite Navigationsleiste für Menülinks -->
 <div class="topnav topnav-lower">
     <div class="navigation-links">
-        <a class="btn btn-secondary" href="#csv">Import CSV Data</a>
-        <a class="btn btn-secondary" href="#pdf">Statistics as PDF</a>
-        <a class="btn btn-secondary" href="#histogram">Statistics as Histogram</a>
-        <a class="btn btn-secondary" href="#subscription">Send Subscription Mail</a>
-        <a class="btn btn-secondary" href="#backup">Create and Send Backup</a>
-        <a class="btn btn-secondary" href="#deletedata">Delete Data</a>
+        <a class="btn btn-secondary" href="#csv" style="color: white; background-color: teal; font-weight: bold; border: 2px solid black">Import CSV Data</a>
+        <a class="btn btn-secondary" href="#pdf" style="color:black; background-color: orange; font-weight: bold; border: 2px solid black">Statistics as PDF</a>
+        <a class="btn btn-secondary" href="#histogram" style="color:black; background-color: orange; font-weight: bold; border: 2px solid black">Statistics as Histogram</a>
+        <a class="btn btn-secondary" href="#subscription" style="color:black; background-color: yellow; font-weight: bold; border: 2px solid black">Send Subscription Mail</a>
+        <a class="btn btn-secondary" href="#backup" style="color:black; background-color: yellow; font-weight: bold; border: 2px solid black">Create and Send Backup</a>
     </div>
 </div>
+<hr>
+<!-- Codeende_#1_Achill_22.03.2024/27.03.2024/28.03.2024_Menue-Top -->
 
-<!-- Codeende_#1_Achill_22.03.2024_Menue-Top -->
-
-<!-- Codeanfang_#1_Achill_10.03.2024_Overview Of Hotels -->
+<!-- Codeanfang_#1_Achill_10.03.2024/27.03.2024/28.03.2024_Overview Of Hotels -->
 <!-- Paginierungscontainer -->
 <div class="pagination-container">
     <!-- Zur ersten Seite -->
@@ -193,32 +96,32 @@
 <br>
 <table border="1">
     <thead>
-    <tr>
-        <th>Nr.</th>
-        <th>Category</th>
+    <tr style="color: white;" data-hotel-id="1" class="hotel-row">
+        <th>Hotel Nr.</th>
         <th>Name</th>
-        <th>Owner</th>
-        <th>Contact</th>
-        <th>Address</th>
-        <th>City</th>
-        <th>Zip</th>
-        <th>Phone</th>
-        <th>Rooms</th>
-        <th>Beds</th>
+        <th>ZIP</th>
+        <th>Category</th>
+        <th>Family Friendly</th>
+        <th>Dog Friendly</th>
+        <th>Spa</th>
+        <th>Fitness</th>
+        <th>Subscribed</th>
+        <th>Change Subscription</th>
+        <th>View Details</th>
+        <th>Add Occp. Data</th>
+        <th>Delete Hotel</th>
     </tr>
     </thead>
-    <tbody>
+    <tbody style="background-color: white">
     <tr th:each="hotel, iStat : ${hotelPage.content}"
         th:style="${iStat.odd}? 'font-weight: bold;'"
         th:alt-title="${iStat.even}? 'even' : 'odd'">
         <td th:text="${hotel.id}" />
-        <td th:text="${hotel.category}" />
         <td th:text="${hotel.name}" />
-        <td th:text="${hotel.owner}" />
-        <td th:text="${hotel.contact}" />
+        <td th:text="${hotel.cityCode}" />
+        <td th:text="${hotel.category}" />
         <td th:text="${hotel.address}" />
         <td th:text="${hotel.city}" />
-        <td th:text="${hotel.cityCode}" />
         <td th:text="${hotel.phone}" />
         <td th:text="${hotel.noRooms}" />
         <td th:text="${hotel.noBeds}" />
@@ -260,7 +163,7 @@
     </form>
 </div>
 
-<!-- Codeende #1_Achill_10.03.2024_Overview Of Hotels -->
+<!-- Codeende #1_Achill_10.03.2024/27.03.2024/28.03.2024_Overview Of Hotels -->
 
 
 </body>
