@@ -1,0 +1,60 @@
+<!DOCTYPE HTML>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Add Occupancy Data</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body>
+<! #3_Nikola_26.03_Erste Version vom Add Occupancy Form>
+
+<p th:text="'Add Occupancy Data'" />
+
+<div  th:if="${error != null }" th:text="${error}">
+    <p th:text= "'Error: ' + ${error}" />
+</div>
+
+<form action="#" th:action="@{/occupancyform.html}" th:object="${command}" method="post">
+
+    <div class="form-group">
+        <label for="hotelID">Hotel ID:</label>
+        <input type="text" id="hotelID" name="hotelID" value="1" readonly>
+    </div>
+    <div class="form-group">
+        <label for="hotelName">Hotel Name:</label>
+        <input type="text" id="hotelName" name="hotelName" value="Hotelname 1" readonly>
+    </div>
+    <div class="form-group">
+        <label for="zip">ZIP:</label>
+        <input type="text" id="zip" name="zip" readonly>
+    </div>
+    <div class="form-group">
+        <label for="year">Year:</label>
+        <input type="number" id="year" name="year">
+    </div>
+    <div class="form-group">
+        <label for="month">Month:</label>
+        <input type="number" id="month" name="month" min="1" max="12">
+    </div>
+    <div class="form-group">
+        <label for="maxRooms">Max Rooms:</label>
+        <input type="number" id="maxRooms" name="maxRooms">
+    </div>
+    <div class="form-group">
+        <label for="bookedRooms">Booked Rooms:</label>
+        <input type="number" id="bookedRooms" name="bookedRooms">
+    </div>
+    <div class="form-group">
+        <label for="maxBeds">Max Beds:</label>
+        <input type="number" id="maxBeds" name="maxBeds">
+    </div>
+    <div class="form-group">
+        <label for="bookedBeds">Booked Beds:</label>
+        <input type="number" id="bookedBeds" name="bookedBeds">
+    </div>
+    <p><input type="submit" value="Submit" /> <input type="reset" value="Reset" /> </p>
+
+</form>
+</body>
+</html>
+
+<! #3_Nikola_26.03_Erste Version vom Add Occupancy Form>
