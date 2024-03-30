@@ -18,7 +18,21 @@ CREATE TABLE hotel
   zip     TEXT NOT NULL,
   phone   TEXT NOT NULL,
   rooms   int  not null,
-  beds    int  not null
+  beds    int  not null,
+
+--Codestart_#10_Dominik_30.03.2024_Add attributes (URL, family-friendly, dog-friendly, Spa, Fitness) to master data
+  url                TEXT     DEFAULT 'https://www.fh-vie.ac.at/',
+  family_friendly    BOOLEAN  DEFAULT FALSE,
+  dog_friendly       BOOLEAN  DEFAULT FALSE,
+  spa                BOOLEAN  DEFAULT FALSE,
+  fitness            BOOLEAN  DEFAULT FALSE,
+--Codeend_#10_Dominik_30.03.2024_Add attributes (URL, family-friendly, dog-friendly, Spa, Fitness) to master data
+
+--Codestart_Dominik_30.03.2024_Added attributes e-mail_address and subscribed
+  email_address      TEXT     DEFAULT 'TEST MAIL ADDRESS',
+  subscribed         BOOLEAN  DEFAULT FALSE
+--Codeend_Dominik_30.03.2024_Added attributes e-mail_address and subscribed
+
 );
 
 CREATE TABLE occupancy

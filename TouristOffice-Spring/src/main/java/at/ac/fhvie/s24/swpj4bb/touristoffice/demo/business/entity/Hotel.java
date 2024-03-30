@@ -51,6 +51,24 @@ public final class Hotel {
   @Column(name = "beds")
   private int noBeds;
 
+  //Codestart_#10_Dominik_30.03.2024_Add attributes (URL, family-friendly, dog-friendly, Spa, Fitness) to master data
+  private String  url;
+  @Column(name = "family_friendly")
+  private boolean familyFriendly;
+  @Column(name = "dog_friendly")
+  private boolean dogFriendly;
+  private boolean spa;
+  private boolean fitness;
+  //Codeend_#10_Dominik_30.03.2024_Add attributes (URL, family-friendly, dog-friendly, Spa, Fitness) to master data
+
+  //Codestart_Dominik_30.03.2024_Added variables e-mail_address and subscribed
+  @Column(name = "email_address")
+  private String  emailAddress;
+  private boolean subscribed;
+  //Codeend_Dominik_30.03.2024_Added variables e-mail_address and subscribed
+
+
+
   public static HotelBuilder builder() {
     return new HotelBuilder();
   }
@@ -66,6 +84,20 @@ public final class Hotel {
     this.phone = other.phone;
     this.noRooms = other.noRooms;
     this.noBeds = other.noBeds;
+
+    //Codestart_#10_Dominik_30.03.2024_Req: Add attributes (URL, family-friendly, dog-friendly, Spa, Fitness) to master data
+    this.url = other.url;
+    this.familyFriendly = other.familyFriendly;
+    this.dogFriendly = other.dogFriendly;
+    this.spa = other.spa;
+    this.fitness = other.fitness;
+    //Codeend_#10_Dominik_30.03.2024_Req: Add attributes (URL, family-friendly, dog-friendly, Spa, Fitness) to master data
+
+    //Codestart_Dominik_30.03.2024_Added variables e-mail_address and subscribed
+    this.emailAddress = other.emailAddress;
+    this.subscribed = other.subscribed;
+    //Codeend_Dominik_30.03.2024_Added variables e-mail_address and subscribed
+
     return this;
   }
 
@@ -82,6 +114,20 @@ public final class Hotel {
     private String phone;
     private int noRooms;
     private int noBeds;
+
+    //Codestart_#10_Dominik_30.03.2024_Req: Add attributes (URL, family-friendly, dog-friendly, Spa, Fitness) to master data
+    private String url;
+    private boolean familyFriendly;
+    private boolean dogFriendly;
+    private boolean spa;
+    private boolean fitness;
+    //Codeend_#10_Dominik_30.03.2024_Add attributes (URL, family-friendly, dog-friendly, Spa, Fitness) to master data
+
+    //Codestart_Dominik_30.03.2024_Added variables e-mail_address and subscribed
+    private String  emailAddress;
+    private boolean subscribed;
+    //Codeend_Dominik_30.03.2024_Added variables e-mail_address and subscribed
+
 
     public HotelBuilder() {
     }
@@ -152,9 +198,58 @@ public final class Hotel {
       return this;
     }
 
+    //Codestart_#10_Dominik_30.03.2024_Add attributes (URL, family-friendly, dog-friendly, Spa, Fitness) to master data
+
+    @SuppressWarnings("checkstyle:hiddenField")
+    public HotelBuilder url(final String url) {
+      this.url = url;
+      return this;
+    }
+
+    @SuppressWarnings("checkstyle:hiddenField")
+    public HotelBuilder familyFriendly(final boolean familyFriendly) {
+      this.familyFriendly = familyFriendly;
+      return this;
+    }
+
+    @SuppressWarnings("checkstyle:hiddenField")
+    public HotelBuilder dogFriendly(final boolean dogFriendly) {
+      this.dogFriendly = dogFriendly;
+      return this;
+    }
+
+    @SuppressWarnings("checkstyle:hiddenField")
+    public HotelBuilder spa(final boolean spa) {
+      this.spa = spa;
+      return this;
+    }
+
+    @SuppressWarnings("checkstyle:hiddenField")
+    public HotelBuilder fitness(final boolean fitness) {
+      this.fitness = fitness;
+      return this;
+    }
+    //Codeend_#10_Dominik_30.03.2024_Add attributes (URL, family-friendly, dog-friendly, Spa, Fitness) to master data
+
+    //Codestart_Dominik_30.03.2024_Added variables e-mail_address and subscribed
+    @SuppressWarnings("checkstyle:hiddenField")
+    public HotelBuilder emailAddress(final String emailAddress) {
+      this.emailAddress = emailAddress;
+      return this;
+    }
+
+      @SuppressWarnings("checkstyle:hiddenField")
+      public HotelBuilder subscribed(final boolean subscribed) {
+        this.subscribed = subscribed;
+        return this;
+      }
+    //Codeend_Dominik_30.03.2024_Added variables e-mail_address and subscribed
+
+
+
     public Hotel build() {
       return new Hotel(id, category, name, owner, contact, address, city, cityCode, phone,
-          noRooms, noBeds);
+          noRooms, noBeds, url, familyFriendly, dogFriendly, spa, fitness, emailAddress, subscribed);
     }
 
     public String toString() {
@@ -162,7 +257,15 @@ public final class Hotel {
           + this.category + ", name=" + this.name + ", owner=" + this.owner
           + ", contact=" + this.contact + ", address=" + this.address + ", city="
           + this.city + ", cityCode=" + this.cityCode + ", phone=" + this.phone
-          + ", noRooms=" + this.noRooms + ", noBeds=" + this.noBeds + ")";
+          + ", noRooms=" + this.noRooms + ", noBeds=" + this.noBeds
+              //Codestart_#10_Dominik_30.03.2024_Add attributes (URL, family-friendly, dog-friendly, Spa, Fitness) to master data
+              + ", url=" + this.url + ", familyFriendly=" + this.familyFriendly
+              + ", dogFriendly=" + this.dogFriendly + ", spa=" + this.spa + ", fitness=" + this.fitness
+              //Codeend_#10_Dominik_30.03.2024_Add attributes (URL, family-friendly, dog-friendly, Spa, Fitness) to master data
+              //Codestart_Dominik_30.03.2024_Added variables e-mail_address and subscribed
+              + ", emailAddress=" + this.emailAddress + ", subscribed=" + this.subscribed
+              //Codeend_Dominik_30.03.2024_Added variables e-mail_address and subscribed
+              + ")";
     }
   }
 
