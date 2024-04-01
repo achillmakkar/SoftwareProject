@@ -109,7 +109,16 @@
         <th>Subscribed</th>
         <th>Change Subscription</th>
         <th>View Details</th>
-        <th>Add Occp. Data</th>
+
+        <! Code Anfang #3_Nikola_01.04_Add Occupancy Form - Button "Add Occupancy" einfügen>
+        <th>
+            <script>function openOccupancyForm() {window.location.href = "/occupancyform"; } </script>
+            <button class="button" onclick="openOccupancyForm()">Add Occupancy Data</button>
+
+        </th>
+        <! Code Ende #3_Nikola_01.04_Add Occupancy Form - Button "Add Occupancy" einfügen>
+
+
         <th>Delete Hotel</th>
     </tr>
     </thead>

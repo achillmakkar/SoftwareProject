@@ -22,6 +22,14 @@ public class FormController {
 
     return "sampleform";
   }
+// Code Anfang #3_Nikola_01.04_Add Occupancy Form - GetMapping für Occupancy Form Seite einfügen
+  @GetMapping("/occupancyform")
+  public String occupancyForm(final Model model) {
+    model.addAttribute("command", new FooData());
+
+    return "occupancyform";
+  }
+  // Code Ende #3_Nikola_01.04_Add Occupancy Form - GetMapping für Occupancy Form Seite einfügen
 
   @ModelAttribute("multiCheckboxAllValues")
   public String[] getMultiCheckboxAllValues() {
