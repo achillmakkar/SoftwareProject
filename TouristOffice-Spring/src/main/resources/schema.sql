@@ -1,8 +1,8 @@
 /*==============================================================*/
-
+--Codestart_Achill_25.03.2024_OccupancyTable
 DROP TABLE IF EXISTS occupancy;
 DROP TABLE IF EXISTS hotel;
-
+--Codeende_Achill_25.03.2024_OccupancyTable
 /*==============================================================*/
 /* Table: hotel                                                 */
 /*==============================================================*/
@@ -35,6 +35,7 @@ CREATE TABLE hotel
 
 );
 
+--Codestart_Achill_25.03.2024_OccupancyTable
 CREATE TABLE occupancy
 (
     occupancy_id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
@@ -47,3 +48,4 @@ CREATE TABLE occupancy
     month int NOT NULL,
     constraint fk_hotel foreign key (id) references hotel(id)
 );
+--Codeende_Achill_25.03.2024_OccupancyTable
