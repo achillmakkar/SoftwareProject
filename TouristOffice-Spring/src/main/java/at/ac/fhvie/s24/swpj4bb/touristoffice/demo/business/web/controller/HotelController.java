@@ -3,7 +3,11 @@ package at.ac.fhvie.s24.swpj4bb.touristoffice.demo.business.web.controller;
 import at.ac.fhvie.s24.swpj4bb.touristoffice.demo.business.constants.Category;
 import at.ac.fhvie.s24.swpj4bb.touristoffice.demo.business.entity.Hotel;
 import at.ac.fhvie.s24.swpj4bb.touristoffice.demo.business.service.HotelService;
+import at.ac.fhvie.s24.swpj4bb.touristoffice.demo.business.service.ReportService;
 import at.ac.fhvie.s24.swpj4bb.touristoffice.demo.business.validation.HotelValidator;
+import net.sf.jasperreports.engine.JRException;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -11,11 +15,18 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.util.List;
+
 @Controller
 public class HotelController {
 
   private final HotelValidator hotelValidator;
   private final HotelService hotelService;
+
+  @Autowired
+  private ReportService reportService;
 
   public HotelController(final HotelValidator hotelvalidator, final HotelService hotelService) {
     this.hotelValidator = hotelvalidator;
@@ -93,5 +104,27 @@ public class HotelController {
 
     return "hotelresult";
   }
+
+
+  // Codeanfang_Achill_01.04.2024_fuerTestzweckeangelegt(StatisticsAsPDF)
+  @GetMapping("/hotels")
+  public String listAllHotels(Model model) {
+    List<Hotel> hotels = hotelService.findAllOrderedById();
+    model.addAttribute("hotels", hotels);
+    return "testhotels"; // HTML Datei testhotels.html
+  }
+  // Codeende_Achill_01.04.2024_fuerTestzweckeangelegt(StatisticsAsPDF) -->
+
+  // Codeanfang_Achill_01.04.2024-StatisticsAsPDF -->
+  @GetMapping("/report/{format}")
+  public ResponseEntity<String> generateReport(@PathVariable String format) {
+    if (reportService.exportReport(format)) {
+      return ResponseEntity.ok("Report successfully generated!");
+    } else {
+      return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+              .body("There was an error generating the report.");
+    }
+  }
+  // Codeende_Achill_01.04.2024-StatisticsAsPDF -->
 
 }

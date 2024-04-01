@@ -1,0 +1,33 @@
+<!-- Codeanfang_Achill_01.04.2024_fuerTestzweckeangelegt(StatisticsAsPDF) -->
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Hotel Liste</title>
+</head>
+<body>
+
+<h1>Hotels</h1>
+
+<table>
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>Name</th>
+        <th>Category</th>
+        <th>Owner</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="hotel : ${hotels}">
+        <td th:text="${hotel.id}">1</td>
+        <td th:text="${hotel.name}">Hotelname</td>
+        <td th:text="${hotel.category}">Category</td>
+        <td th:text="${hotel.owner}">Owner</td>
+    </tr>
+    </tbody>
+</table>
+
+</body>
+</html>
+<!-- Codeende_Achill_01.04.2024_fuerTestzweckeangelegt(StatisticsAsPDF) -->
