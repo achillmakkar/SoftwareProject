@@ -11,7 +11,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umed/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
-    <!-- Codeanfang_Achill_24.03.2024_Page-Navigation -->
+    <!-- Codeanfang_Achill_24.03.2024/27.08.2024/28.08.2024/01.04.2024/03.04.2024/_Page-Navigation -->
     <script>
         $(document).ready(function() {
             $('#pageSizeTop, #pageSizeBottom').change(function() {
@@ -27,10 +27,165 @@
             $('#pageSizeTop, #pageSizeBottom').on('change', function() {
                 localStorage.setItem('selectedSize', $(this).val());
             });
+
+            // PDF-Modal
+            $("#myBtn").click(function(event) {
+                event.preventDefault();
+                fetch('/report/pdf')
+                    .then(response => {
+                        if(response.ok) {
+                            $("#myModal").show();
+                        } else {
+                            alert("Error generating the report");
+                        }
+                    })
+                    .catch(error => {
+                        alert("An error occurred: " + error);
+                    });
+            });
+
+            $("#myModal .close, #myModal #closeBtn").click(function() {
+                $("#myModal").hide();
+            });
+
+            $(window).click(function(event) {
+                if ($(event.target).is("#myModal")) {
+                    $("#myModal").hide();
+                }
+            });
+
+            // Hotel-Info-Modal
+            function showHotelInfo(button) {
+                var hotelId = $(button).data('id');
+                var hotelName = $(button).data('name');
+                var hotelAddress = $(button).data('address');
+                var hotelZIP = $(button).data('zip');
+                var hotelCity = $(button).data('city');
+                var hotelOwner = $(button).data('owner');
+                var hotelContact = $(button).data('contact');
+                var hotelPhone = $(button).data('phone');
+                var hotelemail = $(button).data('emailAddress');
+                var hotelurl = $(button).data('url');
+                var hotelcategory = $(button).data('category');
+                var hotelfamilyFriendly = $(button).data('familyFriendly');
+                var hoteldogFriendly = $(button).data('dogFriendly');
+                var hotelspa = $(button).data('spa');
+                var hotelfitness = $(button).data('fitness');
+                var hotelsubscribed = $(button).data('subscribed');
+
+                var modalContent = $('#hotelInfoContent');
+                modalContent.html(
+                    '<strong>Hotel ID:</strong> ' + hotelId + '<br>' +
+                    '<strong>Hotel Name:</strong> ' + hotelName + '<br>' +
+                    '<strong>Address:</strong> ' + hotelAddress + '<br>' +
+                    '<strong>ZIP:</strong> ' + hotelZIP + '<br>' +
+                    '<strong>City:</strong> ' + hotelCity + '<br>' +
+                    '<strong>Owner:</strong> ' + hotelOwner + '<br>' +
+                    '<strong>Contact:</strong> ' + hotelContact + '<br>' +
+                    '<strong>Phone:</strong> ' + hotelPhone + '<br>' +
+                    '<strong>E-Mail Address:</strong> ' + hotelemail + '<br>' +
+                    '<strong>URL:</strong> <button class="btn btn-secondary" onclick="window.open(\'' + hotelurl + '\');">URL</button><br><br> '+
+                    '<strong>Category:</strong> ' + hotelcategory + '<br>' +
+                    '<strong>family friendly:</strong> ' + hotelfamilyFriendly + '<br>' +
+                    '<strong>dog friendly:</strong> ' + hoteldogFriendly + '<br>' +
+                    '<strong>spa:</strong> ' + hotelspa + '<br>' +
+                    '<strong>fitness:</strong> ' + hotelfitness + '<br>' +
+                    '<strong>subscribed:</strong> ' + hotelsubscribed + '<br>'
+                );
+
+                $('#hotelInfoModal').show();
+            }
+
+            // Event-Listener für Info-Buttons registrieren
+            $('.infoBtn').on('click', function() {
+                showHotelInfo(this);
+            });
+
+            $("#hotelInfoModal .close, #hotelInfoModal #closeInfo").click(function() {
+                $("#hotelInfoModal").hide();
+            });
+
+            $(window).click(function(event) {
+                if ($(event.target).is("#hotelInfoModal")) {
+                    $("#hotelInfoModal").hide();
+                }
+            });
         });
     </script>
+    <!-- Codeende_Achill_24.03.2024/27.08.2024/28.08.2024/01.04.2024/03.04.2024/_Page-Navigation_ModalfuerAusgaben -->
+    <style>
 
-    <!-- Codeende_Achill_24.03.2024/27.08.2024/28.08.2024_Page-Navigation -->
+        /* The Modal (background) */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+        }
+
+
+        .modal-content {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 40%;
+            background-color: white;
+            padding: 20px;
+            border: 2px solid black;
+            border-radius: 5px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        /* The Close Button */
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+        }
+
+        .close:hover,
+        .close:focus {
+            color: black;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        #closeBtn, #closeInfo {
+            background-color: #6699cc;
+            color: white;
+            padding: 10px 20px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            margin: 4px 2px;
+            cursor: pointer;
+            border: 2px solid black;
+        }
+
+        .modal-content h2 {
+            color: black;
+            text-align: center;
+        }
+        .modal-content p {
+            text-align: center;
+        }
+
+        .btn-secondary:active {
+            transform: scale(0.98);
+        }
+
+        .btn-secondary:hover {
+            background-color: #ffa500;
+            cursor: pointer;
+        }
+    </style>
 </head>
 <body>
 <!-- Codeanfang_#12_Veton_28.03.2024/inserted logo -->
@@ -51,7 +206,22 @@
 <div class="topnav topnav-lower">
     <div class="navigation-links">
         <a class="btn btn-secondary" href="#csv" style="color: white; background-color: teal; font-weight: bold; border: 2px solid black">Import CSV Data</a>
-        <a class="btn btn-secondary" href="/report/pdf" style="color:black; background-color: orange; font-weight: bold; border: 2px solid black">Statistics as PDF</a>
+        <a id="myBtn" class="btn btn-secondary" style="color:black; background-color: orange; font-weight: bold; border: 2px solid black">Statistics as PDF</a>
+        <!-- The Modal -->
+        <div id="myModal" class="modal">
+
+            <!-- Modal content -->
+            <div class="modal-content">
+                <span class="close">&times;</span>
+                <h2 style="font-weight: bold">Statistics as PDF</h2>
+                <br>
+                <p style="font-weight: bold">PDF has been saved.</p>
+                <br>
+                <button id="closeBtn">CLOSE</button>
+            </div>
+
+        </div>
+
         <a class="btn btn-secondary" href="#histogram" style="color:black; background-color: orange; font-weight: bold; border: 2px solid black">Statistics as Histogram</a>
         <a class="btn btn-secondary" href="#subscription" style="color:black; background-color: yellow; font-weight: bold; border: 2px solid black">Send Subscription Mail</a>
         <a class="btn btn-secondary" href="#backup" style="color:black; background-color: yellow; font-weight: bold; border: 2px solid black">Create and Send Backup</a>
@@ -60,7 +230,7 @@
 <hr>
 <!-- Codeende_#1_Achill_22.03.2024/27.03.2024/28.03.2024_Menue-Top -->
 
-<!-- Codeanfang_#1_Achill_10.03.2024/27.03.2024/28.03.2024_Overview Of Hotels -->
+<!-- Codeanfang_#1_Achill_10.03.2024/27.03.2024/28.03.2024/03.04.2024_Overview Of Hotels -->
 <!-- Paginierungscontainer -->
 <div class="pagination-container">
     <!-- Zur ersten Seite -->
@@ -108,15 +278,15 @@
         <th>Fitness</th>
         <th>Subscribed</th>
         <th>Change Subscription</th>
-        <th>View Details</th>
+        <th>Info</th>
 
-        <! Code Anfang #3_Nikola_01.04_Add Occupancy Form - Button "Add Occupancy" einfügen>
+        <!-- Code Anfang #3_Nikola_01.04_Add Occupancy Form - Button "Add Occupancy" einfügen -->
         <th>
             <script>function openOccupancyForm() {window.location.href = "/occupancyform"; } </script>
             <button class="button" onclick="openOccupancyForm()">Add Occupancy Data</button>
 
         </th>
-        <! Code Ende #3_Nikola_01.04_Add Occupancy Form - Button "Add Occupancy" einfügen>
+        <!-- Code Ende #3_Nikola_01.04_Add Occupancy Form - Button "Add Occupancy" einfügen-->
 
 
         <th>Delete Hotel</th>
@@ -135,9 +305,34 @@
         <td th:text="${hotel.phone}" />
         <td th:text="${hotel.noRooms}" />
         <td th:text="${hotel.noBeds}" />
+        <td><button class="btn"><i class="fa fa-plus" aria-hidden="true"></i></button></td>
+        <td>
+            <button class="btn infoBtn" th:data-id="${hotel.id}" th:data-name="${hotel.name}"
+                    th:data-address="${hotel.address}" th:data-zip="${hotel.cityCode}"
+                    th:data-city="${hotel.city}" th:data-owner="${hotel.owner}"
+                    th:data-contact="${hotel.contact}" th:data-phone="${hotel.phone}"
+                    th:data-emailAdress="${hotel.emailAddress}" th:data-url="${hotel.url}"
+                    th:data-category="${hotel.category}" th:data-familyFriendly="${hotel.familyFriendly}"
+                    th:data-spa="${hotel.spa}" th:data-fitness="${hotel.fitness}"
+                    th:data-subscribed="${hotel.subscribed}"
+                    onclick="showHotelInfo(this)">
+                <i class="fa fa-eye" aria-hidden="true"></i>
+            </button>
+        </td>
     </tr>
     </tbody>
 </table>
+<div id="hotelInfoModal" class="modal">
+    <div class="modal-content">
+        <span class="close">&times;</span>
+        <h2>HOTEL INFO:</h2>
+        <div id="hotelInfoContent">
+            <!-- Hotelinfos -->
+        </div>
+        <br>
+        <button id="closeInfo">CLOSE</button>
+    </div>
+</div>
 <br>
 <!-- Paginierungscontainer -->
 <div class="pagination-container">
@@ -173,7 +368,7 @@
     </form>
 </div>
 
-<!-- Codeende #1_Achill_10.03.2024/27.03.2024/28.03.2024_Overview Of Hotels -->
+<!-- Codeende #1_Achill_10.03.2024/27.03.2024/28.03.2024/03.04.2024_Overview Of Hotels -->
 
 
 </body>
