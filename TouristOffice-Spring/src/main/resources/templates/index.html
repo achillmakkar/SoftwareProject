@@ -11,9 +11,58 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umed/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
-    <!-- Codeanfang_Achill_24.03.2024/27.08.2024/28.08.2024/01.04.2024/03.04.2024/_Page-Navigation -->
+    <!-- Codeanfang_Achill_24.03.2024/27.08.2024/28.08.2024/01.04.2024/03.04.2024/_Page-Navigation,SwitchZIPAscDesc,HotelDataInfo -->
     <script>
-        $(document).ready(function() {
+        function sortTable(n) {
+        var table, rows, switching, i, x, y, shouldSwitch, dir, switchcount = 0;
+        table = document.getElementById("hotelData");
+        switching = true;
+        // Set the sorting direction to ascending:
+        dir = "asc";
+        /* Make a loop that will continue until no switching has been done: */
+        while (switching) {
+            // Starting by no switching is done:
+            switching = false;
+            rows = table.rows;
+            /* Loop through all table rows (except the first, which contains table headers): */
+            for (i = 1; i < (rows.length - 1); i++) {
+                // Starting by saying there should be no switching:
+                shouldSwitch = false;
+                /* Getting the two elements to compare, one from current row and one from the next: */
+                x = rows[i].getElementsByTagName("TD")[n];
+                y = rows[i + 1].getElementsByTagName("TD")[n];
+                /* Check if the two rows should switch place, based on the direction, asc or desc: */
+                if (dir == "asc") {
+                    if (Number(x.innerHTML) > Number(y.innerHTML)) {
+                        // If so, mark as a switch and break the loop:
+                        shouldSwitch= true;
+                        break;
+                    }
+                } else if (dir == "desc") {
+                    if (Number(x.innerHTML) < Number(y.innerHTML)) {
+                        // If so, mark as a switch and break the loop:
+                        shouldSwitch= true;
+                        break;
+                    }
+                }
+            }
+            if (shouldSwitch) {
+                /* If a switch has been marked, make the switch and mark that a switch has been done: */
+                rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
+                switching = true;
+                // Each time a switch is done, increase this count by 1:
+                switchcount ++;
+            } else {
+                /* If no switching has been done AND the direction is "asc", set the direction to "desc" and run the while loop again. */
+                if (switchcount == 0 && dir == "asc") {
+                    dir = "desc";
+                    switching = true;
+                }
+            }
+        }
+    }
+
+    $(document).ready(function() {
             $('#pageSizeTop, #pageSizeBottom').change(function() {
                 // Das Formular automatisch absenden, wenn eine neue Option ausgewählt wird
                 this.form.submit();
@@ -111,8 +160,9 @@
                 }
             });
         });
+        <!-- Codeende_Achill_24.03.2024/27.08.2024/28.08.2024/01.04.2024/03.04.2024/_Page-Navigation,SwitchZIPAscDesc,HotelDataInfo -->
     </script>
-    <!-- Codeende_Achill_24.03.2024/27.08.2024/28.08.2024/01.04.2024/03.04.2024/_Page-Navigation_ModalfuerAusgaben -->
+
     <style>
 
         /* The Modal (background) */
@@ -265,13 +315,13 @@
     </form>
 </div>
 <br>
-<table border="1">
+<table id="hotelData" border="1">
     <thead>
     <tr style="color: white;" data-hotel-id="1" class="hotel-row">
-        <th>Hotel Nr.</th>
-        <th>Name</th>
-        <th>ZIP</th>
-        <th>Category</th>
+        <th onclick="sortTable(0)">Hotel Nr.</th>
+        <th onclick="sortTable(1)">Name</th>
+        <th>ZIP <i class="fa fa-sort-asc" onclick="sortTable(2)" style="cursor:pointer;"></i></th>
+        <th onclick="sortTable(3)">Category</th>
         <th>Family Friendly</th>
         <th>Dog Friendly</th>
         <th>Spa</th>
