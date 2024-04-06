@@ -6,59 +6,9 @@
     <link rel="stylesheet" th:href="@{/css/occupancyFormStyle.css}" />
 </head>
 
-<! Der CSS Code befindet sich zwischenzeitlich im HTML File weil das occupancyFormStyle.css nicht erkannt wird>
-<style>
-    body{
-        font-family: Arial, sans-serif;
-        background: #00ffff;
-        padding: 20px;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        height: 100vh;
-    }
-    form {
-        background: #f7f7f7;
-        padding: 20px;
-        border-radius: 5px;
-        border: 1px solid #000;
-        width: auto;
-        box-shadow: 0 0 10px rgba(0,0,0,0.1);
-    }
-    .form-group {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        margin-bottom: 20px;
-    }
-    label, input {
-        flex-basis: 48%;
-    }
-    label {
-        display: block;
-        margin-bottom: 5px;
-        font-weight: bold;
-    }
-    input[type=text],
-    input[type=number] {
-        padding: 10px 20px;
-        border: none;
-        border-radius: 4px;
-        cursor: pointer;
-        font-weight: bold;
-        width: 100%;
-        box-sizing: border-box;
-    }
-    input[type=add] {
-        background-color: #ffcc00;
-    }
-    input[type=close] {
-        background-color: #ccc;
-        margin-top: 10px;
-    }
-</style>
+
 <body>
-<! Code Anfang #3_Nikola_01.04_Zweite Version vom Add Occupancy Form - HTML Struktur überarbeitet>
+<!--Code Anfang #3_Nikola_01.04_Zweite Version vom Add Occupancy Form - HTML Struktur überarbeitet -->
 
 <div  th:if="${error != null }" th:text="${error}">
     <p th:text= "'Error: ' + ${error}" />
@@ -109,4 +59,4 @@
 </body>
 </html>
 
-<! Code Ende #3_Nikola_01.04_Zweite Version vom Add Occupancy Form - HTML Struktur überarbeitet>
+<!-- Code Ende #3_Nikola_01.04_Zweite Version vom Add Occupancy Form - HTML Struktur überarbeitet-->
