@@ -237,7 +237,9 @@
         }
     </style>
 </head>
-<body>
+<!-- Codebegin_Dominik_Lang_07.04.2024_changed background color to match mockup-->
+<body style="background-color: #66ccff;">
+<!-- Codeend_Dominik_Lang_07.04.2024_changed background color to match mockup-->
 <!-- Codeanfang_#12_Veton_28.03.2024/inserted logo -->
 <div class="topnav topnav-upper">
     <div class="logo">
@@ -245,8 +247,8 @@
     </div>
     <!-- Codeende#12_Veton_28.03.2024/inserted logo -->
     <div class="user-controls">
-        <img src="/images/austrianflag.png" alt="Language 1" style="width: 70px; height: 50px;">
-        <img src="/images/englishflag.jpg" alt="Language 2" style="width: 55px; height: 42px;">
+        <img src="/images/austriaflagPNG.png" alt="Language 1" style="width: 50px; height: 42px;">
+        <img src="/images/englandFlagPNG.png" alt="Language 2" style="width: 50px; height: 42px;">
         <a class="btn btn-secondary" href="#help" style="width: 80px; height: 42px;color:black; background-color: #dee2e6; font-weight: bold; border: 2px solid #004d40;">Help</a>
         <a class="btn btn-secondary" href="#logout" style="width: 80px; height: 42px;color:black; background-color: #dee2e6; font-weight: bold; border: 2px solid #004d40;">Logout</a>
     </div>
@@ -315,61 +317,116 @@
     </form>
 </div>
 <br>
-<table id="hotelData" border="1">
-    <thead>
-    <tr style="color: white;" data-hotel-id="1" class="hotel-row">
-        <th onclick="sortTable(0)">Hotel Nr.</th>
-        <th onclick="sortTable(1)">Name</th>
-        <th>ZIP <i class="fa fa-sort-asc" onclick="sortTable(2)" style="cursor:pointer;"></i></th>
-        <th onclick="sortTable(3)">Category</th>
-        <th>Family Friendly</th>
-        <th>Dog Friendly</th>
-        <th>Spa</th>
-        <th>Fitness</th>
-        <th>Subscribed</th>
-        <th>Change Subscription</th>
-        <th>Info</th>
+<!-- Codebegin_Dominik_Lang_07.04.2024_html table centered on screen-->
+<div style="display: flex; justify-content: center;">
+    <!-- Codebegin_Dominik_Lang_07.04.2024_html table centered on screen-->
+    <!-- Codebegin_Dominik_Lang_07.04.2024_added background color (mockup)-->
+    <table id="hotelData" border="1" style="background-color: #6699cc;">
+        <!-- Codeend_Dominik_Lang_07.04.2024_added background color (mockup)-->
+        <thead>
+        <tr style="color: white;" data-hotel-id="1" class="hotel-row">
+            <!-- Codebegin_Dominik_Lang_07.04.2024_added style="width and text-align: center to Achills and Nikolas Code-->
+            <th onclick="sortTable(0)" style="width: 80px; text-align: center">hotel ID</th>
+            <th onclick="sortTable(1)">hotel name</th>
+            <th style="width: 80px; text-align: center">ZIP <i class="fa fa-sort-asc" onclick="sortTable(2)" style="cursor:pointer;"></i></th>
+            <th style="width: 80px; text-align: center" onclick="sortTable(3)">category</th>
+            <th style="width: 80px; text-align: center">family friendly</th>
+            <th style="width: 80px; text-align: center">dog friendly</th>
+            <th style="width: 80px; text-align: center">spa</th>
+            <th style="width: 80px; text-align: center">fitness</th>
+            <th style="width: 80px; text-align: center">subscribed</th>
+            <th style="width: 100px; text-align: center">change subscription</th>
+            <th style="width: 100px; text-align: center" >info</th>
 
-        <!-- Code Anfang #3_Nikola_06.04_Add Occupancy Form - Link "Add Occupancy" einfügen -->
-        <th>
-            <a href="/occupancyform" style="color: white;">add occp. data</a>
-        </th>
+            <!-- Code Anfang #3_Nikola_06.04_Add Occupancy Form - Link "Add Occupancy" einfügen -->
+            <th style="width: 100px; text-align: center">
+                <a href="/occupancyform" style="color: white;">add occp. data</a>
+            </th>
 
-        <!-- Code Ende #3_Nikola_06.04_Add Occupancy Form - Link "Add Occupancy" einfügen-->
+            <!-- Code Ende #3_Nikola_06.04_Add Occupancy Form - Link "Add Occupancy" einfügen-->
 
-        <th>Delete Hotel</th>
-    </tr>
-    </thead>
-    <tbody style="background-color: white">
-    <tr th:each="hotel, iStat : ${hotelPage.content}"
-        th:style="${iStat.odd}? 'font-weight: bold;'"
-        th:alt-title="${iStat.even}? 'even' : 'odd'">
-        <td th:text="${hotel.id}" />
-        <td th:text="${hotel.name}" />
-        <td th:text="${hotel.cityCode}" />
-        <td th:text="${hotel.category}" />
-        <td th:text="${hotel.address}" />
-        <td th:text="${hotel.city}" />
-        <td th:text="${hotel.phone}" />
-        <td th:text="${hotel.noRooms}" />
-        <td th:text="${hotel.noBeds}" />
-        <td><button class="btn"><i class="fa fa-plus" aria-hidden="true"></i></button></td>
-        <td>
-            <button class="btn infoBtn" th:data-id="${hotel.id}" th:data-name="${hotel.name}"
-                    th:data-address="${hotel.address}" th:data-zip="${hotel.cityCode}"
-                    th:data-city="${hotel.city}" th:data-owner="${hotel.owner}"
-                    th:data-contact="${hotel.contact}" th:data-phone="${hotel.phone}"
-                    th:data-emailAdress="${hotel.emailAddress}" th:data-url="${hotel.url}"
-                    th:data-category="${hotel.category}" th:data-familyFriendly="${hotel.familyFriendly}"
-                    th:data-spa="${hotel.spa}" th:data-fitness="${hotel.fitness}"
-                    th:data-subscribed="${hotel.subscribed}"
-                    onclick="showHotelInfo(this)">
-                <i class="fa fa-eye" aria-hidden="true"></i>
-            </button>
-        </td>
-    </tr>
-    </tbody>
-</table>
+            <th style="width: 100px; text-align: center">delete hotel</th>
+            <!-- Codeende_Dominik_Lang_07.04.2024_added style="width and text-align: center to Achills and Nikolas Code-->
+        </tr>
+        </thead>
+        <tbody style="background-color: white">
+        <tr th:each="hotel, iStat : ${hotelPage.content}"
+            th:style="${iStat.odd}? 'font-weight: bold;'"
+            th:alt-title="${iStat.even}? 'even' : 'odd'">
+            <td style="text-align: center;" th:text="${hotel.id}" />
+            <td th:text="${hotel.name}" />
+            <td style="text-align: center;" th:text="${hotel.cityCode}" />
+            <td th:text="${hotel.category}" />
+
+            <!-- Codebegin_Dominik_Lang_06.04.2024_added attributes and icons-->
+            <td style="text-align: center;">
+                <img th:if="${hotel.familyFriendly}" src="/images/okgreenPNG.png" alt="okgreen" style="width: 20px; height: 20px;">
+                <img th:unless="${hotel.familyFriendly}" src="/images/noredPNG.png" alt="nored" style="width: 20px; height: 20px;">
+            </td>
+            <td style="text-align: center;">
+                <img th:if="${hotel.dogFriendly}" src="/images/okgreenPNG.png" alt="okgreen" style="width: 20px; height: 20px;">
+                <img th:unless="${hotel.dogFriendly}" src="/images/noredPNG.png" alt="nored" style="width: 20px; height: 20px;">
+            </td>
+            <td style="text-align: center;">
+                <img th:if="${hotel.spa}" src="/images/okgreenPNG.png" alt="okgreen" style="width: 20px; height: 20px;">
+                <img th:unless="${hotel.spa}" src="/images/noredPNG.png" alt="nored" style="width: 20px; height: 20px;">
+            </td>
+            <td style="text-align: center;">
+                <img th:if="${hotel.fitness}" src="/images/okgreenPNG.png" alt="okgreen" style="width: 20px; height: 20px;">
+                <img th:unless="${hotel.fitness}" src="/images/noredPNG.png" alt="nored" style="width: 20px; height: 20px;">
+            </td>
+            <td style="text-align: center;">
+                <img th:if="${hotel.subscribed}" src="/images/okgreenPNG.png" alt="okgreen" style="width: 20px; height: 20px;">
+                <img th:unless="${hotel.subscribed}" src="/images/noredPNG.png" alt="nored" style="width: 20px; height: 20px;">
+            </td>
+            <!-- Codeend_Dominik_Lang_06.04.2024_added attributes and icons-->
+
+            <!-- Codebegin_Dominik_Lang_07.04.2024_added buttons and icons to html table-->
+            <td style="text-align: center; padding: 0;">
+                <button class="btn" style="width: 100%; height: 100%; padding: 0; border: 2px solid black; background: #cccccc; display: flex; justify-content: center; align-items: center;">
+                    <img src="/images/subplusPNG.png" alt="subplus" style="width: 20px; height: 20px;">
+                </button>
+            </td>
+            <!-- Codeend_Dominik_Lang_07.04.2024_added buttons and icons to html table-->
+
+            <!-- Codebegin_Dominik_Lang_07.04.2024_added center code-->
+            <td style="text-align: center;">
+                <!-- Codeend_Dominik_Lang_07.04.2024_added center code-->
+                <button class="btn infoBtn"
+                        style="width: 100%; height: 100%; padding: 0; border: 2px solid black;
+                        background: #cccccc; display: flex; justify-content: center; align-items: center;"
+                        th:data-id="${hotel.id}" th:data-name="${hotel.name}"
+                        th:data-address="${hotel.address}" th:data-zip="${hotel.cityCode}"
+                        th:data-city="${hotel.city}" th:data-owner="${hotel.owner}"
+                        th:data-contact="${hotel.contact}" th:data-phone="${hotel.phone}"
+                        th:data-emailAdress="${hotel.emailAddress}" th:data-url="${hotel.url}"
+                        th:data-category="${hotel.category}" th:data-familyFriendly="${hotel.familyFriendly}"
+                        th:data-spa="${hotel.spa}" th:data-fitness="${hotel.fitness}"
+                        th:data-subscribed="${hotel.subscribed}"
+                        onclick="showHotelInfo(this)">
+                    <!-- Codebegin_Dominik_Lang_07.04.2024_added icon-->
+                    <img src="/images/detailsPNG.png" alt="details" style="width: 20px; height: 20px;">
+                    <!-- Codeend_Dominik_Lang_07.04.2024_added icon-->
+                </button>
+
+                <!-- Codebegin_Dominik_Lang_07.04.2024_added buttons and icons to html table-->
+            <td style="text-align: center; padding: 0;">
+                <button class="btn" style="width: 100%; height: 100%; padding: 0; border: 2px solid black; background: #cccccc; display: flex; justify-content: center; align-items: center;">
+                    <img src="/images/addOccpPNG.png" alt="addOccp" style="width: 20px; height: 20px;">
+                </button>
+            </td>
+            <td style="text-align: center; padding: 0;">
+                <button class="btn" style="width: 100%; height: 100%; padding: 0; border: 2px solid black; background: #cccccc; display: flex; justify-content: center; align-items: center;">
+                    <img src="/images/deletePNG.png" alt="delete" style="width: 20px; height: 20px;">
+                </button>
+            </td>
+            <!-- Codeend_Dominik_Lang_07.04.2024_added buttons and icons to html table-->
+
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
 <div id="hotelInfoModal" class="modal">
     <div class="modal-content">
         <span class="close">&times;</span>
