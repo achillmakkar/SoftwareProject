@@ -22,7 +22,6 @@ public class OccupancyService
     public OccupancyService(final OccupancyRepository occupancyRepository)
     {
         this.occupancyRepository = occupancyRepository;
-
     }
 
     public Occupancy findById(final int id) {
@@ -43,8 +42,13 @@ public class OccupancyService
         return allOccupancyById;
 
     }
+    // Codeanfang_Nikola_07.04.2024_SaveOccupancy
 
+    // Occupancy-Objekt wird in der Datenbank gespeichert
+    public void saveOccupancy(Occupancy occupancy) {
+        occupancyRepository.save(occupancy);
+    }
+    // Codeende_Nikola_07.04.2024_SaveOccupancy
 
-    // NEUE OCCUPANCY DATEN HINZUFÜGEN MUSS NOCH PROGRAMMIERT WERDEN!!!!
 }
 // Codeende_Achill_24.03.2024_OccupancyService

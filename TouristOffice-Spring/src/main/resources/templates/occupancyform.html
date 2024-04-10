@@ -1,13 +1,67 @@
 <!DOCTYPE HTML>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Add Occupancy Data</title>
+    <title>add occupancy data</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <link rel="stylesheet" th:href="@{/css/occupancyFormStyle.css}" />
+    <style>
+        /* Codeanfang_Nikola_durchgehend */
+
+        body{
+            font-family: Arial, sans-serif;
+            background: #66ccff;
+            padding: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+        }
+        form {
+            background: #f7f7f7;
+            padding: 20px;
+            border-radius: 5px;
+            border: 1px solid #000;
+            width: auto;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        .form-group {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        label, input {
+            flex-basis: 48%;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+        input[type=text],
+        input[type=number] {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: bold;
+            width: 100%;
+            box-sizing: border-box;
+        }
+        button[type=submit] {
+            background-color: #ffcc00;
+        }
+
+        button[type=button] {
+            background-color: #ccc;
+            margin-top: 10px;
+        }
+        /* Codeende_Nikola_durchgehend */
+        </style>
 </head>
 
-
 <body>
+
 <!--Code Anfang #3_Nikola_01.04_Zweite Version vom Add Occupancy Form - HTML Struktur überarbeitet -->
 
 <div  th:if="${error != null }" th:text="${error}">
@@ -16,22 +70,22 @@
 
 <form action="#" th:action="@{/occupancyform.html}" th:object="${command}" method="post">
 
-    <h2>Add Occupancy Data: </h2>
+    <h2>add occupancy data: </h2>
     <div class="form-group">
         <label for="hotelID">Hotel ID:</label>
-        <input type="text" id="hotelID" name="hotelID" value="1" min="0" readonly>
+        <input type="text" id="hotelID" name="hotelID" min="0" >
     </div>
     <div class="form-group">
         <label for="hotelName">Hotel Name:</label>
-        <input type="text" id="hotelName" name="hotelName" value="Hotelname 1" readonly>
+        <input type="text" id="hotelName" name="hotelName">
     </div>
     <div class="form-group">
         <label for="zip">ZIP:</label>
-        <input type="text" id="zip" name="zip" min="0" readonly>
+        <input type="text" id="zip" name="zip" min="0">
     </div>
     <div class="form-group">
         <label for="year">Year:</label>
-        <input type="number" id="year" name="year" min="0">
+        <input type="number" id="year" name="year" min="0" max="12">
     </div>
     <div class="form-group">
         <label for="month">Month:</label>
@@ -53,7 +107,10 @@
         <label for="bookedBeds">Booked Beds:</label>
         <input type="number" id="bookedBeds" name="bookedBeds" min="0">
     </div>
-    <p><input type="Add" value="Add" /> <input type="Close" value="Close" /> </p>
+    <p>
+        <button type="submit">ADD</button>
+        <button type="button">CANCEL</button>
+    </p>
 
 </form>
 </body>
