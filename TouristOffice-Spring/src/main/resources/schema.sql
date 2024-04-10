@@ -29,7 +29,7 @@ CREATE TABLE hotel
 --Codeend_#10_Dominik_30.03.2024_Add attributes (URL, family-friendly, dog-friendly, Spa, Fitness) to master data
 
 --Codestart_Dominik_30.03.2024_Added attributes e-mail_address and subscribed
-  email_address      TEXT     DEFAULT 'TEST MAIL ADDRESS',
+  email_address      TEXT     DEFAULT 'hotelexample01@gmail.com',
   subscribed         BOOLEAN  DEFAULT FALSE
 --Codeend_Dominik_30.03.2024_Added attributes e-mail_address and subscribed
 
