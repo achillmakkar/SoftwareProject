@@ -33,7 +33,7 @@ public class FormController {
 // Code Anfang #3_Nikola_01.04_Add Occupancy Form - GetMapping für Occupancy Form Seite einfügen
   @GetMapping("/occupancyform")
   public String occupancyForm(final Model model) {
-    model.addAttribute("command", new FooData());
+    model.addAttribute("command", new Occupancy());
 
     return "occupancyform";
   }
@@ -58,10 +58,6 @@ public class FormController {
     try
     {
     Occupancy occupancy = new Occupancy();
-    Hotel hotel = new Hotel();
-    hotel.setId(hotelID);
-    hotel.setName(hotelName);
-    hotel.setCityCode(zip);
 
     occupancy.setId(hotelID);
     occupancy.setYear(year);
@@ -73,7 +69,7 @@ public class FormController {
 
 
     occupancyService.saveOccupancy(occupancy);
-    return "redirect:/occupancyform";
+    return "redirect:/index";
     } catch (Exception ex) {
 
       ex.printStackTrace();
