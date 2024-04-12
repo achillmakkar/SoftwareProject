@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Login - NÖ Tourismusportal</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #56b4ef;
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+        .flag-container {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+        }
+        .flag-container img {
+            width: 50px;
+            height: auto;
+        }
+        .login-form {
+            text-align: center;
+        }
+        .login-form img {
+            margin-bottom: 30px;
+        }
+        .form-field {
+            display: flex;
+            justify-content: flex-start;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+        .form-field label {
+            margin-right: 10px;
+        }
+        .form-field input {
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 0;
+            margin-right: 10px;
+        }
+        .login-button {
+            background-color: #ffd700;
+            color: #005aab;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 0;
+            cursor: pointer;
+            margin-left: auto; /* Rechtsbündig ausrichten */
+        }
+        .login-button:hover {
+            background-color: #f0c040;
+        }
+        /* Um das Formular insgesamt zu zentrieren */
+        .form-container {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start; /* Elemente linksbündig ausrichten */
+        }
+    </style>
+</head>
+<body>
+
+<div class="flag-container">
+    <img src="/images/englandFlagPNG.png" alt="UK Flag">
+    <img src="/images/austriaflagPNG.png" alt="Austrian Flag">
+</div>
+
+<form action="path-to-your-login-processing" method="post" class="login-form">
+    <img src="/images/Logo.jpg" alt="NÖ Tourismusportal Logo" style="width: 300px;">
+    <div class="form-container">
+        <div class="form-field">
+            <label for="username">Username:</label>
+            <input type="text" id="username" name="username" style="width: 200px;" required>
+        </div>
+        <div class="form-field">
+            <label for="password">Password:</label>
+            <input type="password" id="password" name="password" style="width: 200px; margin-left:4px; "required>
+        </div>
+        <button type="submit" class="login-button" style="margin-right: 10px;">Login</button>
+    </div>
+</form>
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <title>Login - NÖ Tourismusportal</title>
+    <style>
+        /* Deine Styles */
+    </style>
+</head>
+<body>
+<!-- Dein HTML -->
+
+<script>
+    function handleLogin(event) {
+        event.preventDefault();
+        var username = document.getElementById('username').value;
+        var password = document.getElementById('password').value;
+
+        // Dummy-Daten für den Benutzer Veton
+        var dummyUser = {
+            username: 'Veton',
+            password: '12345678'
+        };
+
+        // Überprüfung, ob die eingegebenen Daten mit den Dummy-Daten übereinstimmen
+        if(username === dummyUser.username && password === dummyUser.password) {
+            // Weiterleitung zur Index-Seite, wenn die Daten übereinstimmen
+            window.location.href = '/index'; // Pfad zur Index-Seite anpassen
+        } else {
+            alert('Falscher Benutzername oder Passwort!');
+        }
+    }
+
+    // Event-Listener zum Einloggen hinzufügen
+    document.querySelector('.login-form').addEventListener('submit', handleLogin);
+</script>
+</body>
+</html>
+
+
+</body>
+</html>
