@@ -59,7 +59,7 @@ public class FormController {
     {
     Occupancy occupancy = new Occupancy();
 
-    occupancy.setId(hotelID);
+    occupancy.setOccupancyid(hotelID);
     occupancy.setYear(year);
     occupancy.setMonth(month);
     occupancy.setRooms(maxRooms);

@@ -478,6 +478,25 @@
 </div>
 <!-- Codeende #1_Achill_10.03.2024/27.03.2024/28.03.2024/03.04.2024_Overview Of Hotels -->
 
-
+<!--Codeanfang_Achill_16.04.2024_OccupancyData -->
+<div th:if="${occupancyPage != null}">
+    <table>
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>Räume gesamt</th>
+            <th>Räume benutzt</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="occupancy : ${occupancyPage.content}" th:if="${occupancy != null}">
+            <td th:text="${occupancy.occupancyid}"></td>
+            <td th:text="${occupancy.rooms}"></td>
+            <td th:text="${occupancy.usedrooms}"></td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+<!--Codeanfang_Achill_16.04.2024_OccupancyData-->
 </body>
 </html>
