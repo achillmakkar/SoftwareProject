@@ -47,7 +47,7 @@ public final class Occupancy {
     // Codeanfang_Nikola:07.04.2024_HotelEntity
     @ManyToOne
     @JoinColumn(name = "id")
-    private Hotel hotel;
+    private Hotel id;
     // Codeende_Nikola:07.04.2024_HotelEntity
 
 

@@ -35,15 +35,15 @@ public class FormController {
 
     return "sampleform";
   }
-// Code Anfang #3_Nikola_01.04_Add Occupancy Form - GetMapping für Occupancy Form Seite einfügen
+  // Code Anfang #3_Nikola_01.04_Add Occupancy Form - GetMapping für Occupancy Form Seite einfügen
   @GetMapping("/occupancyform")
   public String occupancyForm(Model model) {
-    model.addAttribute("command", new Occupancy());
+    model.addAttribute("occupancy", new Occupancy());
     return "occupancyform";
   }
   // Code Ende #3_Nikola_01.04_Add Occupancy Form - GetMapping für Occupancy Form Seite einfügen
 
-  // Code Anfang #3_Nikola_16.04_Add Occupancy Form - PostMapping für Occupancy Form
+  // Code Anfang #3_Nikola_17.04_Add Occupancy Form - PostMapping für Occupancy Form
 
   @Autowired
   public FormController(OccupancyService occupancyService) {
@@ -53,20 +53,19 @@ public class FormController {
   public RedirectView occupancyForm(HttpServletRequest request,
                                     RedirectAttributes redirectAttributes,
                                     @ModelAttribute Occupancy occupancy) {
-    redirectAttributes.addFlashAttribute("command", occupancy);
+    redirectAttributes.addFlashAttribute("occupancy", occupancy);
     return new RedirectView("/occupancyformfilledout", true);
   }
-
 
   @GetMapping("/occupancyformfilledout")
   public String occupancyFormFilledOut(HttpServletRequest request) {
     Map<String,?> inputFlashMap = RequestContextUtils.getInputFlashMap(request);
-    Occupancy occupancy = (Occupancy) inputFlashMap.get("command");
+    Occupancy occupancy = (Occupancy) inputFlashMap.get("occupancy");
     return "occupancyformfilledout";
   }
 
   @PostMapping("/finalizesave")
-  public String submitOccupancy(@ModelAttribute("command") Occupancy occupancy,
+  public String submitOccupancy(@ModelAttribute("occupancy") Occupancy occupancy,
                                 BindingResult bindingResult) {
     if (bindingResult.hasErrors()) {
       return "occupancyform";
@@ -74,13 +73,13 @@ public class FormController {
 
     occupancyService.saveOccupancy(occupancy);
 
-    return "redirect:/success";
+    return "redirect:/index";
   }
-  // Code Ende #3_Nikola_16.04_Add Occupancy Form - Post/GetMapping für Occupancy Form
+  // Code Ende #3_Nikola_17.04_Add Occupancy Form - PostMapping für Occupancy Form
   @ModelAttribute("multiCheckboxAllValues")
   public String[] getMultiCheckboxAllValues() {
     return new String[] {"Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday",
-        "Sunday"};
+            "Sunday"};
   }
 
 
@@ -93,12 +92,12 @@ public class FormController {
 
   @PostMapping("/sampleform")
   public String foobarPost(
-      @ModelAttribute("command") final FooData fooData,
-      // WARN: BindingResult *must* immediately follow the Command.
-      // https://stackoverflow.com/a/29883178/1626026
-      final BindingResult bindingResult,
-      final Model model,
-      final RedirectAttributes ra) {
+          @ModelAttribute("command") final FooData fooData,
+          // WARN: BindingResult *must* immediately follow the Command.
+          // https://stackoverflow.com/a/29883178/1626026
+          final BindingResult bindingResult,
+          final Model model,
+          final RedirectAttributes ra) {
 
     log.debug("form submission.");
 
@@ -113,13 +112,13 @@ public class FormController {
 
   @GetMapping("/sampleresult")
   public String fooresult(
-      @ModelAttribute("command") final FooData command,
-      final Model model) {
+          @ModelAttribute("command") final FooData fooData,
+          final Model model) {
 
-    log.debug("!!!" + command.toString());
+    log.debug("!!!" + fooData.toString());
 
     return "/";
   }
-  
+
 
 }
