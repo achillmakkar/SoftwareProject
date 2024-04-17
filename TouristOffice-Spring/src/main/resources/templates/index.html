@@ -162,84 +162,78 @@
         });
         <!-- Codeende_Achill_24.03.2024/27.08.2024/28.08.2024/01.04.2024/03.04.2024/_Page-Navigation,SwitchZIPAscDesc,HotelDataInfo -->
     </script>
-
     <style>
-
-        /* The Modal (background) */
-        .modal {
-            display: none;
-            position: fixed;
-            z-index: 1000;
-            left: 0;
-            top: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.5);
+        .topnav-upper {
+            background-color: #66ccff;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.5rem 1rem;
+        }
+        .topnav-lower
+        {
+            background-color: #66ccff;
+        }
+        .logo {
+            flex: 0 1 auto;
         }
 
-
-        .modal-content {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            width: 40%;
-            background-color: white;
-            padding: 20px;
-            border: 2px solid black;
-            border-radius: 5px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        .user-controls {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+        }
+        .flags-help-logout {
+            display: flex;
+            align-items: center;
+            gap: 5px;
         }
 
-        /* The Close Button */
-        .close {
-            color: #aaa;
-            float: right;
-            font-size: 28px;
-            font-weight: bold;
+        .menu-under-flags {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+            margin-top: 10px;
+        }
+        .hotels-per-page-container {
+            display: flex;
+            gap: 10px;
+        }
+        .pagination-and-size-selector {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px;
+        }
+        /* Style für jede zweite Zeile in der Tabelle */
+        #hotelData tr:nth-child(even) {
+            background-color: #ccffff;
+        }
+        .btn-pagination-arrow {
+            background-color: #666666;
+            border-color: black;
+            color:white;
         }
 
-        .close:hover,
-        .close:focus {
-            color: black;
-            text-decoration: none;
-            cursor: pointer;
+        .btn-pagination-arrow:hover {
+            background-color: #bbbbbb;
         }
-
-        #closeBtn, #closeInfo {
+        .btn-pagination.active {
+            background-color: #666666;
+            color: white;
+            border-color: black;
+        }
+        .btn-pagination:not(.active):hover {
             background-color: #6699cc;
             color: white;
-            padding: 10px 20px;
-            text-align: center;
-            text-decoration: none;
-            display: inline-block;
-            font-size: 16px;
-            margin: 4px 2px;
-            cursor: pointer;
-            border: 2px solid black;
+            border-color: black;
         }
 
-        .modal-content h2 {
-            color: black;
-            text-align: center;
-        }
-        .modal-content p {
-            text-align: center;
-        }
 
-        .btn-secondary:active {
-            transform: scale(0.98);
-        }
-
-        .btn-secondary:hover {
-            background-color: #ffa500;
-            cursor: pointer;
-        }
     </style>
+
 </head>
-<!-- Codebegin_Dominik_Lang_07.04.2024_changed background color to match mockup-->
-<body style="background-color: #66ccff;">
-<!-- Codeend_Dominik_Lang_07.04.2024_changed background color to match mockup-->
+<body>
 <!-- Codeanfang_#12_Veton_28.03.2024/inserted logo -->
 <div class="topnav topnav-upper">
     <div class="logo">
@@ -247,79 +241,85 @@
     </div>
     <!-- Codeende#12_Veton_28.03.2024/inserted logo -->
     <div class="user-controls">
-        <img src="/images/austriaflagPNG.png" alt="Language 1" style="width: 50px; height: 42px;">
-        <img src="/images/englandFlagPNG.png" alt="Language 2" style="width: 50px; height: 42px;">
-        <a class="btn btn-secondary" href="#help" style="width: 80px; height: 42px;color:black; background-color: #dee2e6; font-weight: bold; border: 2px solid #004d40;">Help</a>
-        <a class="btn btn-secondary" href="#logout" style="width: 80px; height: 42px;color:black; background-color: #dee2e6; font-weight: bold; border: 2px solid #004d40;">Logout</a>
-    </div>
+        <div class="flags-help-logout">
+            <a class="btn btn-secondary" href="#deletedhotels" style="width: 170px; height: 42px;color:black; background-color: #dee2e6; font-weight: bold; border: 2px solid #004d40;">Deleted Hotels</a>
+            <img src="/images/englandFlagPNG.png" alt="Language 2" style="width: 50px; height: 42px;">
+            <img src="/images/austriaflagPNG.png" alt="Language 1" style="width: 50px; height: 42px;">
+            <a class="btn btn-secondary" href="#help" style="width: 80px; height: 42px;color:black; background-color: #dee2e6; font-weight: bold; border: 2px solid #004d40;">Help</a>
+            <a class="btn btn-secondary" href="#logout" style="width: 80px; height: 42px;color:black; background-color: #dee2e6; font-weight: bold; border: 2px solid #004d40;">Logout</a>
+       </div>
+        <div class="menu-under-flags">
+        <!-- Zweite Navigationsleiste für Menülinks -->
+            <div class="topnav topnav-lower">
+            <div class="navigation-links">
+            <a class="btn btn-secondary" href="#csv" style="color: white; background-color: teal; font-weight: bold; border: 2px solid black">Import CSV Data</a>
+            <a id="myBtn" class="btn btn-secondary" style="color:black; background-color: orange; font-weight: bold; border: 2px solid black">Statistics as PDF</a>
+            <!-- The Modal -->
+            <div id="myModal" class="modal">
 
-</div>
-<!-- Zweite Navigationsleiste für Menülinks -->
-<div class="topnav topnav-lower">
-    <div class="navigation-links">
-        <a class="btn btn-secondary" href="#csv" style="color: white; background-color: teal; font-weight: bold; border: 2px solid black">Import CSV Data</a>
-        <a id="myBtn" class="btn btn-secondary" style="color:black; background-color: orange; font-weight: bold; border: 2px solid black">Statistics as PDF</a>
-        <!-- The Modal -->
-        <div id="myModal" class="modal">
+                <!-- Modal content -->
+                <div class="modal-content">
+                    <span class="close">&times;</span>
+                    <h2 style="font-weight: bold">Statistics as PDF</h2>
+                    <br>
+                    <p style="font-weight: bold">PDF has been saved.</p>
+                    <br>
+                    <button id="closeBtn">CLOSE</button>
+                </div>
 
-            <!-- Modal content -->
-            <div class="modal-content">
-                <span class="close">&times;</span>
-                <h2 style="font-weight: bold">Statistics as PDF</h2>
-                <br>
-                <p style="font-weight: bold">PDF has been saved.</p>
-                <br>
-                <button id="closeBtn">CLOSE</button>
             </div>
 
+            <a class="btn btn-secondary" href="#histogram" style="color:black; background-color: orange; font-weight: bold; border: 2px solid black">Statistics as Histogram</a>
+            <a class="btn btn-secondary" href="#subscription" style="color:black; background-color: yellow; font-weight: bold; border: 2px solid black">Send Subscription Mail</a>
+            <a class="btn btn-secondary" href="#backup" style="color:black; background-color: yellow; font-weight: bold; border: 2px solid black">Create and Send Backup</a>
+            </div>
+            </div>
         </div>
-
-        <a class="btn btn-secondary" href="#histogram" style="color:black; background-color: orange; font-weight: bold; border: 2px solid black">Statistics as Histogram</a>
-        <a class="btn btn-secondary" href="#subscription" style="color:black; background-color: yellow; font-weight: bold; border: 2px solid black">Send Subscription Mail</a>
-        <a class="btn btn-secondary" href="#backup" style="color:black; background-color: yellow; font-weight: bold; border: 2px solid black">Create and Send Backup</a>
     </div>
 </div>
+
 <hr>
 <!-- Codeende_#1_Achill_22.03.2024/27.03.2024/28.03.2024_Menue-Top -->
 
 <!-- Codeanfang_#1_Achill_10.03.2024/27.03.2024/28.03.2024/03.04.2024_Overview Of Hotels -->
 <!-- Paginierungscontainer -->
-<div class="pagination-container">
-    <!-- Zur ersten Seite -->
-    <a th:if="${hotelPage.number > 1}" th:href="@{/index(size=${hotelPage.size}, page=1)}" class="btn btn-pagination">&lt;&lt;</a>
-    <!-- Zur vorherigen Seite -->
-    <a th:if="${hotelPage.hasPrevious()}" th:href="@{/index(size=${hotelPage.size}, page=${hotelPage.number})}" class="btn btn-pagination">&lt;</a>
+<div class="pagination-and-size-selector">
+    <div class="pagination-container" >
+        <!-- Zur ersten Seite -->
+        <a th:if="${hotelPage.number > 1}" th:href="@{/index(size=${hotelPage.size}, page=1)}" class="btn btn-pagination btn-pagination-arrow">&lt;&lt;</a>
+        <!-- Zur vorherigen Seite -->
+        <a th:if="${hotelPage.hasPrevious()}" th:href="@{/index(size=${hotelPage.size}, page=${hotelPage.number})}" class="btn btn-pagination btn-pagination-arrow">&lt;</a>
 
-    <!-- Seitennummern -->
-    <a th:each="pageNum : ${pageNumbers}"
-       th:href="@{/index(size=${hotelPage.size}, page=${pageNum})}"
-       th:text="${pageNum}"
-       th:class="${pageNum == hotelPage.number + 1 ? 'btn btn-pagination active' : 'btn btn-pagination'}">
-    </a>
+        <!-- Seitennummern -->
+        <a th:each="pageNum : ${pageNumbers}"
+           th:href="@{/index(size=${hotelPage.size}, page=${pageNum})}"
+           th:text="${pageNum}"
+           th:class="${pageNum == hotelPage.number + 1 ? 'btn btn-pagination active' : 'btn btn-pagination'}">
+        </a>
 
-    <!-- Zur nächsten Seite -->
-    <a th:if="${hotelPage.hasNext()}" th:href="@{/index(size=${hotelPage.size}, page=${hotelPage.number + 2})}" class="btn btn-pagination">&gt;</a>
-    <!-- Zur letzten Seite -->
-    <a th:if="${hotelPage.number + 1 < totalPages}" th:href="@{/index(size=${hotelPage.size}, page=${totalPages})}" class="btn btn-pagination">&gt;&gt;</a>
-
-    <!-- Das Formular zur Auswahl der Seitengröße -->
-    <form action="/index" method="get" class="form-inline my-2 my-lg-0">
-        <label for="pageSizeTop">Hotels per Page:</label>
-        <select name="size" id="pageSizeTop" class="form-control form-control-sm" onchange="this.form.submit()">
-            <option value="10">10</option>
-            <option value="20">20</option>
-            <option value="50">50</option>
-            <option value="100">100</option>
-            <option value="200">200</option>
-            <option value="500">500</option>
-            <option value="1000">1000</option>
-        </select>
-    </form>
+        <!-- Zur nächsten Seite -->
+        <a th:if="${hotelPage.hasNext()}" th:href="@{/index(size=${hotelPage.size}, page=${hotelPage.number + 2})}" class="btn btn-pagination btn-pagination-arrow">&gt;</a>
+        <!-- Zur letzten Seite -->
+        <a th:if="${hotelPage.number + 1 < totalPages}" th:href="@{/index(size=${hotelPage.size}, page=${totalPages})}" class="btn btn-pagination btn-pagination-arrow">&gt;&gt;</a>
+    </div>
+    <div class="hotels-per-page-container" >
+        <!-- Das Formular zur Auswahl der Seitengröße -->
+        <form action="/index" method="get" class="form-inline my-2 my-lg-0">
+            <label for="pageSizeTop">Hotels per Page:</label>
+            <select name="size" id="pageSizeTop" class="form-control form-control-sm" onchange="this.form.submit()">
+                <option value="10">10</option>
+                <option value="20">20</option>
+                <option value="50">50</option>
+                <option value="100">100</option>
+                <option value="200">200</option>
+                <option value="500">500</option>
+                <option value="1000">1000</option>
+            </select>
+        </form>
+    </div>
 </div>
 <br>
-<!-- Codebegin_Dominik_Lang_07.04.2024_html table centered on screen-->
 <div style="display: flex; justify-content: center;">
-    <!-- Codebegin_Dominik_Lang_07.04.2024_html table centered on screen-->
     <!-- Codebegin_Dominik_Lang_07.04.2024_added background color (mockup)-->
     <table id="hotelData" border="1" style="background-color: #6699cc;">
         <!-- Codeend_Dominik_Lang_07.04.2024_added background color (mockup)-->
@@ -440,41 +440,63 @@
 </div>
 <br>
 <!-- Paginierungscontainer -->
-<div class="pagination-container">
-    <!-- Zur ersten Seite -->
-    <a th:if="${hotelPage.number > 1}" th:href="@{/index(size=${hotelPage.size}, page=1)}" class="btn btn-pagination">&lt;&lt;</a>
-    <!-- Zur vorherigen Seite -->
-    <a th:if="${hotelPage.hasPrevious()}" th:href="@{/index(size=${hotelPage.size}, page=${hotelPage.number})}" class="btn btn-pagination">&lt;</a>
+<div class="pagination-and-size-selector">
+    <div class="pagination-container" >
+        <!-- Zur ersten Seite -->
+        <a th:if="${hotelPage.number > 1}" th:href="@{/index(size=${hotelPage.size}, page=1)}" class="btn btn-pagination btn-pagination-arrow">&lt;&lt;</a>
+        <!-- Zur vorherigen Seite -->
+        <a th:if="${hotelPage.hasPrevious()}" th:href="@{/index(size=${hotelPage.size}, page=${hotelPage.number})}" class="btn btn-pagination btn-pagination-arrow">&lt;</a>
 
-    <!-- Seitennummern -->
-    <a th:each="pageNum : ${pageNumbers}"
-       th:href="@{/index(size=${hotelPage.size}, page=${pageNum})}"
-       th:text="${pageNum}"
-       th:class="${pageNum == hotelPage.number + 1 ? 'btn btn-pagination active' : 'btn btn-pagination'}">
-    </a>
+        <!-- Seitennummern -->
+        <a th:each="pageNum : ${pageNumbers}"
+           th:href="@{/index(size=${hotelPage.size}, page=${pageNum})}"
+           th:text="${pageNum}"
+           th:class="${pageNum == hotelPage.number + 1 ? 'btn btn-pagination active' : 'btn btn-pagination'}">
+        </a>
 
-    <!-- Zur nächsten Seite -->
-    <a th:if="${hotelPage.hasNext()}" th:href="@{/index(size=${hotelPage.size}, page=${hotelPage.number + 2})}" class="btn btn-pagination">&gt;</a>
-    <!-- Zur letzten Seite -->
-    <a th:if="${hotelPage.number + 1 < totalPages}" th:href="@{/index(size=${hotelPage.size}, page=${totalPages})}" class="btn btn-pagination">&gt;&gt;</a>
+        <!-- Zur nächsten Seite -->
+        <a th:if="${hotelPage.hasNext()}" th:href="@{/index(size=${hotelPage.size}, page=${hotelPage.number + 2})}" class="btn btn-pagination btn-pagination-arrow">&gt;</a>
+        <!-- Zur letzten Seite -->
+        <a th:if="${hotelPage.number + 1 < totalPages}" th:href="@{/index(size=${hotelPage.size}, page=${totalPages})}" class="btn btn-pagination btn-pagination-arrow">&gt;&gt;</a>
+    </div>
 
-    <!-- Das Formular zur Auswahl der Seitengröße -->
-    <form action="/index" method="get" class="form-inline my-2 my-lg-0">
-        <label for="pageSizeTop">Hotels per Page:</label>
-        <select name="size" id="pageSizeBottom" class="form-control form-control-sm" onchange="this.form.submit()">
-            <option value="10">10</option>
-            <option value="20">20</option>
-            <option value="50">50</option>
-            <option value="100">100</option>
-            <option value="200">200</option>
-            <option value="500">500</option>
-            <option value="1000">1000</option>
-        </select>
-    </form>
+    <div class="hotels-per-page-container">
+        <!-- Das Formular zur Auswahl der Seitengröße -->
+        <form action="/index" method="get" class="form-inline">
+            <label for="pageSizeBottom">Hotels per Page:</label>
+            <select name="size" id="pageSizeBottom" class="form-control form-control-sm" onchange="this.form.submit()">
+                <option value="10">10</option>
+                <option value="20">20</option>
+                <option value="50">50</option>
+                <option value="100">100</option>
+                <option value="200">200</option>
+                <option value="500">500</option>
+                <option value="1000">1000</option>
+            </select>
+        </form>
+    </div>
 </div>
-
 <!-- Codeende #1_Achill_10.03.2024/27.03.2024/28.03.2024/03.04.2024_Overview Of Hotels -->
 
-
+<!--Codeanfang_Achill_16.04.2024_OccupancyData -->
+<div th:if="${occupancyPage != null}">
+    <table>
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>Räume gesamt</th>
+            <th>Räume benutzt</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="occupancy : ${occupancyPage.content}" th:if="${occupancy != null}">
+            <td th:text="${occupancy.occupancyid}"></td>
+            <td th:text="${occupancy.rooms}"></td>
+            <td th:text="${occupancy.usedrooms}"></td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+<!--Codeanfang_Achill_16.04.2024_OccupancyData-->
 </body>
 </html>
