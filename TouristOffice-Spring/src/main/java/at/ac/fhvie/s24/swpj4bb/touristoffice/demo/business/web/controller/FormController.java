@@ -16,6 +16,11 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.web.servlet.support.RequestContextUtils;
+import org.springframework.web.servlet.view.RedirectView;
+
+import javax.servlet.http.HttpServletRequest;
+import java.util.Map;
 
 @Slf4j
 @Controller
@@ -32,52 +37,46 @@ public class FormController {
   }
 // Code Anfang #3_Nikola_01.04_Add Occupancy Form - GetMapping für Occupancy Form Seite einfügen
   @GetMapping("/occupancyform")
-  public String occupancyForm(final Model model) {
+  public String occupancyForm(Model model) {
     model.addAttribute("command", new Occupancy());
-
     return "occupancyform";
   }
   // Code Ende #3_Nikola_01.04_Add Occupancy Form - GetMapping für Occupancy Form Seite einfügen
 
-  // Code Anfang #3_Nikola_07.04_Add Occupancy Form - PostMapping für Occupancy Form
+  // Code Anfang #3_Nikola_16.04_Add Occupancy Form - PostMapping für Occupancy Form
 
   @Autowired
   public FormController(OccupancyService occupancyService) {
     this.occupancyService = occupancyService;
   }
-  @PostMapping("/occupancyform")
-  public String occupancyForm(@RequestParam("hotelID") int hotelID,
-                              @RequestParam("hotelName") String hotelName,
-                              @RequestParam("zip") String zip,
-                              @RequestParam("year") int year,
-                              @RequestParam("month") int month,
-                              @RequestParam("maxRooms") int maxRooms,
-                              @RequestParam("bookedRooms") int bookedRooms,
-                              @RequestParam("maxBeds") int maxBeds,
-                              @RequestParam("bookedBeds") int bookedBeds) {
-    try
-    {
-    Occupancy occupancy = new Occupancy();
+  @PostMapping("/submitOccupancy")
+  public RedirectView occupancyForm(HttpServletRequest request,
+                                    RedirectAttributes redirectAttributes,
+                                    @ModelAttribute Occupancy occupancy) {
+    redirectAttributes.addFlashAttribute("command", occupancy);
+    return new RedirectView("/occupancyformfilledout", true);
+  }
 
-    occupancy.setId(hotelID);
-    occupancy.setYear(year);
-    occupancy.setMonth(month);
-    occupancy.setRooms(maxRooms);
-    occupancy.setUsedrooms(bookedRooms);
-    occupancy.setBeds(maxBeds);
-    occupancy.setUsedbeds(bookedBeds);
 
+  @GetMapping("/occupancyformfilledout")
+  public String occupancyFormFilledOut(HttpServletRequest request) {
+    Map<String,?> inputFlashMap = RequestContextUtils.getInputFlashMap(request);
+    Occupancy occupancy = (Occupancy) inputFlashMap.get("command");
+    return "occupancyformfilledout";
+  }
+
+  @PostMapping("/finalizesave")
+  public String submitOccupancy(@ModelAttribute("command") Occupancy occupancy,
+                                BindingResult bindingResult) {
+    if (bindingResult.hasErrors()) {
+      return "occupancyform";
+    }
 
     occupancyService.saveOccupancy(occupancy);
-    return "redirect:/index";
-    } catch (Exception ex) {
 
-      ex.printStackTrace();
-      return "error";
-    }
+    return "redirect:/success";
   }
-  // Code Ende #3_Nikola_07.04_Add Occupancy Form - PostMapping für Occupancy Form
-
+  // Code Ende #3_Nikola_16.04_Add Occupancy Form - Post/GetMapping für Occupancy Form
   @ModelAttribute("multiCheckboxAllValues")
   public String[] getMultiCheckboxAllValues() {
     return new String[] {"Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday",

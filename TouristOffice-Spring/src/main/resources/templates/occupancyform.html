@@ -68,12 +68,12 @@
     <p th:text= "'Error: ' + ${error}" />
 </div>
 
-<form action="@{/occupancyform}" th:action="@{/occupancyform}" th:object="${command}" method="post">
+<form th:action="@{/submitOccupancy}" th:object="${command}" method="post">
 
     <h2>add occupancy data: </h2>
     <div class="form-group">
         <label for="hotelID">Hotel ID:</label>
-        <input type="text" id="hotelID" name="hotelID" min="0" required>
+        <input type="text" id="hotelID" name="hotelID" min="0" required pattern="\d*">
     </div>
     <div class="form-group">
         <label for="hotelName">Hotel Name:</label>
@@ -81,15 +81,15 @@
     </div>
     <div class="form-group">
         <label for="zip">ZIP:</label>
-        <input type="text" id="zip" name="zip" min="0" required>
+        <input type="text" id="zip" name="zip" min="0" required pattern="\d{4}">
     </div>
     <div class="form-group">
         <label for="year">Year:</label>
-        <input type="number" id="year" name="year" min="2020" required>
+        <input type="number" id="year" name="year" pattern="\d{4}" minlength="4" maxlength="4" required>
     </div>
     <div class="form-group">
         <label for="month">Month:</label>
-        <input type="number" id="month" name="month" min="1" max="12" required>
+        <input type="number" id="month" name="month" min="1" max="12" required pattern="[1-9]|1[0-2]">
     </div>
     <div class="form-group">
         <label for="maxRooms">Max Rooms:</label>
