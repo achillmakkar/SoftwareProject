@@ -48,13 +48,28 @@
             <scope>runtime</scope>
         </dependency>
 
-
+        <!-- Code_Anfang_Achill_PDF_Reoprt -->
         <dependency>
             <groupId>net.sf.jasperreports</groupId>
             <artifactId>jasperreports</artifactId>
             <version>6.21.2</version>
         </dependency>
 
+        <!-- Code_Ende_Achill_PDF_Reoprt -->
+
+        <!-- Code_Anfang_Achill_18.04.2024_Excel -->
+        <dependency>
+            <groupId>org.apache.poi</groupId>
+            <artifactId>poi</artifactId>
+            <version>5.2.2</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.poi</groupId>
+            <artifactId>poi-ooxml</artifactId>
+            <version>5.2.2</version>
+        </dependency>
+
+        <!-- Code_Ende_Achill_18.04.2024_Excel -->
         <dependency>
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
