@@ -35,47 +35,49 @@ public class FormController {
 
     return "sampleform";
   }
-  // Code Anfang #3_Nikola_01.04_Add Occupancy Form - GetMapping für Occupancy Form Seite einfügen
+  // Code Anfang #3_Nikola_17.04_Add Occupancy Form - Mapping für Occupancy Form
   @GetMapping("/occupancyform")
-  public String occupancyForm(Model model) {
-    model.addAttribute("occupancy", new Occupancy());
-    return "occupancyform";
+  public String occupancyForm(Model model) {              // Initialiserung des Formulars - "occupancy" Objekt wird erstellt und an Model gebunden
+    model.addAttribute("occupancy", new Occupancy());   // Model stellt bildlich dar (Datentransfer zw Controller und View)
+    return "occupancyform";                                    // Occupancy Objekt wird an 'model' gebunden - Userdaten werden gespeichert
   }
-  // Code Ende #3_Nikola_01.04_Add Occupancy Form - GetMapping für Occupancy Form Seite einfügen
-
-  // Code Anfang #3_Nikola_17.04_Add Occupancy Form - PostMapping für Occupancy Form
 
   @Autowired
-  public FormController(OccupancyService occupancyService) {
+  public FormController(OccupancyService occupancyService) { //saveOccupancy aus Occupancy Service wird aufgerufen
     this.occupancyService = occupancyService;
   }
+  // Occupancy Service wird bereitgestellt und in FormController eingefügt
   @PostMapping("/submitOccupancy")
   public RedirectView occupancyForm(HttpServletRequest request,
                                     RedirectAttributes redirectAttributes,
-                                    @ModelAttribute Occupancy occupancy) {
-    redirectAttributes.addFlashAttribute("occupancy", occupancy);
-    return new RedirectView("/occupancyformfilledout", true);
+                                    @ModelAttribute Occupancy occupancy) { //Userdaten werden in "occupancy" geladen
+    redirectAttributes.addFlashAttribute("occupancy", occupancy); // occupancy Objekt wird in redirectAttributes gespeichert (als Flash -notwendig für Datenübertragen per Redirect) damit es ann Occ filledout weitergeleitet werden kann
+
+    return new RedirectView("/occupancyformfilledout", true); //User bekommt die Occ. filledout Seite zu sehen
   }
 
+  //Quelle: https://www.baeldung.com/spring-web-flash-attributes
   @GetMapping("/occupancyformfilledout")
   public String occupancyFormFilledOut(HttpServletRequest request) {
-    Map<String,?> inputFlashMap = RequestContextUtils.getInputFlashMap(request);
-    Occupancy occupancy = (Occupancy) inputFlashMap.get("occupancy");
+    Map<String,?> inputFlashMap = RequestContextUtils.getInputFlashMap(request); //Die Methode greift auf die, in der vorigen Methode, gespeicherten FlashAttributes zu
+    Occupancy occupancy = (Occupancy) inputFlashMap.get("occupancy"); //Daten aus "occupancy" werden abgerufen
     return "occupancyformfilledout";
   }
 
+  //Quelle: https://www.baeldung.com/spring-web-flash-attributes
+
   @PostMapping("/finalizesave")
-  public String submitOccupancy(@ModelAttribute("occupancy") Occupancy occupancy,
-                                BindingResult bindingResult) {
+  public String submitOccupancy(@ModelAttribute("occupancy") Occupancy occupancy, //HTML Daten werden an "occupancy" gebunden
+                                BindingResult bindingResult) {                    // Validierungsfehler werden erfasst
     if (bindingResult.hasErrors()) {
       return "occupancyform";
-    }
-
+    }                             // wenn keine Fehler vorliegen werden die Userdaten in der Datenbank gespeichert
     occupancyService.saveOccupancy(occupancy);
 
     return "redirect:/index";
   }
-  // Code Ende #3_Nikola_17.04_Add Occupancy Form - PostMapping für Occupancy Form
+  // Code Ende #3_Nikola_17.04_Add Occupancy Form - Mapping für Occupancy Form
+
   @ModelAttribute("multiCheckboxAllValues")
   public String[] getMultiCheckboxAllValues() {
     return new String[] {"Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday",
