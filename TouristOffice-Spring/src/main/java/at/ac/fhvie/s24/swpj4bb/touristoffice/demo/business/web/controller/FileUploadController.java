@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
+import java.util.List;
 
 @RestController
 
@@ -17,11 +18,8 @@ public class FileUploadController
     private DataService dataService;
 
     @PostMapping("/upload")
-    public ResponseEntity<String> uploadFile(@RequestParam("file") MultipartFile file) {
-        if (dataService.processExcelFile(file)) {
-            return ResponseEntity.ok("Datei erfolgreich verarbeitet");
-        } else {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Fehler beim Verarbeiten der Datei");
-        }
+    public ResponseEntity<String> uploadFiles(@RequestParam("files") List<MultipartFile> files) {
+        dataService.processFiles(files);
+        return ResponseEntity.ok("Alle Dateien wurden verarbeitet");
     }
 }
