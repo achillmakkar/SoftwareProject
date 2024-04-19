@@ -160,6 +160,117 @@
                 }
             });
         });
+
+        // tuchan code
+
+
+        /* document.addEventListener('DOMContentLoaded', function() {
+            const hotelRows = document.querySelectorAll('#hotelData tbody .hotel-row');
+
+            hotelRows.forEach(row => {
+                row.addEventListener('click', function() {
+                    // Entferne existierende Detailtabellen, bevor eine neue erstellt wird
+                    removeExistingDetailTables();
+
+                    const hotelId = this.dataset.hotelId;
+                    createDetailTable(hotelId, this);
+                });
+            });
+        });
+/*
+        function createDetailTable(hotelId, insertAfterElement) {
+            var containerRow = insertAfterElement.parentNode.insertRow(insertAfterElement.rowIndex);
+            var cell = containerRow.insertCell();
+            // Setze colspan auf die Anzahl der Spalten in der übergeordneten Tabelle
+            cell.colSpan = insertAfterElement.children.length;
+
+            var table = document.createElement('table');
+            table.className = 'detailTable';  // Füge eine Klasse hinzu, um die Tabelle leichter identifizieren zu können
+            table.style.width = '100%';
+            table.style.background = 'lightgray';
+            table.border = '1';
+
+            var header = table.createTHead();
+            var headerRow = header.insertRow();
+            var headers = ['Total Rooms', 'Booked Rooms', 'Total Beds', 'Booked Beds'];
+            headers.forEach(headerText => {
+                var cell = headerRow.insertCell();
+                cell.textContent = headerText;
+                cell.style.fontWeight = 'bold';
+                cell.style.color = 'black';
+            });
+
+            fetchOccupancyData(hotelId, function(occupancyData) {
+                var body = table.createTBody();
+                var row = body.insertRow();
+                var data = [occupancyData.totalRooms, occupancyData.bookedRooms, occupancyData.totalBeds, occupancyData.bookedBeds];
+                data.forEach(cellData => {
+                    var cell = row.insertCell();
+                    cell.textContent = cellData;
+                });
+
+                cell.appendChild(table);
+            });
+        }
+
+        function fetchOccupancyData(hotelId, callback) {
+            // Beispiel-Daten
+            callback({ totalRooms: 20, bookedRooms: 10, totalBeds: 40, bookedBeds: 25 });
+        }
+
+        function removeExistingDetailTables() {
+            // Entferne alle Tabellen mit der Klasse 'detailTable'
+            document.querySelectorAll('.detailTable').forEach(table => {
+                table.parentNode.parentNode.remove(); // Entfernt die Zeile, die die Tabelle enthält
+            });
+        }
+
+
+
+
+        /* // Tuchan code
+                document.addEventListener('DOMContentLoaded', function() {
+                    const hotelRows = document.querySelectorAll('.hotel-row');
+                    hotelRows.forEach(row => {
+                        row.addEventListener('click', function() {
+                            const Id = this.dataset.Id; // Stellen Sie sicher, dass die Hotelzeilen ein data-hotel-id Attribut haben
+                            fetch(`/occupancy/by-hotel/${Id}`)
+                                .then(response => response.json())
+                                .then(data => {
+                                    displayOccupancyData(data, this);
+                                })
+                                .catch(error => console.error('Error loading occupancy data:', error));
+                        });
+                    });
+                });
+
+                function displayOccupancyData(data, hotelRow) {
+                    const occupancyTable = document.createElement('table');
+                    occupancyTable.innerHTML = `
+                <tr>
+                    <th>Total Rooms</th>
+                    <th>Booked Rooms</th>
+                    <th>Total Beds</th>
+                    <th>Booked Beds</th>
+                </tr>
+                ${data.map(occ => `
+                    <tr>
+                        <td>${occ.rooms}</td>
+                        <td>${occ.usedrooms}</td>
+                        <td>${occ.beds}</td>
+                        <td>${occ.usedbeds}</td>
+                    </tr>
+                `).join('')}
+            `;
+                    // Fügen Sie die generierte Tabelle direkt unter der Hotelzeile ein
+                    hotelRow.parentNode.insertBefore(occupancyTable, hotelRow.nextSibling);
+                }
+        */
+
+
+
+
+
         <!-- Codeende_Achill_24.03.2024/27.08.2024/28.08.2024/01.04.2024/03.04.2024/_Page-Navigation,SwitchZIPAscDesc,HotelDataInfo -->
     </script>
     <style>
@@ -350,7 +461,7 @@
         </tr>
         </thead>
         <tbody style="background-color: white">
-        <tr th:each="hotel, iStat : ${hotelPage.content}"
+        <tr th:each="hotel, iStat : ${hotelPage.content}" class="hotel-row" th:data-hotel-id="${hotel.id}"
             th:style="${iStat.odd}? 'font-weight: bold;'"
             th:alt-title="${iStat.even}? 'even' : 'odd'">
             <td style="text-align: center;" th:text="${hotel.id}" />
@@ -358,6 +469,17 @@
             <td style="text-align: center;" th:text="${hotel.cityCode}" />
             <td th:text="${hotel.category}" />
 
+        <!-- Tuchan occupancy option
+            <td>
+                <div th:each="occupancy : ${occupancyPage.content}" th:if="${occupancy.occupancyid == hotel.id}">
+                    <p>
+                        <strong th:text="${'Year: ' + occupancy.year}"></strong><br/>
+                        Rooms: <span th:text="${occupancy.usedrooms} + '/' + ${occupancy.rooms}"></span><br/>
+                        Beds: <span th:text="${occupancy.usedbeds} + '/' + ${occupancy.beds}"></span>
+                    </p>
+                </div>
+            </td>
+-->
             <!-- Codebegin_Dominik_Lang_06.04.2024_added attributes and icons-->
             <td style="text-align: center;">
                 <img th:if="${hotel.familyFriendly}" src="/images/okgreenPNG.png" alt="okgreen" style="width: 20px; height: 20px;">
@@ -422,8 +544,38 @@
             </td>
             <!-- Codeend_Dominik_Lang_07.04.2024_added buttons and icons to html table-->
 
+           <!-- <td>
+                <button onclick="toggleOccupancy('${hotel.id}')" class="btn btn-info">Show Occupancy</button>
             </td>
-        </tr>
+            -->
+
+
+            <!-- sulim code für occupancy table
+                  </tr>
+                  </tbody>
+
+                  <tr style="color: white; width: 80px; text-align: center">
+                      <th>Total Rooms</th>
+                      <th>Booked Rooms</th>
+                      <th>Room Occ. in %</th>
+                      <th>Total Beds</th>
+                      <th>Booked Beds</th>
+                      <th>Bed Occ. in %</th>
+                      <th>#1 of National Guest</th>
+                  </tr>
+                  </thead>
+                  <tbody style="background-color: white;">
+                  <tr th:each="occupancy : ${occupancyPage.content}" th:if="${occupancy != null}">
+
+                      <td th:text="${occupancy.rooms}">0</td>
+                      <td th:text="${occupancy.usedrooms}">0</td>
+                      <td th:text="${occupancy.rooms > 0 ? (occupancy.usedrooms * 100 / occupancy.rooms) : 0} + '%'">0%</td>
+                      <td th:text="${occupancy.beds}">0</td>
+                      <td th:text="${occupancy.usedbeds}">0</td>
+                      <td th:text="${occupancy.beds > 0 ? (occupancy.usedbeds * 100 / occupancy.beds) : 0}">0%</td>
+                  </tr>
+           code ende occupancy table -->
+
         </tbody>
     </table>
 </div>
@@ -476,27 +628,39 @@
         </form>
     </div>
 </div>
+
+
 <!-- Codeende #1_Achill_10.03.2024/27.03.2024/28.03.2024/03.04.2024_Overview Of Hotels -->
 
 <!--Codeanfang_Achill_16.04.2024_OccupancyData -->
-<div th:if="${occupancyPage != null}">
+<!--
+ <div th:if="${occupancyPage != null}">
     <table>
         <thead>
-        <tr>
-            <th>ID</th>
-            <th>Räume gesamt</th>
-            <th>Räume benutzt</th>
+        <tr style="color: white; width: 80px; text-align: center">
+            <th>Total Rooms</th>
+            <th>Booked Rooms</th>
+            <th>Room Occ. in %</th>
+            <th>Total Beds</th>
+            <th>Booked Beds</th>
+            <th>Bed Occ. in %</th>
+            <th>#1 of National Guest</th>
         </tr>
         </thead>
-        <tbody>
+        <tbody style="background-color: white;">
         <tr th:each="occupancy : ${occupancyPage.content}" th:if="${occupancy != null}">
-            <td th:text="${occupancy.occupancyid}"></td>
-            <td th:text="${occupancy.rooms}"></td>
-            <td th:text="${occupancy.usedrooms}"></td>
+
+            <td th:text="${occupancy.rooms}">0</td>
+            <td th:text="${occupancy.usedrooms}">0</td>
+            <td th:text="${occupancy.rooms > 0 ? (occupancy.usedrooms * 100 / occupancy.rooms) : 0} + '%'">0%</td>
+            <td th:text="${occupancy.beds}">0</td>
+            <td th:text="${occupancy.usedbeds}">0</td>
+            <td th:text="${occupancy.beds > 0 ? (occupancy.usedbeds * 100 / occupancy.beds) : 0}">0%</td>
         </tr>
         </tbody>
     </table>
 </div>
-<!--Codeanfang_Achill_16.04.2024_OccupancyData-->
+/*
+--Codeanfang_Achill_16.04.2024_OccupancyData-->
 </body>
 </html>
