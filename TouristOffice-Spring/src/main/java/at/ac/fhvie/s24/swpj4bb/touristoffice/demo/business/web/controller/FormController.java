@@ -16,6 +16,11 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.web.servlet.support.RequestContextUtils;
+import org.springframework.web.servlet.view.RedirectView;
+
+import javax.servlet.http.HttpServletRequest;
+import java.util.Map;
 
 @Slf4j
 @Controller
@@ -30,58 +35,53 @@ public class FormController {
 
     return "sampleform";
   }
-// Code Anfang #3_Nikola_01.04_Add Occupancy Form - GetMapping für Occupancy Form Seite einfügen
+  // Code Anfang #3_Nikola_17.04_Add Occupancy Form - Mapping für Occupancy Form
   @GetMapping("/occupancyform")
-  public String occupancyForm(final Model model) {
-    model.addAttribute("command", new Occupancy());
-
-    return "occupancyform";
+  public String occupancyForm(Model model) {              // Initialiserung des Formulars - "occupancy" Objekt wird erstellt und an Model gebunden
+    model.addAttribute("occupancy", new Occupancy());   // Model stellt bildlich dar (Datentransfer zw Controller und View)
+    return "occupancyform";                                    // Occupancy Objekt wird an 'model' gebunden - Userdaten werden gespeichert
   }
-  // Code Ende #3_Nikola_01.04_Add Occupancy Form - GetMapping für Occupancy Form Seite einfügen
-
-  // Code Anfang #3_Nikola_07.04_Add Occupancy Form - PostMapping für Occupancy Form
 
   @Autowired
-  public FormController(OccupancyService occupancyService) {
+  public FormController(OccupancyService occupancyService) { //saveOccupancy aus Occupancy Service wird aufgerufen
     this.occupancyService = occupancyService;
   }
-  @PostMapping("/occupancyform")
-  public String occupancyForm(@RequestParam("hotelID") int hotelID,
-                              @RequestParam("hotelName") String hotelName,
-                              @RequestParam("zip") String zip,
-                              @RequestParam("year") int year,
-                              @RequestParam("month") int month,
-                              @RequestParam("maxRooms") int maxRooms,
-                              @RequestParam("bookedRooms") int bookedRooms,
-                              @RequestParam("maxBeds") int maxBeds,
-                              @RequestParam("bookedBeds") int bookedBeds) {
-    try
-    {
-    Occupancy occupancy = new Occupancy();
+  // Occupancy Service wird bereitgestellt und in FormController eingefügt
+  @PostMapping("/submitOccupancy")
+  public RedirectView occupancyForm(HttpServletRequest request,
+                                    RedirectAttributes redirectAttributes,
+                                    @ModelAttribute Occupancy occupancy) { //Userdaten werden in "occupancy" geladen
+    redirectAttributes.addFlashAttribute("occupancy", occupancy); // occupancy Objekt wird in redirectAttributes gespeichert (als Flash -notwendig für Datenübertragen per Redirect) damit es ann Occ filledout weitergeleitet werden kann
 
-    occupancy.setId(hotelID);
-    occupancy.setYear(year);
-    occupancy.setMonth(month);
-    occupancy.setRooms(maxRooms);
-    occupancy.setUsedrooms(bookedRooms);
-    occupancy.setBeds(maxBeds);
-    occupancy.setUsedbeds(bookedBeds);
-
-
-    occupancyService.saveOccupancy(occupancy);
-    return "redirect:/index";
-    } catch (Exception ex) {
-
-      ex.printStackTrace();
-      return "error";
-    }
+    return new RedirectView("/occupancyformfilledout", true); //User bekommt die Occ. filledout Seite zu sehen
   }
-  // Code Ende #3_Nikola_07.04_Add Occupancy Form - PostMapping für Occupancy Form
+
+  //Quelle: https://www.baeldung.com/spring-web-flash-attributes
+  @GetMapping("/occupancyformfilledout")
+  public String occupancyFormFilledOut(HttpServletRequest request) {
+    Map<String,?> inputFlashMap = RequestContextUtils.getInputFlashMap(request); //Die Methode greift auf die, in der vorigen Methode, gespeicherten FlashAttributes zu
+    Occupancy occupancy = (Occupancy) inputFlashMap.get("occupancy"); //Daten aus "occupancy" werden abgerufen
+    return "occupancyformfilledout";
+  }
+
+  //Quelle: https://www.baeldung.com/spring-web-flash-attributes
+
+  @PostMapping("/finalizesave")
+  public String submitOccupancy(@ModelAttribute("occupancy") Occupancy occupancy, //HTML Daten werden an "occupancy" gebunden
+                                BindingResult bindingResult) {                    // Validierungsfehler werden erfasst
+    if (bindingResult.hasErrors()) {
+      return "occupancyform";
+    }                             // wenn keine Fehler vorliegen werden die Userdaten in der Datenbank gespeichert
+    occupancyService.saveOccupancy(occupancy);
+
+    return "redirect:/index";
+  }
+  // Code Ende #3_Nikola_17.04_Add Occupancy Form - Mapping für Occupancy Form
 
   @ModelAttribute("multiCheckboxAllValues")
   public String[] getMultiCheckboxAllValues() {
     return new String[] {"Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday",
-        "Sunday"};
+            "Sunday"};
   }
 
 
@@ -94,12 +94,12 @@ public class FormController {
 
   @PostMapping("/sampleform")
   public String foobarPost(
-      @ModelAttribute("command") final FooData fooData,
-      // WARN: BindingResult *must* immediately follow the Command.
-      // https://stackoverflow.com/a/29883178/1626026
-      final BindingResult bindingResult,
-      final Model model,
-      final RedirectAttributes ra) {
+          @ModelAttribute("command") final FooData fooData,
+          // WARN: BindingResult *must* immediately follow the Command.
+          // https://stackoverflow.com/a/29883178/1626026
+          final BindingResult bindingResult,
+          final Model model,
+          final RedirectAttributes ra) {
 
     log.debug("form submission.");
 
@@ -114,13 +114,13 @@ public class FormController {
 
   @GetMapping("/sampleresult")
   public String fooresult(
-      @ModelAttribute("command") final FooData command,
-      final Model model) {
+          @ModelAttribute("command") final FooData fooData,
+          final Model model) {
 
-    log.debug("!!!" + command.toString());
+    log.debug("!!!" + fooData.toString());
 
     return "/";
   }
-  
+
 
 }

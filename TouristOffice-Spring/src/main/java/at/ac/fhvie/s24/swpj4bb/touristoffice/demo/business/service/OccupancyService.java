@@ -15,40 +15,38 @@ import java.util.List;
 @Service
 public class OccupancyService
 {
+    // Codeanfang_Achill_24.03.2024/16.04.2024_OccupancyService
     private final OccupancyRepository occupancyRepository;
-
-
     @Autowired
     public OccupancyService(final OccupancyRepository occupancyRepository)
     {
         this.occupancyRepository = occupancyRepository;
     }
 
-    public Occupancy findById(final int id) {
-        // Accesses the repository i.e. the database
-        // Maybe isPresent() should here be used for safety reasons
-        return occupancyRepository.findById(id).get();
-    }
-
     public List<Occupancy> findAllOrderedById() {
         // Return the occupancy currently loaded
-        return occupancyRepository.findAllByOrderByIdAsc();
+        return occupancyRepository.findAllByOrderByOccupancyidAsc();
+    }
+    public Page<Occupancy> findAllOrderedById(final Pageable pageRequest) {
+        return occupancyRepository.findAll(pageRequest);
     }
 
-    public Page<Occupancy> findAllOrderedById(final Pageable pageRequest) {
-        // Return the hotels currently loaded
-        // long version for debugging reasons
-        Page<Occupancy> allOccupancyById = occupancyRepository.findAll(pageRequest);
-        return allOccupancyById;
+    //Code Sulim 18.04.
 
+    public List<Occupancy> findOccupanciesById(int Id) {
+        return occupancyRepository.findById(Id);
+    }
+
+    //Code Sulim 19.04. for Occupancy years
+
+    public List<Integer> findDistinctYears() {
+        return occupancyRepository.findDistinctYears();
     }
     // Codeanfang_Nikola_07.04.2024_SaveOccupancy
-
     // Occupancy-Objekt wird in der Datenbank gespeichert
     public void saveOccupancy(Occupancy occupancy) {
         occupancyRepository.save(occupancy);
     }
     // Codeende_Nikola_07.04.2024_SaveOccupancy
-
 }
-// Codeende_Achill_24.03.2024_OccupancyService
+// Codeende_Achill_24.03.2024/16.04.2024_OccupancyService

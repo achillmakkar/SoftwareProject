@@ -19,8 +19,10 @@ import javax.persistence.*;
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
-//  Codeanfang_Achill_22.03.2024_Occupancy
+//  Codeanfang_Achill_22.03.2024/16.04.2024_Occupancy
 public final class Occupancy {
+
+    //  Codeanfang_Achill_22.03.2024_Occupancy
 
     // the variable id is marked as the primary key in the database table
     @Id
@@ -28,7 +30,7 @@ public final class Occupancy {
     // See https://thoughts-on-java.org/jpa-generate-primary-keys/ for alternatives
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "occupancy_id", updatable = false, nullable = false)
-    private int id;
+    private int occupancyid;
 
     private int rooms;
 
@@ -45,7 +47,7 @@ public final class Occupancy {
     // Codeanfang_Nikola:07.04.2024_HotelEntity
     @ManyToOne
     @JoinColumn(name = "id")
-    private Hotel hotel;
+    private Hotel id;
     // Codeende_Nikola:07.04.2024_HotelEntity
 
 
@@ -66,7 +68,7 @@ public final class Occupancy {
 
 
     public static class OccupancyBuilder {
-        private int id;
+        private int occupancyid;
         private int rooms;
         private int usedrooms;
         private int beds;
@@ -79,8 +81,8 @@ public final class Occupancy {
         }
 
         @SuppressWarnings("checkstyle:hiddenfield")
-        public OccupancyBuilder id(final int id) {
-            this.id = id;
+        public OccupancyBuilder id(final int occupancyid) {
+            this.occupancyid = occupancyid;
             return this;
         }
 
@@ -127,15 +129,13 @@ public final class Occupancy {
         }
 
         public Occupancy build() {
-            return new Occupancy(id, rooms, usedrooms, beds, usedbeds, year, month, hotel);
+            return new Occupancy(occupancyid, rooms, usedrooms, beds, usedbeds, year, month, hotel);
         }
         public String toString() {
-            return "Occupancy.OccupancyBuilder(id=" + this.id + ", rooms=" + this.rooms + ", usedRooms="
+            return "Occupancy.OccupancyBuilder(occupancyid=" + this.occupancyid + ", rooms=" + this.rooms + ", usedRooms="
                     + this.usedrooms + ", beds=" + this.beds + ", usedBeds=" + this.usedbeds
                     + ", year=" + this.year + ", month=" + this.month + ")";
         }
     }
-
-
 }
-//  Codeende_Achill_24.03.2024_Occupancy
+//  Codeende_Achill_24.03.2024/16.04.2024_Occupancy

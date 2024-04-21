@@ -57,7 +57,7 @@
             margin-top: 10px;
         }
         /* Codeende_Nikola_durchgehend */
-        </style>
+    </style>
 </head>
 
 <body>
@@ -68,44 +68,44 @@
     <p th:text= "'Error: ' + ${error}" />
 </div>
 
-<form action="@{/occupancyform}" th:action="@{/occupancyform}" th:object="${command}" method="post">
+<form th:action="@{/submitOccupancy}" th:object="${occupancy}" method="post">
 
     <h2>add occupancy data: </h2>
     <div class="form-group">
-        <label for="hotelID">Hotel ID:</label>
-        <input type="text" id="hotelID" name="hotelID" min="0" required>
+        <label for="id">Hotel ID:</label>
+        <input type="text" id="id" name="id" min="0" required pattern="\d*">
     </div>
-    <div class="form-group">
-        <label for="hotelName">Hotel Name:</label>
-        <input type="text" id="hotelName" name="hotelName" required>
-    </div>
-    <div class="form-group">
+    <!--<div class="form-group">
+        <label for="hotel.name">Hotel Name:</label>
+        <input type="text" id="hotel.name" name="hotel.name" required>
+    </div>-->
+    <!--<div class="form-group">
         <label for="zip">ZIP:</label>
-        <input type="text" id="zip" name="zip" min="0" required>
-    </div>
+        <input type="text" id="zip" name="zip" min="0" required pattern="\d{4}">
+    </div>-->
     <div class="form-group">
         <label for="year">Year:</label>
-        <input type="number" id="year" name="year" min="2020" required>
+        <input type="number" id="year" name="year" pattern="\d{4}" minlength="4" maxlength="4" required>
     </div>
     <div class="form-group">
         <label for="month">Month:</label>
-        <input type="number" id="month" name="month" min="1" max="12" required>
+        <input type="number" id="month" name="month" min="1" max="12" required pattern="[1-9]|1[0-2]">
     </div>
     <div class="form-group">
-        <label for="maxRooms">Max Rooms:</label>
-        <input type="number" id="maxRooms" name="maxRooms" min="0" required>
+        <label for="rooms">Max Rooms:</label>
+        <input type="number" id="rooms" name="rooms" min="0" required>
     </div>
     <div class="form-group">
-        <label for="bookedRooms">Booked Rooms:</label>
-        <input type="number" id="bookedRooms" name="bookedRooms" min="0" required>
+        <label for="usedrooms">Booked Rooms:</label>
+        <input type="number" id="usedrooms" name="usedrooms" min="0" required>
     </div>
     <div class="form-group">
-        <label for="maxBeds">Max Beds:</label>
-        <input type="number" id="maxBeds" name="maxBeds" min="0" required>
+        <label for="beds">Max Beds:</label>
+        <input type="number" id="beds" name="beds" min="0" required>
     </div>
     <div class="form-group">
-        <label for="bookedBeds">Booked Beds:</label>
-        <input type="number" id="bookedBeds" name="bookedBeds" min="0" required>
+        <label for="usedbeds">Booked Beds:</label>
+        <input type="number" id="usedbeds" name="usedbeds" min="0" required>
     </div>
     <p>
         <button type="submit">ADD</button>

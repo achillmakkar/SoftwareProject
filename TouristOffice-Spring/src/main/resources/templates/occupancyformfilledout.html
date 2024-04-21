@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-    <title>Add Occupancy Data</title>
+    <title>Confirm Occupancy Data</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -64,48 +64,50 @@
     </style>
 </head>
 <body>
-<form action="/submit-occupancy-data" method="post">
-    <h2>add occupancy data:</h2>
+<form th:action="@{/finalizesave}" method="post" th:object="${occupancy}">
+
+    <h2>add occupancy data: </h2>
     <div class="form-group">
-        <label for="hotel-id">Hotel ID:</label>
-        <input type="text" id="hotel-id" name="hotel_id">
+        <label for="hotelId">Hotel ID:</label>
+        <input type="text" id="hotelId" name="hotelId" readonly th:value="${occupancy.occupancyid}">
     </div>
-    <div class="form-group">
-        <label for="hotel-name">Hotel Name:</label>
-        <input type="text" id="hotel-name" name="hotel_name">
-    </div>
-    <div class="form-group">
+    <!--<div class="form-group">
+        <label for="name">Hotel Name:</label>
+        <input type="text" id="name" name="name" readonly th:value="${occupancy.hotel.name}">
+    </div>-->
+    <!--<div class="form-group">
         <label for="zip">ZIP:</label>
-        <input type="text" id="zip" name="zip">
-    </div>
+        <input type="text" id="zip" name="zip" min="0" pattern="\d{4}" readonly th:value="${occupancy.zip}">
+    </div>-->
     <div class="form-group">
         <label for="year">Year:</label>
-        <input type="number" id="year" name="year">
+        <input type="number" id="year" name="year" pattern="\d{4}" minlength="4" maxlength="4" readonly th:value="${occupancy.year}">
     </div>
     <div class="form-group">
         <label for="month">Month:</label>
-        <input type="number" id="month" name="month">
+        <input type="number" id="month" name="month" min="1" max="12" pattern="[1-9]|1[0-2]" readonly th:value="${occupancy.month}">
     </div>
     <div class="form-group">
-        <label for="max-rooms">Max Rooms:</label>
-        <input type="number" id="max-rooms" name="max_rooms">
+        <label for="rooms">Max Rooms:</label>
+        <input type="number" id="rooms" name="rooms" min="0" readonly th:value="${occupancy.rooms}">
     </div>
     <div class="form-group">
-        <label for="booked-rooms">Booked Rooms:</label>
-        <input type="number" id="booked-rooms" name="booked_rooms">
+        <label for="usedrooms">Booked Rooms:</label>
+        <input type="number" id="usedrooms" name="usedrooms" min="0" readonly th:value="${occupancy.usedrooms}">
     </div>
     <div class="form-group">
-        <label for="max-beds">Max Beds:</label>
-        <input type="number" id="max-beds" name="max_beds" >
+        <label for="beds">Max Beds:</label>
+        <input type="number" id="beds" name="beds" min="0" readonly th:value="${occupancy.beds}">
     </div>
     <div class="form-group">
-        <label for="booked-beds">Booked Beds:</label>
-        <input type="number" id="booked-beds" name="booked_beds">
+        <label for="usedbeds">Booked Beds:</label>
+        <input type="number" id="usedbeds" name="usedbeds" min="0" readonly th:value="${occupancy.usedbeds}">
     </div>
-    <div class="button-group">
-        <button type="submit">SAVE</button>
-        <button type="button">CANCEL</button>
+    <div>
+        <button type="submit">Save</button>
+        <button type="button" onclick="window.location.href='/occupancyform';">Cancel</button>
     </div>
+
 </form>
 </body>
 </html>
