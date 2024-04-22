@@ -163,9 +163,10 @@
             });
 
         //Codebegin_Lang_14.04.2024_Sub_button_Script-----------------------------------------------------------------
+
         $('#hotelData').on('click', '.subscription-button', function() {
             console.log('DL TEST Sub-Button clicked!');
-        //$('.subscription-button').click(function() {
+
             var $button = $(this);
             var hotelId = $button.data('hotel-id');
 
@@ -173,18 +174,13 @@
             console.log('DL TEST Sub-Button Hotel ID: ' + hotelId);
 
             $.ajax({
-                url: '/updateSubscription/' + hotelId,
+                url: '/' + hotelId + '/updateSubscription',
                 type: 'POST',
                 contentType: 'application/json',
                 data: JSON.stringify({}),
                 success: function(response) {
 
-                    console.log(response);
-
-                    //Falsch??:
-                    // HTTP-POST-Request an die Backend-Route
-                    // $.post('/updateSubscription', { hotelId: hotelId }, function(response) {
-                    // console.log(response);
+                    console.log('Response:' + response);
 
                     // Aktualisiere das Bild des Buttons basierend auf der Antwort des Servers
                     if (response.subscribed) {
@@ -549,7 +545,7 @@
             <td style="text-align: center; padding: 0;">
                 <!-- TO DO: style to css-->
                 <button class="subscription-button" style="width: 100%; height: 100%; padding: 0; border: 2px solid black; background: #cccccc; display: flex; justify-content: center; align-items: center;"
-                    data-hotel-id="${hotel.id}">
+                    th:data-hotel-id="${hotel.id}">
                     <img th:if="${hotel.subscribed}" src="/images/subminusPNG.png" alt="subminus" style="width: 20px; height: 20px;">
                     <img th:unless="${hotel.subscribed}" src="/images/subplusPNG.png" alt="subplus" style="width: 20px; height: 20px;">
                 </button>
