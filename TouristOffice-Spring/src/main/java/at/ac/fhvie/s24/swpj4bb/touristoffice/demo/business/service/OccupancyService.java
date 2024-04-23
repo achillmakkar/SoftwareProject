@@ -23,9 +23,6 @@ public class OccupancyService
         this.occupancyRepository = occupancyRepository;
     }
 
-    public Occupancy findById(final int id) {
-        return occupancyRepository.findById(id).get();
-    }
     public List<Occupancy> findAllOrderedById() {
         // Return the occupancy currently loaded
         return occupancyRepository.findAllByOrderByOccupancyidAsc();
@@ -34,6 +31,17 @@ public class OccupancyService
         return occupancyRepository.findAll(pageRequest);
     }
 
+    //Code Sulim 18.04.
+
+    public List<Occupancy> findOccupanciesById(int Id) {
+        return occupancyRepository.findById(Id);
+    }
+
+    //Code Sulim 19.04. for Occupancy years
+
+    public List<Integer> findDistinctYears() {
+        return occupancyRepository.findDistinctYears();
+    }
     // Codeanfang_Nikola_07.04.2024_SaveOccupancy
     // Occupancy-Objekt wird in der Datenbank gespeichert
     public void saveOccupancy(Occupancy occupancy) {

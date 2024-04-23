@@ -12,9 +12,18 @@ import java.util.List;
 // Codeanfang_Achill_24.03.2024/16.04.2024_OccupancyRepository
 public interface OccupancyRepository  extends PagingAndSortingRepository<Occupancy, Integer> {
     List<Occupancy> findAllByOrderByOccupancyidAsc();
-    @Query(value = "SELECT o FROM Occupancy o ORDER BY occupancyid")
+    @Query(value = "SELECT o FROM Occupancy o ORDER BY o.occupancyid")
     Page<Occupancy> findAll(Pageable pageable);
     List<Occupancy> findAllByOccupancyid(int occupancyid, Pageable pageable);
+//code sulim 18.04.
 
+    List<Occupancy> findById(int occupancyId);
+
+
+    // Add this new method SULIM CODE
+    @Query("SELECT DISTINCT o.year FROM Occupancy o ORDER BY o.year")
+    List<Integer> findDistinctYears();
 }
+
+
 // Codeende_Achill_24.03.2024/16.04.2024_OccupancyRepository
