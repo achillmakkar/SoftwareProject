@@ -60,7 +60,7 @@ public class FormController {
   @GetMapping("/occupancyformfilledout")
   public String occupancyFormFilledOut(HttpServletRequest request) {
     Map<String,?> inputFlashMap = RequestContextUtils.getInputFlashMap(request); //Die Methode greift auf die, in der vorigen Methode, gespeicherten FlashAttributes zu
-    Occupancy occupancy = (Occupancy) inputFlashMap.get("occupancy"); //Daten aus "occupancy" werden abgerufen
+    Occupancy occupancy = (Occupancy) inputFlashMap.get("occupancy"); //Daten aus "occupancy" werden abgerufen und dem User angezeigt
     return "occupancyformfilledout";
   }
 
