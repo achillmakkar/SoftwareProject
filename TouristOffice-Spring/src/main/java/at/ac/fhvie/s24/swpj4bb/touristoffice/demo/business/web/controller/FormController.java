@@ -1,9 +1,6 @@
 package at.ac.fhvie.s24.swpj4bb.touristoffice.demo.business.web.controller;
 
-
-import at.ac.fhvie.s24.swpj4bb.touristoffice.demo.business.entity.Hotel;
 import at.ac.fhvie.s24.swpj4bb.touristoffice.demo.business.entity.Occupancy;
-import at.ac.fhvie.s24.swpj4bb.touristoffice.demo.business.repository.OccupancyRepository;
 import at.ac.fhvie.s24.swpj4bb.touristoffice.demo.business.service.OccupancyService;
 import at.ac.fhvie.s24.swpj4bb.touristoffice.demo.business.web.command.FooData;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,7 +10,6 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.servlet.support.RequestContextUtils;
