@@ -28,6 +28,9 @@ public class DataService {
     @Autowired
     private OccupancyRepository occupancyRepository;
 
+    @Autowired
+    private OccupancyService occupancyService;
+
     // Pfad aus der Konfigurationsdatei lesen
     @Value("${csv.directory.path}")
     private String csvDirectoryPath;
@@ -47,7 +50,7 @@ public class DataService {
             try (InputStream is = Files.newInputStream(path)) {
                 List<Occupancy> occupancies = CsvFileHelper.convertCsvToListOfOccupancy(is);
                 for (Occupancy occupancy : occupancies) {
-                    occupancyRepository.save(occupancy);
+                    occupancyService.saveOccupancy(occupancy);
                 }
                 // Verschieben der korrekten Datei in den entsprechenden Ordner
                 Path destination = correctFilesPath.resolve(path.getFileName());

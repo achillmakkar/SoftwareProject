@@ -32,6 +32,12 @@ public final class Occupancy {
     @Column(name = "occupancy_id", updatable = false, nullable = false)
     private int occupancyid;
 
+    // Codeanfang_Achill_23.04.2024
+    @ManyToOne
+    @JoinColumn(name = "id")
+    private Hotel hotel;
+    // Codeende_Achill_23.04.2024
+
     private int rooms;
 
     private int usedrooms;
@@ -44,11 +50,6 @@ public final class Occupancy {
 
     private int month;
 
-    // Codeanfang_Nikola:07.04.2024_HotelEntity
-    @ManyToOne
-    @JoinColumn(name = "id")
-    private Hotel id;
-    // Codeende_Nikola:07.04.2024_HotelEntity
 
 
     public static OccupancyBuilder builder() {
@@ -56,6 +57,7 @@ public final class Occupancy {
     }
 
     public Occupancy updateWith(final Occupancy other) {
+        this.hotel = other.hotel;
         this.rooms = other.rooms;
         this.usedrooms = other.usedrooms;
         this.beds = other.beds;
@@ -69,13 +71,14 @@ public final class Occupancy {
 
     public static class OccupancyBuilder {
         private int occupancyid;
+        private Hotel hotel;
         private int rooms;
         private int usedrooms;
         private int beds;
         private int usedbeds;
         private int year;
         private int month;
-        private Hotel hotel;
+
 
         public OccupancyBuilder() {
         }
@@ -83,6 +86,11 @@ public final class Occupancy {
         @SuppressWarnings("checkstyle:hiddenfield")
         public OccupancyBuilder id(final int occupancyid) {
             this.occupancyid = occupancyid;
+            return this;
+        }
+
+        public OccupancyBuilder hotel(Hotel hotel) {
+            this.hotel = hotel;
             return this;
         }
 
@@ -123,13 +131,9 @@ public final class Occupancy {
             return this;
         }
 
-        public OccupancyBuilder hotel(Hotel hotel) {
-            this.hotel = hotel;
-            return this;
-        }
 
         public Occupancy build() {
-            return new Occupancy(occupancyid, rooms, usedrooms, beds, usedbeds, year, month, hotel);
+            return new Occupancy(occupancyid, hotel, rooms, usedrooms, beds, usedbeds, year, month);
         }
         public String toString() {
             return "Occupancy.OccupancyBuilder(occupancyid=" + this.occupancyid + ", rooms=" + this.rooms + ", usedRooms="

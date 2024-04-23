@@ -31,7 +31,9 @@ public class CsvFileHelper
             while ((line = reader.readNext()) != null) {
                 if (reader.getLinesRead() == 1) continue; // Überspringen der Kopfzeile
                 Occupancy occupancy = new Occupancy();
-                occupancy.setOccupancyid(Integer.parseInt(line[0].trim()));
+                Hotel hotel = new Hotel();
+                hotel.setId(Integer.parseInt(line[0].trim()));
+                occupancy.setHotel(hotel);
                 occupancy.setRooms(Integer.parseInt(line[1].trim()));
                 occupancy.setUsedrooms(Integer.parseInt(line[2].trim()));
                 occupancy.setBeds(Integer.parseInt(line[3].trim()));
