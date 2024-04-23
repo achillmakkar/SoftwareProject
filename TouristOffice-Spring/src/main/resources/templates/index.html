@@ -77,7 +77,7 @@
                 localStorage.setItem('selectedSize', $(this).val());
             });
 
-            // PDF-Modal
+            // PDF-Modal Achill
             $("#myBtn").click(function(event) {
                 event.preventDefault();
                 fetch('/report/pdf')
@@ -103,7 +103,7 @@
                 }
             });
 
-            // Hotel-Info-Modal
+            // Hotel-Info-Modal ACHILL
             function showHotelInfo(button) {
                 var hotelId = $(button).data('id');
                 var hotelName = $(button).data('name');
@@ -160,7 +160,27 @@
                 }
             });
         });
-        <!-- Codeende_Achill_24.03.2024/27.08.2024/28.08.2024/01.04.2024/03.04.2024/_Page-Navigation,SwitchZIPAscDesc,HotelDataInfo -->
+        // ImportCsv Data Achill
+        document.addEventListener('DOMContentLoaded', (event) => {
+            const triggerCsvImportButton = document.getElementById('triggerCsvImport');
+            if (triggerCsvImportButton) {
+                triggerCsvImportButton.addEventListener('click', function() {
+                    fetch('/trigger-csv-import')
+                        .then(response => {
+                            if (response.ok) {
+                                response.text().then(text => alert('Erfolg: ' + text));
+                            } else {
+                                response.text().then(text => alert('Fehler: ' + text));
+                            }
+                        })
+                        .catch(error => {
+                            console.error('Fehler beim Anfordern der URL: ', error);
+                            alert('Netzwerkfehler: ' + error.message);
+                        });
+                });
+            }
+        });
+        <!-- Codeende_Achill_24.03.2024/27.08.2024/28.08.2024/01.04.2024/03.04.2024/19.04.2024/20.04.2024_Page-Navigation,SwitchZIPAscDesc,HotelDataInfo, ImportCsvData -->
     </script>
     <style>
         .topnav-upper {
@@ -252,7 +272,8 @@
         <!-- Zweite Navigationsleiste für Menülinks -->
             <div class="topnav topnav-lower">
             <div class="navigation-links">
-            <a class="btn btn-secondary" href="#csv" style="color: white; background-color: teal; font-weight: bold; border: 2px solid black">Import CSV Data</a>
+
+            <a class="btn btn-secondary" id="triggerCsvImport" href="javascript:void(0);" style="color: white; background-color: teal; font-weight: bold; border: 2px solid black">Import CSV Data</a>
             <a id="myBtn" class="btn btn-secondary" style="color:black; background-color: orange; font-weight: bold; border: 2px solid black">Statistics as PDF</a>
             <!-- The Modal -->
             <div id="myModal" class="modal">
