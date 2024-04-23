@@ -61,7 +61,14 @@ public class MainController {
     preparePaginationModel(model, currentPage, hotelPage.getTotalPages());
     //Codeende_Achill_16.04.2024_OccupancyData
 
-    return "index";
+// methode von sulim hinzugefügt 19.04. finddistinctyears
+
+    List<Integer> years = occupancyService.findDistinctYears();
+    model.addAttribute("years", years);
+
+
+    return "index"; // Ensure that the 'index' view can display years
+
   }
   //Codeende_Achill_20.03.2024_PagePerPage
 

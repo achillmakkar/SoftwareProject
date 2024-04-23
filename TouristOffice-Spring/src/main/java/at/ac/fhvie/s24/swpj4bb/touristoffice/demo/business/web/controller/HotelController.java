@@ -4,6 +4,7 @@ import at.ac.fhvie.s24.swpj4bb.touristoffice.demo.business.constants.Category;
 import at.ac.fhvie.s24.swpj4bb.touristoffice.demo.business.entity.Hotel;
 import at.ac.fhvie.s24.swpj4bb.touristoffice.demo.business.service.HotelService;
 import at.ac.fhvie.s24.swpj4bb.touristoffice.demo.business.service.ReportService;
+import at.ac.fhvie.s24.swpj4bb.touristoffice.demo.business.service.SubscriptionService;
 import at.ac.fhvie.s24.swpj4bb.touristoffice.demo.business.validation.HotelValidator;
 import net.sf.jasperreports.engine.JRException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,14 +25,37 @@ public class HotelController {
 
   private final HotelValidator hotelValidator;
   private final HotelService hotelService;
+  //Codebegin_Lang_15.04.2024_Sub_button--------------------------------------------------------------------------
+  private final SubscriptionService subscriptionService;
+  //Codeend_15.04.2024_Lang_Sub_button----------------------------------------------------------------------------
 
   @Autowired
   private ReportService reportService;
 
-  public HotelController(final HotelValidator hotelvalidator, final HotelService hotelService) {
+  public HotelController(final HotelValidator hotelvalidator, final HotelService hotelService, final SubscriptionService subscriptionService) {
     this.hotelValidator = hotelvalidator;
     this.hotelService = hotelService;
+    //Codebegin_15.04.2024_Lang_Sub_button------------------------------------------------------------------------
+    this.subscriptionService = subscriptionService;
+    //Codeend_15.04.2024_Lang_Sub_button--------------------------------------------------------------------------
   }
+
+  //Codebegin_Lang_15.04.2024_Sub_button----------------------------------------------------------------------------
+
+  @PostMapping("/{hotelId}/updateSubscription")
+  @ResponseBody
+  public ResponseEntity<String> updateSubscription(@PathVariable String hotelId, @RequestBody(required = false) String body) {
+         //Falsch??:
+          //(@RequestParam String hotelId) {
+    boolean subscribed = subscriptionService.updateSubscription(hotelId);
+    if (subscribed) {
+      return ResponseEntity.ok("Subscription updated successfully!");
+    } else {
+      return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+              .body("There was an error updating the subscription.");
+    }
+  }
+  //Codeend_15.04.2024_Lang_Sub_button-------------------------------------------------------------------------------
 
   // Here the form is called and the template is provided with an empty Hotel Instance
   @GetMapping("/hotelform")
