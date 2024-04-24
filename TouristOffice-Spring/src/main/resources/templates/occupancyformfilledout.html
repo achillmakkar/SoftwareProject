@@ -105,10 +105,19 @@
         <label for="usedbeds">Booked Beds:</label>
         <input type="number" id="usedbeds" name="usedbeds" min="0" readonly th:value="${occupancy.usedbeds}">
     </div>
+    <div class="form-group">
+        <label for="nationality">Nationality:</label>
+        <select id="nationality" name="nationality" required>
+            <option th:each="nationality : ${T(at.ac.fhvie.s24.swpj4bb.touristoffice.demo.business.constants.Nationality).values()}"
+                    th:value="${nationality.name()}" th:text="${nationality}">
+            </option>
+        </select>
+    </div>
     <div>
         <button type="submit">Save</button>
         <button type="button" onclick="window.location.href='/occupancyform';">Cancel</button>
     </div>
+
 
 </form>
 </body>

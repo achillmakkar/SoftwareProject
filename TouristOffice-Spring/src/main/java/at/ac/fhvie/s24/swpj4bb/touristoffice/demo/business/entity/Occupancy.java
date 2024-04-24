@@ -33,11 +33,11 @@ public final class Occupancy {
     @Column(name = "occupancy_id", updatable = false, nullable = false)
     private int occupancyid;
 
-    // Codeanfang_Nikola:07.04.2024_HotelEntity
+    // Codeanfang_Achill_23.04.2024
     @ManyToOne
     @JoinColumn(name = "id")
-    private Hotel id;
-    // Codeende_Nikola:07.04.2024_HotelEntity
+    private Hotel hotel;
+    // Codeende_Achill_23.04.2024
 
     private int rooms;
 
@@ -60,13 +60,13 @@ public final class Occupancy {
     }
 
     public Occupancy updateWith(final Occupancy other) {
+        this.hotel = other.hotel;
         this.rooms = other.rooms;
         this.usedrooms = other.usedrooms;
         this.beds = other.beds;
         this.usedbeds = other.usedbeds;
         this.year = other.year;
         this.month = other.month;
-        this.id = other.id;
         // Codeanfang_Anes:22.04.2024_Nationality
         this.nationality = other.nationality;
         // Codeende_Anes_22.04.2024_Nationality
@@ -76,7 +76,7 @@ public final class Occupancy {
 
     public static class OccupancyBuilder {
         private int occupancyid;
-        private Hotel id;
+        private Hotel hotel;
         private int rooms;
         private int usedrooms;
         private int beds;
@@ -92,8 +92,8 @@ public final class Occupancy {
             this.occupancyid = occupancyid;
             return this;
         }
-        public OccupancyBuilder id(final Hotel id) {
-            this.id = id;
+        public OccupancyBuilder id(final Hotel hotel) {
+            this.hotel = hotel;
             return this;
         }
 
@@ -142,7 +142,7 @@ public final class Occupancy {
         }
         // Codeende_Anes_22.04.2024_Nationality
         public Occupancy build() {
-            return new Occupancy(occupancyid, id, rooms, usedrooms, beds, usedbeds, year, month, nationality);
+            return new Occupancy(occupancyid, hotel, rooms, usedrooms, beds, usedbeds, year, month, nationality);
         }
         public String toString() {
             return "Occupancy.OccupancyBuilder(occupancyid=" + this.occupancyid + ", rooms=" + this.rooms + ", usedRooms="
