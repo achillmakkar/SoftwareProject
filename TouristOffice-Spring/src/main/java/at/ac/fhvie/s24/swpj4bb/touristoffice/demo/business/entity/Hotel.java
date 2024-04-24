@@ -23,7 +23,7 @@ import javax.persistence.Id;
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
-public final class Hotel {
+public class Hotel {
 
   // the variable id is marked as the primary key in the database table
   @Id
