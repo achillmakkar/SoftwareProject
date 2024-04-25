@@ -36,6 +36,7 @@ public class MainController {
     this.hotelService = hotelService;
   }
 
+
   //Codestart_Achill_20.03.2024_PagePerPage
   @RequestMapping(value = {"/", "/index"}, method = RequestMethod.GET)
   public String index(final Model model,

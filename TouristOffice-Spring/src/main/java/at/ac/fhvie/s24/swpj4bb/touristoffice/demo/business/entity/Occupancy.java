@@ -20,8 +20,8 @@ import javax.persistence.*;
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
-//  Codeanfang_Achill_22.03.2024/16.04.2024_Occupancy
-public final class Occupancy {
+//  Codeanfang_Achill_22.03.2024/16.04.2024_Occupancy // deleted "final" 25.04.2024 tuchan
+public class Occupancy {
 
     //  Codeanfang_Achill_22.03.2024_Occupancy
 

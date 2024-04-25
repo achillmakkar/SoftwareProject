@@ -37,6 +37,8 @@ public class OccupancyService
         return occupancyRepository.findById(Id);
     }
 
+
+
     //Code Sulim 19.04. for Occupancy years
 
     public List<Integer> findDistinctYears() {

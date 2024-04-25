@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" th:href="@{/css/style.css}" />
+    <link rel="stylesheet" href="path/to/occupancyTableStyle.css">
     <!-- CSS EINBINDUNG ACHILL -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umed/popper.min.js"></script>
@@ -14,56 +15,56 @@
     <!-- Codeanfang_Achill_24.03.2024/27.08.2024/28.08.2024/01.04.2024/03.04.2024/_Page-Navigation,SwitchZIPAscDesc,HotelDataInfo -->
     <script>
         function sortTable(n) {
-        var table, rows, switching, i, x, y, shouldSwitch, dir, switchcount = 0;
-        table = document.getElementById("hotelData");
-        switching = true;
-        // Set the sorting direction to ascending:
-        dir = "asc";
-        /* Make a loop that will continue until no switching has been done: */
-        while (switching) {
-            // Starting by no switching is done:
-            switching = false;
-            rows = table.rows;
-            /* Loop through all table rows (except the first, which contains table headers): */
-            for (i = 1; i < (rows.length - 1); i++) {
-                // Starting by saying there should be no switching:
-                shouldSwitch = false;
-                /* Getting the two elements to compare, one from current row and one from the next: */
-                x = rows[i].getElementsByTagName("TD")[n];
-                y = rows[i + 1].getElementsByTagName("TD")[n];
-                /* Check if the two rows should switch place, based on the direction, asc or desc: */
-                if (dir == "asc") {
-                    if (Number(x.innerHTML) > Number(y.innerHTML)) {
-                        // If so, mark as a switch and break the loop:
-                        shouldSwitch= true;
-                        break;
-                    }
-                } else if (dir == "desc") {
-                    if (Number(x.innerHTML) < Number(y.innerHTML)) {
-                        // If so, mark as a switch and break the loop:
-                        shouldSwitch= true;
-                        break;
+            var table, rows, switching, i, x, y, shouldSwitch, dir, switchcount = 0;
+            table = document.getElementById("hotelData");
+            switching = true;
+            // Set the sorting direction to ascending:
+            dir = "asc";
+            /* Make a loop that will continue until no switching has been done: */
+            while (switching) {
+                // Starting by no switching is done:
+                switching = false;
+                rows = table.rows;
+                /* Loop through all table rows (except the first, which contains table headers): */
+                for (i = 1; i < (rows.length - 1); i++) {
+                    // Starting by saying there should be no switching:
+                    shouldSwitch = false;
+                    /* Getting the two elements to compare, one from current row and one from the next: */
+                    x = rows[i].getElementsByTagName("TD")[n];
+                    y = rows[i + 1].getElementsByTagName("TD")[n];
+                    /* Check if the two rows should switch place, based on the direction, asc or desc: */
+                    if (dir == "asc") {
+                        if (Number(x.innerHTML) > Number(y.innerHTML)) {
+                            // If so, mark as a switch and break the loop:
+                            shouldSwitch = true;
+                            break;
+                        }
+                    } else if (dir == "desc") {
+                        if (Number(x.innerHTML) < Number(y.innerHTML)) {
+                            // If so, mark as a switch and break the loop:
+                            shouldSwitch = true;
+                            break;
+                        }
                     }
                 }
-            }
-            if (shouldSwitch) {
-                /* If a switch has been marked, make the switch and mark that a switch has been done: */
-                rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
-                switching = true;
-                // Each time a switch is done, increase this count by 1:
-                switchcount ++;
-            } else {
-                /* If no switching has been done AND the direction is "asc", set the direction to "desc" and run the while loop again. */
-                if (switchcount == 0 && dir == "asc") {
-                    dir = "desc";
+                if (shouldSwitch) {
+                    /* If a switch has been marked, make the switch and mark that a switch has been done: */
+                    rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
                     switching = true;
+                    // Each time a switch is done, increase this count by 1:
+                    switchcount++;
+                } else {
+                    /* If no switching has been done AND the direction is "asc", set the direction to "desc" and run the while loop again. */
+                    if (switchcount == 0 && dir == "asc") {
+                        dir = "desc";
+                        switching = true;
+                    }
                 }
             }
         }
-    }
 
-    $(document).ready(function() {
-            $('#pageSizeTop, #pageSizeBottom').change(function() {
+        $(document).ready(function () {
+            $('#pageSizeTop, #pageSizeBottom').change(function () {
                 // Das Formular automatisch absenden, wenn eine neue Option ausgewählt wird
                 this.form.submit();
             });
@@ -73,16 +74,16 @@
             $('#pageSizeTop, #pageSizeBottom').val(storedSize);
 
             // Speichere den ausgewählten Wert im localStorage, wenn das Formular abgesendet wird
-            $('#pageSizeTop, #pageSizeBottom').on('change', function() {
+            $('#pageSizeTop, #pageSizeBottom').on('change', function () {
                 localStorage.setItem('selectedSize', $(this).val());
             });
 
             // PDF-Modal Achill
-            $("#myBtn").click(function(event) {
+            $("#myBtn").click(function (event) {
                 event.preventDefault();
                 fetch('/report/pdf')
                     .then(response => {
-                        if(response.ok) {
+                        if (response.ok) {
                             $("#myModal").show();
                         } else {
                             alert("Error generating the report");
@@ -93,15 +94,16 @@
                     });
             });
 
-            $("#myModal .close, #myModal #closeBtn").click(function() {
+            $("#myModal .close, #myModal #closeBtn").click(function () {
                 $("#myModal").hide();
             });
 
-            $(window).click(function(event) {
+            $(window).click(function (event) {
                 if ($(event.target).is("#myModal")) {
                     $("#myModal").hide();
                 }
             });
+
 
             // Hotel-Info-Modal ACHILL
             function showHotelInfo(button) {
@@ -133,7 +135,7 @@
                     '<strong>Contact:</strong> ' + hotelContact + '<br>' +
                     '<strong>Phone:</strong> ' + hotelPhone + '<br>' +
                     '<strong>E-Mail Address:</strong> ' + hotelemail + '<br>' +
-                    '<strong>URL:</strong> <button class="btn btn-secondary" onclick="window.open(\'' + hotelurl + '\');">URL</button><br><br> '+
+                    '<strong>URL:</strong> <button class="btn btn-secondary" onclick="window.open(\'' + hotelurl + '\');">URL</button><br><br> ' +
                     '<strong>Category:</strong> ' + hotelcategory + '<br>' +
                     '<strong>family friendly:</strong> ' + hotelfamilyFriendly + '<br>' +
                     '<strong>dog friendly:</strong> ' + hoteldogFriendly + '<br>' +
@@ -146,15 +148,15 @@
             }
 
             // Event-Listener für Info-Buttons registrieren
-            $('.infoBtn').on('click', function() {
+            $('.infoBtn').on('click', function () {
                 showHotelInfo(this);
             });
 
-            $("#hotelInfoModal .close, #hotelInfoModal #closeInfo").click(function() {
+            $("#hotelInfoModal .close, #hotelInfoModal #closeInfo").click(function () {
                 $("#hotelInfoModal").hide();
             });
 
-            $(window).click(function(event) {
+            $(window).click(function (event) {
                 if ($(event.target).is("#hotelInfoModal")) {
                     $("#hotelInfoModal").hide();
                 }
@@ -164,7 +166,7 @@
         document.addEventListener('DOMContentLoaded', (event) => {
             const triggerCsvImportButton = document.getElementById('triggerCsvImport');
             if (triggerCsvImportButton) {
-                triggerCsvImportButton.addEventListener('click', function() {
+                triggerCsvImportButton.addEventListener('click', function () {
                     fetch('/trigger-csv-import')
                         .then(response => {
                             if (response.ok) {
@@ -180,7 +182,124 @@
                 });
             }
         });
-        <!-- Codeende_Achill_24.03.2024/27.08.2024/28.08.2024/01.04.2024/03.04.2024/19.04.2024/20.04.2024_Page-Navigation,SwitchZIPAscDesc,HotelDataInfo, ImportCsvData -->
+
+
+        // tuchan code
+
+
+        /* document.addEventListener('DOMContentLoaded', function() {
+            const hotelRows = document.querySelectorAll('#hotelData tbody .hotel-row');
+
+            hotelRows.forEach(row => {
+                row.addEventListener('click', function() {
+                    // Entferne existierende Detailtabellen, bevor eine neue erstellt wird
+                    removeExistingDetailTables();
+
+                    const hotelId = this.dataset.hotelId;
+                    createDetailTable(hotelId, this);
+                });
+            });
+        });
+/*
+        function createDetailTable(hotelId, insertAfterElement) {
+            var containerRow = insertAfterElement.parentNode.insertRow(insertAfterElement.rowIndex);
+            var cell = containerRow.insertCell();
+            // Setze colspan auf die Anzahl der Spalten in der übergeordneten Tabelle
+            cell.colSpan = insertAfterElement.children.length;
+
+            var table = document.createElement('table');
+            table.className = 'detailTable';  // Füge eine Klasse hinzu, um die Tabelle leichter identifizieren zu können
+            table.style.width = '100%';
+            table.style.background = 'lightgray';
+            table.border = '1';
+
+            var header = table.createTHead();
+            var headerRow = header.insertRow();
+            var headers = ['Total Rooms', 'Booked Rooms', 'Total Beds', 'Booked Beds'];
+            headers.forEach(headerText => {
+                var cell = headerRow.insertCell();
+                cell.textContent = headerText;
+                cell.style.fontWeight = 'bold';
+                cell.style.color = 'black';
+            });
+
+            fetchOccupancyData(hotelId, function(occupancyData) {
+                var body = table.createTBody();
+                var row = body.insertRow();
+                var data = [occupancyData.totalRooms, occupancyData.bookedRooms, occupancyData.totalBeds, occupancyData.bookedBeds];
+                data.forEach(cellData => {
+                    var cell = row.insertCell();
+                    cell.textContent = cellData;
+                });
+
+                cell.appendChild(table);
+            });
+        }
+
+        function fetchOccupancyData(hotelId, callback) {
+            // Beispiel-Daten
+            callback({ totalRooms: 20, bookedRooms: 10, totalBeds: 40, bookedBeds: 25 });
+        }
+
+        function removeExistingDetailTables() {
+            // Entferne alle Tabellen mit der Klasse 'detailTable'
+            document.querySelectorAll('.detailTable').forEach(table => {
+                table.parentNode.parentNode.remove(); // Entfernt die Zeile, die die Tabelle enthält
+            });
+        }
+
+
+
+
+        /* // Tuchan code
+                document.addEventListener('DOMContentLoaded', function() {
+                    const hotelRows = document.querySelectorAll('.hotel-row');
+                    hotelRows.forEach(row => {
+                        row.addEventListener('click', function() {
+                            const Id = this.dataset.Id; // Stellen Sie sicher, dass die Hotelzeilen ein data-hotel-id Attribut haben
+                            fetch(`/occupancy/by-hotel/${Id}`)
+                                .then(response => response.json())
+                                .then(data => {
+                                    displayOccupancyData(data, this);
+                                })
+                                .catch(error => console.error('Error loading occupancy data:', error));
+                        });
+                    });
+                });
+
+                function displayOccupancyData(data, hotelRow) {
+                    const occupancyTable = document.createElement('table');
+                    occupancyTable.innerHTML = `
+                <tr>
+                    <th>Total Rooms</th>
+                    <th>Booked Rooms</th>
+                    <th>Total Beds</th>
+                    <th>Booked Beds</th>
+                </tr>
+                ${data.map(occ => `
+                    <tr>
+                        <td>${occ.rooms}</td>
+                        <td>${occ.usedrooms}</td>
+                        <td>${occ.beds}</td>
+                        <td>${occ.usedbeds}</td>
+                    </tr>
+                `).join('')}
+            `;
+                    // Fügen Sie die generierte Tabelle direkt unter der Hotelzeile ein
+                    hotelRow.parentNode.insertBefore(occupancyTable, hotelRow.nextSibling);
+                }
+        */
+
+
+
+        function toggleRow(hotelId) {
+            var detailRow = document.getElementById('details-' + hotelId);
+            if (detailRow) {
+                detailRow.classList.toggle('hidden');
+            }
+        }
+
+    <!-- Codeende_Achill_24.03.2024/27.08.2024/28.08.2024/01.04.2024/03.04.2024/19.04.2024/20.04.2024_Page-Navigation,SwitchZIPAscDesc,HotelDataInfo, ImportCsvData -->
     </script>
     <style>
         .topnav-upper {
@@ -379,6 +498,19 @@
             <td style="text-align: center;" th:text="${hotel.cityCode}" />
             <td th:text="${hotel.category}" />
 
+            <!-- Tuchan occupancy option
+           <td>
+               <div th:each="occupancy : ${occupancyPage.content}" th:if="${occupancy.occupancyid == hotel.id}">
+                   <p>
+                       <strong th:text="${'Year: ' + occupancy.year}"></strong><br/>
+                       Rooms: <span th:text="${occupancy.usedrooms} + '/' + ${occupancy.rooms}"></span><br/>
+                       Beds: <span th:text="${occupancy.usedbeds} + '/' + ${occupancy.beds}"></span>
+                   </p>
+               </div>
+           </td>
+-->
+
+
             <!-- Codebegin_Dominik_Lang_06.04.2024_added attributes and icons-->
             <td style="text-align: center;">
                 <img th:if="${hotel.familyFriendly}" src="/images/okgreenPNG.png" alt="okgreen" style="width: 20px; height: 20px;">
@@ -444,6 +576,41 @@
             <!-- Codeend_Dominik_Lang_07.04.2024_added buttons and icons to html table-->
 
             </td>
+
+            <!-- <td>
+            <button onclick="toggleOccupancy('${hotel.id}')" class="btn btn-info">Show Occupancy</button>
+        </td>
+        -->
+
+
+            <!-- sulim code für occupancy table
+                  </tr>
+                  </tbody>
+
+                  <tr style="color: white; width: 80px; text-align: center">
+                      <th>Total Rooms</th>
+                      <th>Booked Rooms</th>
+                      <th>Room Occ. in %</th>
+                      <th>Total Beds</th>
+                      <th>Booked Beds</th>
+                      <th>Bed Occ. in %</th>
+                      <th>#1 of National Guest</th>
+                  </tr>
+                  </thead>
+                  <tbody style="background-color: white;">
+                  <tr th:each="occupancy : ${occupancyPage.content}" th:if="${occupancy != null}">
+
+                      <td th:text="${occupancy.rooms}">0</td>
+                      <td th:text="${occupancy.usedrooms}">0</td>
+                      <td th:text="${occupancy.rooms > 0 ? (occupancy.usedrooms * 100 / occupancy.rooms) : 0} + '%'">0%</td>
+                      <td th:text="${occupancy.beds}">0</td>
+                      <td th:text="${occupancy.usedbeds}">0</td>
+                      <td th:text="${occupancy.beds > 0 ? (occupancy.usedbeds * 100 / occupancy.beds) : 0}">0%</td>
+                  </tr>
+           code ende occupancy table -->
+
+
+
         </tr>
         </tbody>
     </table>
@@ -503,21 +670,37 @@
 <div th:if="${occupancyPage != null}">
     <table>
         <thead>
-        <tr>
-            <th>ID</th>
-            <th>Räume gesamt</th>
-            <th>Räume benutzt</th>
+        <tr style="color: white; width: 80px; text-align: center">
+            <th>Hotel Name</th>
+            <th>ZIP</th>
+            <th>Category</th>
+            <th>Total Rooms</th>
+            <th>Booked Rooms</th>
+            <th>Room Occ. in %</th>
+            <th>Total Beds</th>
+            <th>Booked Beds</th>
+            <th>Bed Occ. in %</th>
+            <th>#1 of National Guest</th>
         </tr>
         </thead>
-        <tbody>
+        <tbody style="background-color: white;">
         <tr th:each="occupancy : ${occupancyPage.content}" th:if="${occupancy != null}">
-            <td th:text="${occupancy.occupancyid}"></td>
-            <td th:text="${occupancy.rooms}"></td>
-            <td th:text="${occupancy.usedrooms}"></td>
+            <td th:text="${occupancy.hotel.name}">Hotel Name</td>
+            <td th:text="${occupancy.hotel.cityCode}">ZIP Code</td>
+            <td th:text="${occupancy.hotel.category}">Category</td>
+            <td th:text="${occupancy.rooms}">0</td>
+            <td th:text="${occupancy.usedrooms}">0</td>
+            <td th:text="${occupancy.rooms > 0 ? (occupancy.usedrooms * 100 / occupancy.rooms) : 0} + '%'">0%</td>
+            <td th:text="${occupancy.beds}">0</td>
+            <td th:text="${occupancy.usedbeds}">0</td>
+            <td th:text="${occupancy.beds > 0 ? (occupancy.usedbeds * 100 / occupancy.beds) : 0}">0%</td>
+
         </tr>
         </tbody>
     </table>
 </div>
+
+
 <!--Codeanfang_Achill_16.04.2024_OccupancyData-->
 </body>
 </html>
