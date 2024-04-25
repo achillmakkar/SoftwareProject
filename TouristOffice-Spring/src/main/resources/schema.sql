@@ -38,14 +38,15 @@ CREATE TABLE hotel
 --Codestart_Achill_25.03.2024_OccupancyTable
 CREATE TABLE occupancy
 (
-    occupancy_id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
+    occupancy_id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
     id INT,
-    rooms int NOT NULL,
-    usedrooms int NOT NULL,
-    beds int NOT NULL,
-    usedbeds int NOT NULL,
-    year int NOT NULL,
-    month int NOT NULL,
-    constraint fk_hotel foreign key (id) references hotel(id)
+    rooms INT NOT NULL,
+    usedrooms INT NOT NULL,
+    beds INT NOT NULL,
+    usedbeds INT NOT NULL,
+    year INT NOT NULL,
+    month INT NOT NULL,
+    nationality int NULL,
+    CONSTRAINT fk_hotel FOREIGN KEY (id) REFERENCES hotel(id)
 );
 --Codeende_Achill_25.03.2024_OccupancyTable

@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" th:href="@{/css/style.css}" />
+    <link rel="stylesheet" href="path/to/occupancyTableStyle.css">
     <!-- CSS EINBINDUNG ACHILL -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umed/popper.min.js"></script>
@@ -14,56 +15,56 @@
     <!-- Codeanfang_Achill_24.03.2024/27.08.2024/28.08.2024/01.04.2024/03.04.2024/_Page-Navigation,SwitchZIPAscDesc,HotelDataInfo -->
     <script>
         function sortTable(n) {
-        var table, rows, switching, i, x, y, shouldSwitch, dir, switchcount = 0;
-        table = document.getElementById("hotelData");
-        switching = true;
-        // Set the sorting direction to ascending:
-        dir = "asc";
-        /* Make a loop that will continue until no switching has been done: */
-        while (switching) {
-            // Starting by no switching is done:
-            switching = false;
-            rows = table.rows;
-            /* Loop through all table rows (except the first, which contains table headers): */
-            for (i = 1; i < (rows.length - 1); i++) {
-                // Starting by saying there should be no switching:
-                shouldSwitch = false;
-                /* Getting the two elements to compare, one from current row and one from the next: */
-                x = rows[i].getElementsByTagName("TD")[n];
-                y = rows[i + 1].getElementsByTagName("TD")[n];
-                /* Check if the two rows should switch place, based on the direction, asc or desc: */
-                if (dir == "asc") {
-                    if (Number(x.innerHTML) > Number(y.innerHTML)) {
-                        // If so, mark as a switch and break the loop:
-                        shouldSwitch= true;
-                        break;
-                    }
-                } else if (dir == "desc") {
-                    if (Number(x.innerHTML) < Number(y.innerHTML)) {
-                        // If so, mark as a switch and break the loop:
-                        shouldSwitch= true;
-                        break;
+            var table, rows, switching, i, x, y, shouldSwitch, dir, switchcount = 0;
+            table = document.getElementById("hotelData");
+            switching = true;
+            // Set the sorting direction to ascending:
+            dir = "asc";
+            /* Make a loop that will continue until no switching has been done: */
+            while (switching) {
+                // Starting by no switching is done:
+                switching = false;
+                rows = table.rows;
+                /* Loop through all table rows (except the first, which contains table headers): */
+                for (i = 1; i < (rows.length - 1); i++) {
+                    // Starting by saying there should be no switching:
+                    shouldSwitch = false;
+                    /* Getting the two elements to compare, one from current row and one from the next: */
+                    x = rows[i].getElementsByTagName("TD")[n];
+                    y = rows[i + 1].getElementsByTagName("TD")[n];
+                    /* Check if the two rows should switch place, based on the direction, asc or desc: */
+                    if (dir == "asc") {
+                        if (Number(x.innerHTML) > Number(y.innerHTML)) {
+                            // If so, mark as a switch and break the loop:
+                            shouldSwitch = true;
+                            break;
+                        }
+                    } else if (dir == "desc") {
+                        if (Number(x.innerHTML) < Number(y.innerHTML)) {
+                            // If so, mark as a switch and break the loop:
+                            shouldSwitch = true;
+                            break;
+                        }
                     }
                 }
-            }
-            if (shouldSwitch) {
-                /* If a switch has been marked, make the switch and mark that a switch has been done: */
-                rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
-                switching = true;
-                // Each time a switch is done, increase this count by 1:
-                switchcount ++;
-            } else {
-                /* If no switching has been done AND the direction is "asc", set the direction to "desc" and run the while loop again. */
-                if (switchcount == 0 && dir == "asc") {
-                    dir = "desc";
+                if (shouldSwitch) {
+                    /* If a switch has been marked, make the switch and mark that a switch has been done: */
+                    rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
                     switching = true;
+                    // Each time a switch is done, increase this count by 1:
+                    switchcount++;
+                } else {
+                    /* If no switching has been done AND the direction is "asc", set the direction to "desc" and run the while loop again. */
+                    if (switchcount == 0 && dir == "asc") {
+                        dir = "desc";
+                        switching = true;
+                    }
                 }
             }
         }
-    }
 
-    $(document).ready(function() {
-            $('#pageSizeTop, #pageSizeBottom').change(function() {
+        $(document).ready(function () {
+            $('#pageSizeTop, #pageSizeBottom').change(function () {
                 // Das Formular automatisch absenden, wenn eine neue Option ausgewählt wird
                 this.form.submit();
             });
@@ -73,16 +74,16 @@
             $('#pageSizeTop, #pageSizeBottom').val(storedSize);
 
             // Speichere den ausgewählten Wert im localStorage, wenn das Formular abgesendet wird
-            $('#pageSizeTop, #pageSizeBottom').on('change', function() {
+            $('#pageSizeTop, #pageSizeBottom').on('change', function () {
                 localStorage.setItem('selectedSize', $(this).val());
             });
 
-            // PDF-Modal
-            $("#myBtn").click(function(event) {
+            // PDF-Modal Achill
+            $("#myBtn").click(function (event) {
                 event.preventDefault();
                 fetch('/report/pdf')
                     .then(response => {
-                        if(response.ok) {
+                        if (response.ok) {
                             $("#myModal").show();
                         } else {
                             alert("Error generating the report");
@@ -93,17 +94,18 @@
                     });
             });
 
-            $("#myModal .close, #myModal #closeBtn").click(function() {
+            $("#myModal .close, #myModal #closeBtn").click(function () {
                 $("#myModal").hide();
             });
 
-            $(window).click(function(event) {
+            $(window).click(function (event) {
                 if ($(event.target).is("#myModal")) {
                     $("#myModal").hide();
                 }
             });
 
-            // Hotel-Info-Modal
+
+            // Hotel-Info-Modal ACHILL
             function showHotelInfo(button) {
                 var hotelId = $(button).data('id');
                 var hotelName = $(button).data('name');
@@ -122,8 +124,6 @@
                 var hotelfitness = $(button).data('fitness');
                 var hotelsubscribed = $(button).data('subscribed');
 
-                console.log('DL TEST "show hotel info" Hotel-ID:', hotelId); // Überprüfung Hotel ID Konsolenausgabe von LANG
-
                 var modalContent = $('#hotelInfoContent');
                 modalContent.html(
                     '<strong>Hotel ID:</strong> ' + hotelId + '<br>' +
@@ -135,7 +135,7 @@
                     '<strong>Contact:</strong> ' + hotelContact + '<br>' +
                     '<strong>Phone:</strong> ' + hotelPhone + '<br>' +
                     '<strong>E-Mail Address:</strong> ' + hotelemail + '<br>' +
-                    '<strong>URL:</strong> <button class="btn btn-secondary" onclick="window.open(\'' + hotelurl + '\');">URL</button><br><br> '+
+                    '<strong>URL:</strong> <button class="btn btn-secondary" onclick="window.open(\'' + hotelurl + '\');">URL</button><br><br> ' +
                     '<strong>Category:</strong> ' + hotelcategory + '<br>' +
                     '<strong>family friendly:</strong> ' + hotelfamilyFriendly + '<br>' +
                     '<strong>dog friendly:</strong> ' + hoteldogFriendly + '<br>' +
@@ -148,19 +148,41 @@
             }
 
             // Event-Listener für Info-Buttons registrieren
-            $('.infoBtn').on('click', function() {
+            $('.infoBtn').on('click', function () {
                 showHotelInfo(this);
             });
 
-            $("#hotelInfoModal .close, #hotelInfoModal #closeInfo").click(function() {
+            $("#hotelInfoModal .close, #hotelInfoModal #closeInfo").click(function () {
                 $("#hotelInfoModal").hide();
             });
 
-            $(window).click(function(event) {
+            $(window).click(function (event) {
                 if ($(event.target).is("#hotelInfoModal")) {
                     $("#hotelInfoModal").hide();
                 }
             });
+        });
+        // ImportCsv Data Achill
+        document.addEventListener('DOMContentLoaded', (event) => {
+            const triggerCsvImportButton = document.getElementById('triggerCsvImport');
+            if (triggerCsvImportButton) {
+                triggerCsvImportButton.addEventListener('click', function () {
+                    fetch('/trigger-csv-import')
+                        .then(response => {
+                            if (response.ok) {
+                                response.text().then(text => alert('Erfolg: ' + text));
+                            } else {
+                                response.text().then(text => alert('Fehler: ' + text));
+                            }
+                        })
+                        .catch(error => {
+                            console.error('Fehler beim Anfordern der URL: ', error);
+                            alert('Netzwerkfehler: ' + error.message);
+                        });
+                });
+            }
+        });
+
 
         //Codebegin_Lang_14.04.2024_Sub_button_Script-----------------------------------------------------------------
         //Kommentar, weil ich nochmal pushe wegen rollback
@@ -308,9 +330,14 @@
 
 
 
+        function toggleRow(hotelId) {
+            var detailRow = document.getElementById('details-' + hotelId);
+            if (detailRow) {
+                detailRow.classList.toggle('hidden');
+            }
+        }
 
-
-        <!-- Codeende_Achill_24.03.2024/27.08.2024/28.08.2024/01.04.2024/03.04.2024/_Page-Navigation,SwitchZIPAscDesc,HotelDataInfo -->
+    <!-- Codeende_Achill_24.03.2024/27.08.2024/28.08.2024/01.04.2024/03.04.2024/19.04.2024/20.04.2024_Page-Navigation,SwitchZIPAscDesc,HotelDataInfo, ImportCsvData -->
     </script>
     <style>
         .topnav-upper {
@@ -402,7 +429,8 @@
         <!-- Zweite Navigationsleiste für Menülinks -->
             <div class="topnav topnav-lower">
             <div class="navigation-links">
-            <a class="btn btn-secondary" href="#csv" style="color: white; background-color: teal; font-weight: bold; border: 2px solid black">Import CSV Data</a>
+
+            <a class="btn btn-secondary" id="triggerCsvImport" href="javascript:void(0);" style="color: white; background-color: teal; font-weight: bold; border: 2px solid black">Import CSV Data</a>
             <a id="myBtn" class="btn btn-secondary" style="color:black; background-color: orange; font-weight: bold; border: 2px solid black">Statistics as PDF</a>
             <!-- The Modal -->
             <div id="myModal" class="modal">
@@ -471,7 +499,7 @@
 <br>
 <div style="display: flex; justify-content: center;">
     <!-- Codebegin_Dominik_Lang_07.04.2024_added background color (mockup)-->
-    <table id="hotelData" border="1" style="background-color: #6699cc;"> <!-- TO DO: style to css-->
+    <table id="hotelData" border="1" style="background-color: #6699cc;">
         <!-- Codeend_Dominik_Lang_07.04.2024_added background color (mockup)-->
         <thead>
         <tr style="color: white;" data-hotel-id="1" class="hotel-row">
@@ -495,12 +523,12 @@
 
             <!-- Code Ende #3_Nikola_06.04_Add Occupancy Form - Link "Add Occupancy" einfügen-->
 
-            <th style="width: 100px; text-align: center">delete hotel</th> <!-- TO DO: style to css-->
+            <th style="width: 100px; text-align: center">delete hotel</th>
             <!-- Codeende_Dominik_Lang_07.04.2024_added style="width and text-align: center to Achills and Nikolas Code-->
         </tr>
         </thead>
         <tbody style="background-color: white">
-        <tr th:each="hotel, iStat : ${hotelPage.content}" class="hotel-row" th:data-hotel-id="${hotel.id}"
+        <tr th:each="hotel, iStat : ${hotelPage.content}"
             th:style="${iStat.odd}? 'font-weight: bold;'"
             th:alt-title="${iStat.even}? 'even' : 'odd'">
             <td style="text-align: center;" th:text="${hotel.id}" />
@@ -508,17 +536,19 @@
             <td style="text-align: center;" th:text="${hotel.cityCode}" />
             <td th:text="${hotel.category}" />
 
-        <!-- Tuchan occupancy option
-            <td>
-                <div th:each="occupancy : ${occupancyPage.content}" th:if="${occupancy.occupancyid == hotel.id}">
-                    <p>
-                        <strong th:text="${'Year: ' + occupancy.year}"></strong><br/>
-                        Rooms: <span th:text="${occupancy.usedrooms} + '/' + ${occupancy.rooms}"></span><br/>
-                        Beds: <span th:text="${occupancy.usedbeds} + '/' + ${occupancy.beds}"></span>
-                    </p>
-                </div>
-            </td>
+            <!-- Tuchan occupancy option
+           <td>
+               <div th:each="occupancy : ${occupancyPage.content}" th:if="${occupancy.occupancyid == hotel.id}">
+                   <p>
+                       <strong th:text="${'Year: ' + occupancy.year}"></strong><br/>
+                       Rooms: <span th:text="${occupancy.usedrooms} + '/' + ${occupancy.rooms}"></span><br/>
+                       Beds: <span th:text="${occupancy.usedbeds} + '/' + ${occupancy.beds}"></span>
+                   </p>
+               </div>
+           </td>
 -->
+
+
             <!-- Codebegin_Dominik_Lang_06.04.2024_added attributes and icons-->
             <td style="text-align: center;"> <!-- TO DO: style to css-->
                 <img th:if="${hotel.familyFriendly}" src="/images/okgreenPNG.png" alt="okgreen" style="width: 20px; height: 20px;">
@@ -542,7 +572,7 @@
             </td>
             <!-- Codeend_Dominik_Lang_06.04.2024_added attributes and icons-->
 
-            <!-- Codebegin_Dominik_Lang_07.04.2024_added buttons and icons to html table / Sub_button----------------------------------------------------------------------------------------------------------------------->
+            <!-- Codebegin_Dominik_Lang_07.04.2024_added buttons and icons to html table-->
             <td style="text-align: center; padding: 0;">
                 <!-- TO DO: style to css-->
                 <button class="subscription-button" style="width: 100%; height: 100%; padding: 0; border: 2px solid black; background: #cccccc; display: flex; justify-content: center; align-items: center;"
@@ -551,10 +581,9 @@
                     <img th:unless="${hotel.subscribed}" src="/images/subplusPNG.png" alt="subplus" style="width: 20px; height: 20px;">
                 </button>
             </td>
-            <!-- Codeend_Dominik_Lang_07.04.2024_added buttons and icons to html table / Sub_button-------------------------------------------------------------------------------------------------------------------------->
+            <!-- Codeend_Dominik_Lang_07.04.2024_added buttons and icons to html table-->
 
             <!-- Codebegin_Dominik_Lang_07.04.2024_added center code-->
-            <!-- TO DO: style to css-->
             <td style="text-align: center;">
                 <!-- Codeend_Dominik_Lang_07.04.2024_added center code-->
                 <button class="btn infoBtn"
@@ -619,6 +648,9 @@
                   </tr>
            code ende occupancy table -->
 
+
+
+        </tr>
         </tbody>
     </table>
 </div>
@@ -671,16 +703,16 @@
         </form>
     </div>
 </div>
-
-
 <!-- Codeende #1_Achill_10.03.2024/27.03.2024/28.03.2024/03.04.2024_Overview Of Hotels -->
 
 <!--Codeanfang_Achill_16.04.2024_OccupancyData -->
-<!--
- <div th:if="${occupancyPage != null}">
+<div th:if="${occupancyPage != null}">
     <table>
         <thead>
         <tr style="color: white; width: 80px; text-align: center">
+            <th>Hotel Name</th>
+            <th>ZIP</th>
+            <th>Category</th>
             <th>Total Rooms</th>
             <th>Booked Rooms</th>
             <th>Room Occ. in %</th>
@@ -692,18 +724,22 @@
         </thead>
         <tbody style="background-color: white;">
         <tr th:each="occupancy : ${occupancyPage.content}" th:if="${occupancy != null}">
-
+            <td th:text="${occupancy.hotel.name}">Hotel Name</td>
+            <td th:text="${occupancy.hotel.cityCode}">ZIP Code</td>
+            <td th:text="${occupancy.hotel.category}">Category</td>
             <td th:text="${occupancy.rooms}">0</td>
             <td th:text="${occupancy.usedrooms}">0</td>
             <td th:text="${occupancy.rooms > 0 ? (occupancy.usedrooms * 100 / occupancy.rooms) : 0} + '%'">0%</td>
             <td th:text="${occupancy.beds}">0</td>
             <td th:text="${occupancy.usedbeds}">0</td>
             <td th:text="${occupancy.beds > 0 ? (occupancy.usedbeds * 100 / occupancy.beds) : 0}">0%</td>
+
         </tr>
         </tbody>
     </table>
 </div>
-/*
---Codeanfang_Achill_16.04.2024_OccupancyData-->
+
+
+<!--Codeanfang_Achill_16.04.2024_OccupancyData-->
 </body>
 </html>

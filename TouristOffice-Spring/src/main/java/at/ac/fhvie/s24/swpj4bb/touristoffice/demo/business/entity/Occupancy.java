@@ -1,6 +1,7 @@
 package at.ac.fhvie.s24.swpj4bb.touristoffice.demo.business.entity;
 
 import at.ac.fhvie.s24.swpj4bb.touristoffice.demo.business.constants.Category;
+import at.ac.fhvie.s24.swpj4bb.touristoffice.demo.business.constants.Nationality;
 import lombok.*;
 
 import javax.persistence.*;
@@ -19,8 +20,8 @@ import javax.persistence.*;
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
-//  Codeanfang_Achill_22.03.2024/16.04.2024_Occupancy
-public final class Occupancy {
+//  Codeanfang_Achill_22.03.2024/16.04.2024_Occupancy // deleted "final" 25.04.2024 tuchan
+public class Occupancy {
 
     //  Codeanfang_Achill_22.03.2024_Occupancy
 
@@ -31,6 +32,12 @@ public final class Occupancy {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "occupancy_id", updatable = false, nullable = false)
     private int occupancyid;
+
+    // Codeanfang_Achill_23.04.2024
+    @ManyToOne
+    @JoinColumn(name = "id")
+    private Hotel hotel;
+    // Codeende_Achill_23.04.2024
 
     private int rooms;
 
@@ -44,11 +51,8 @@ public final class Occupancy {
 
     private int month;
 
-    // Codeanfang_Nikola:07.04.2024_HotelEntity
-    @ManyToOne
-    @JoinColumn(name = "id")
-    private Hotel id;
-    // Codeende_Nikola:07.04.2024_HotelEntity
+    // Codeanfang_Anes:22.04.2024_Nationality
+    private Nationality nationality;
 
 
     public static OccupancyBuilder builder() {
@@ -56,33 +60,40 @@ public final class Occupancy {
     }
 
     public Occupancy updateWith(final Occupancy other) {
+        this.hotel = other.hotel;
         this.rooms = other.rooms;
         this.usedrooms = other.usedrooms;
         this.beds = other.beds;
         this.usedbeds = other.usedbeds;
         this.year = other.year;
         this.month = other.month;
-
+        // Codeanfang_Anes:22.04.2024_Nationality
+        this.nationality = other.nationality;
+        // Codeende_Anes_22.04.2024_Nationality
         return this;
     }
 
 
     public static class OccupancyBuilder {
         private int occupancyid;
+        private Hotel hotel;
         private int rooms;
         private int usedrooms;
         private int beds;
         private int usedbeds;
         private int year;
         private int month;
-        private Hotel hotel;
+        private Nationality nationality;
 
         public OccupancyBuilder() {
         }
 
-        @SuppressWarnings("checkstyle:hiddenfield")
-        public OccupancyBuilder id(final int occupancyid) {
+        public OccupancyBuilder occupancyid(final int occupancyid) {
             this.occupancyid = occupancyid;
+            return this;
+        }
+        public OccupancyBuilder id(final Hotel hotel) {
+            this.hotel = hotel;
             return this;
         }
 
@@ -123,18 +134,20 @@ public final class Occupancy {
             return this;
         }
 
-        public OccupancyBuilder hotel(Hotel hotel) {
-            this.hotel = hotel;
+        // Codeanfang_Anes:22.04.2024_Nationality
+        @SuppressWarnings("checkstyle:hiddenField")
+        public OccupancyBuilder nationality(final Nationality nationality) {
+            this.nationality = nationality;
             return this;
         }
-
+        // Codeende_Anes_22.04.2024_Nationality
         public Occupancy build() {
-            return new Occupancy(occupancyid, rooms, usedrooms, beds, usedbeds, year, month, hotel);
+            return new Occupancy(occupancyid, hotel, rooms, usedrooms, beds, usedbeds, year, month, nationality);
         }
         public String toString() {
             return "Occupancy.OccupancyBuilder(occupancyid=" + this.occupancyid + ", rooms=" + this.rooms + ", usedRooms="
                     + this.usedrooms + ", beds=" + this.beds + ", usedBeds=" + this.usedbeds
-                    + ", year=" + this.year + ", month=" + this.month + ")";
+                    + ", year=" + this.year + ", month=" + this.month + ", nationality=" + this.nationality + ")";
         }
     }
 }
