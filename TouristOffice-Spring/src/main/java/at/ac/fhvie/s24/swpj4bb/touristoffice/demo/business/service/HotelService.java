@@ -2,6 +2,7 @@ package at.ac.fhvie.s24.swpj4bb.touristoffice.demo.business.service;
 
 import at.ac.fhvie.s24.swpj4bb.touristoffice.demo.business.constants.Category;
 import at.ac.fhvie.s24.swpj4bb.touristoffice.demo.business.converter.CategoryConverter;
+import at.ac.fhvie.s24.swpj4bb.touristoffice.demo.business.entity.Occupancy;
 import at.ac.fhvie.s24.swpj4bb.touristoffice.demo.business.repository.HotelRepository;
 import at.ac.fhvie.s24.swpj4bb.touristoffice.demo.business.entity.Hotel;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -87,6 +88,9 @@ public class HotelService {
 
     return index;
   }
+
+
+
 
   /**
    * Save the data of a new Hotel
