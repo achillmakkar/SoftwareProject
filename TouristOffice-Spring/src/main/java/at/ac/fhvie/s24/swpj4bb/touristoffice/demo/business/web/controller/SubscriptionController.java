@@ -23,7 +23,7 @@ public class SubscriptionController {
 
         String hotelId = request.getHotelId();
 
-        System.out.println("Received request to update subscription for hotel with ID: " + hotelId);
+        //System.out.println("Received request to update subscription for hotel with ID: " + hotelId);
 
         // Hier wird die Logik zum Aktualisieren des Abonnementstatus implementiert
         boolean subscribed = subscriptionService.updateSubscription(hotelId);
@@ -37,8 +37,6 @@ public class SubscriptionController {
     @Getter
     public static class SubscriptionRequest {
         private String hotelId;
-
     }
 }
-
 //Codeend_15.04.2024_Lang_Sub_button
