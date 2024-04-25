@@ -10,8 +10,7 @@ import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CsvFileHelper
-{
+public class CsvFileHelper {
     // TO DO
     // database table at what time imported
     // occupancy table seen when it was imported
@@ -29,7 +28,9 @@ public class CsvFileHelper
 
             String[] line;
             while ((line = reader.readNext()) != null) {
-                if (reader.getLinesRead() == 1) continue; // Überspringen der Kopfzeile
+                if (reader.getLinesRead() == 1) {
+                    continue; // Überspringen der Kopfzeile
+                }
                 Occupancy occupancy = new Occupancy();
                 Hotel hotel = new Hotel();
                 hotel.setId(Integer.parseInt(line[0].trim()));
@@ -40,6 +41,7 @@ public class CsvFileHelper
                 occupancy.setUsedbeds(Integer.parseInt(line[4].trim()));
                 occupancy.setYear(Integer.parseInt(line[5].trim()));
                 occupancy.setMonth(Integer.parseInt(line[6].trim()));
+
                 occupancies.add(occupancy);
             }
         } catch (Exception e) {
