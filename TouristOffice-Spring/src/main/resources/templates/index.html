@@ -161,28 +161,92 @@
                     $("#hotelInfoModal").hide();
                 }
             });
-        });
-        // ImportCsv Data Achill
-        document.addEventListener('DOMContentLoaded', (event) => {
-            const triggerCsvImportButton = document.getElementById('triggerCsvImport');
-            if (triggerCsvImportButton) {
-                triggerCsvImportButton.addEventListener('click', function () {
-                    fetch('/trigger-csv-import')
-                        .then(response => {
-                            if (response.ok) {
-                                response.text().then(text => alert('Erfolg: ' + text));
-                            } else {
-                                response.text().then(text => alert('Fehler: ' + text));
-                            }
-                        })
-                        .catch(error => {
-                            console.error('Fehler beim Anfordern der URL: ', error);
-                            alert('Netzwerkfehler: ' + error.message);
-                        });
-                });
-            }
-        });
 
+        // ImportCsv Data Achill
+
+            document.addEventListener('DOMContentLoaded', (event) => {
+                const triggerCsvImportButton = document.getElementById('triggerCsvImport');
+                if (triggerCsvImportButton) {
+                    triggerCsvImportButton.addEventListener('click', function () {
+                        fetch('/trigger-csv-import')
+                            .then(response => {
+                                if (response.ok) {
+                                    response.text().then(text => alert('Erfolg: ' + text));
+                                } else {
+                                    response.text().then(text => alert('Fehler: ' + text));
+                                }
+                            })
+                            .catch(error => {
+                                console.error('Fehler beim Anfordern der URL: ', error);
+                                alert('Netzwerkfehler: ' + error.message);
+                            });
+                    });
+                }
+            });
+
+
+            //Codebegin_Lang_14.04.2024_Sub_button_Script-----------------------------------------------------------------
+            //Kommentar, weil ich nochmal pushe wegen rollback
+
+            $('#hotelData').on('click', '.subscription-button', function() {
+                console.log('DL TEST Sub-Button clicked!');
+
+                var $button = $(this);
+                var hotelId = $button.data('hotel-id');
+                var $icon = $button.closest('tr').find('.subscription-icon'); // Das 'subscription-icon' in der gleichen Zeile
+
+                // Loggen der Hotel-ID in der Konsole
+                console.log('DL TEST Sub-Button Hotel ID: ' + hotelId);
+
+                $.ajax({
+                    url: '/' + hotelId + '/updateSubscription',
+                    type: 'POST',
+                    contentType: 'application/json',
+                    data: JSON.stringify({}),
+                    success: function(response) {
+
+                        console.log('Response:' + response);
+
+                        if (response) {
+                            // Ermitteln des aktuellen Icons und Tauschen
+                            var currentIcon = $button.find('img').attr('src');
+                            var newIcon;
+                            if (currentIcon.includes('subminusPNG.png')) {
+                                newIcon = '/images/subplusPNG.png';
+                            } else {
+                                newIcon = '/images/subminusPNG.png';
+                            }
+                            newIcon += '?t=' + new Date().getTime(); // Hinzufügen eines Cache-Busters
+                            $button.find('img').attr('src', newIcon);
+
+                            var currentIcon = $icon.attr('src');
+                            var newIcon;
+                            if (currentIcon.includes('okgreenPNG.png')) {
+                                newIcon = '/images/noredPNG.png';
+                            } else {
+                                newIcon = '/images/okgreenPNG.png';
+                            }
+                            // Hinzufügen eines Cache-Busters
+                            newIcon += '?t=' + new Date().getTime();
+                            // Aktualisiere das Icon
+                            $icon.attr('src', newIcon);
+
+                        } else {
+                            console.log('Operation failed or hotel not found');
+                        }
+
+                    },
+                    //TO DO:
+                    error: function(xhr, status, error) {
+                        // Fehlerbehandlung, falls erforderlich
+                        console.error(xhr.responseText);
+
+                    }
+                });
+            });
+
+            //Codeend_Lang_14.04.2024_Sub_button_Script--------------------------------------------------------------------
+        });
 
         // tuchan code
 
@@ -200,7 +264,7 @@
                 });
             });
         });
-/*
+        /*
         function createDetailTable(hotelId, insertAfterElement) {
             var containerRow = insertAfterElement.parentNode.insertRow(insertAfterElement.rowIndex);
             var cell = containerRow.insertCell();
@@ -512,32 +576,35 @@
 
 
             <!-- Codebegin_Dominik_Lang_06.04.2024_added attributes and icons-->
-            <td style="text-align: center;">
+            <td style="text-align: center;"> <!-- TO DO: style to css-->
                 <img th:if="${hotel.familyFriendly}" src="/images/okgreenPNG.png" alt="okgreen" style="width: 20px; height: 20px;">
                 <img th:unless="${hotel.familyFriendly}" src="/images/noredPNG.png" alt="nored" style="width: 20px; height: 20px;">
             </td>
-            <td style="text-align: center;">
+            <td style="text-align: center;"> <!-- TO DO: style to css-->
                 <img th:if="${hotel.dogFriendly}" src="/images/okgreenPNG.png" alt="okgreen" style="width: 20px; height: 20px;">
                 <img th:unless="${hotel.dogFriendly}" src="/images/noredPNG.png" alt="nored" style="width: 20px; height: 20px;">
             </td>
-            <td style="text-align: center;">
+            <td style="text-align: center;"> <!-- TO DO: style to css-->
                 <img th:if="${hotel.spa}" src="/images/okgreenPNG.png" alt="okgreen" style="width: 20px; height: 20px;">
                 <img th:unless="${hotel.spa}" src="/images/noredPNG.png" alt="nored" style="width: 20px; height: 20px;">
             </td>
-            <td style="text-align: center;">
+            <td style="text-align: center;"> <!-- TO DO: style to css-->
                 <img th:if="${hotel.fitness}" src="/images/okgreenPNG.png" alt="okgreen" style="width: 20px; height: 20px;">
                 <img th:unless="${hotel.fitness}" src="/images/noredPNG.png" alt="nored" style="width: 20px; height: 20px;">
             </td>
-            <td style="text-align: center;">
-                <img th:if="${hotel.subscribed}" src="/images/okgreenPNG.png" alt="okgreen" style="width: 20px; height: 20px;">
-                <img th:unless="${hotel.subscribed}" src="/images/noredPNG.png" alt="nored" style="width: 20px; height: 20px;">
+            <td style="text-align: center;"> <!-- TO DO: style to css-->
+                <img class="subscription-icon" data-hotel-id="${hotel.id}" th:if="${hotel.subscribed}" src="/images/okgreenPNG.png" alt="okgreen" style="width: 20px; height: 20px;">
+                <img class="subscription-icon" data-hotel-id="${hotel.id}" th:unless="${hotel.subscribed}" src="/images/noredPNG.png" alt="nored" style="width: 20px; height: 20px;">
             </td>
             <!-- Codeend_Dominik_Lang_06.04.2024_added attributes and icons-->
 
             <!-- Codebegin_Dominik_Lang_07.04.2024_added buttons and icons to html table-->
             <td style="text-align: center; padding: 0;">
-                <button class="btn" style="width: 100%; height: 100%; padding: 0; border: 2px solid black; background: #cccccc; display: flex; justify-content: center; align-items: center;">
-                    <img src="/images/subplusPNG.png" alt="subplus" style="width: 20px; height: 20px;">
+                <!-- TO DO: style to css-->
+                <button class="subscription-button" style="width: 100%; height: 100%; padding: 0; border: 2px solid black; background: #cccccc; display: flex; justify-content: center; align-items: center;"
+                    th:data-hotel-id="${hotel.id}">
+                    <img th:if="${hotel.subscribed}" src="/images/subminusPNG.png" alt="subminus" style="width: 20px; height: 20px;">
+                    <img th:unless="${hotel.subscribed}" src="/images/subplusPNG.png" alt="subplus" style="width: 20px; height: 20px;">
                 </button>
             </td>
             <!-- Codeend_Dominik_Lang_07.04.2024_added buttons and icons to html table-->
@@ -575,12 +642,10 @@
             </td>
             <!-- Codeend_Dominik_Lang_07.04.2024_added buttons and icons to html table-->
 
+           <!-- <td>
+                <button onclick="toggleOccupancy('${hotel.id}')" class="btn btn-info">Show Occupancy</button>
             </td>
-
-            <!-- <td>
-            <button onclick="toggleOccupancy('${hotel.id}')" class="btn btn-info">Show Occupancy</button>
-        </td>
-        -->
+            -->
 
 
             <!-- sulim code für occupancy table

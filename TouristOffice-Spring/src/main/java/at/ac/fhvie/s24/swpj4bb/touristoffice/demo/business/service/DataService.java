@@ -32,11 +32,11 @@ public class DataService {
     private OccupancyService occupancyService;
 
     // Pfad aus der Konfigurationsdatei lesen
-    @Value("${csv.directory.path}")
-    private String csvDirectoryPath;
 
+    private final Path csvDirectoryPath = Paths.get(System.getProperty("user.home"), "csvimport");
     private final Path correctFilesPath = Paths.get(System.getProperty("user.home"), "correct_files");
     private final Path problemFilesPath = Paths.get(System.getProperty("user.home"), "problem_files");
+
 
     @Autowired
     public DataService(final OccupancyRepository occupancyRepository) {
@@ -85,7 +85,7 @@ public class DataService {
 
     public boolean importCsvFilesFromDirectory() {
         try {
-            File directory = ResourceUtils.getFile(csvDirectoryPath);
+            File directory = ResourceUtils.getFile(csvDirectoryPath.toUri().toString());
             Path pathToCsv = directory.toPath();
 
             try (Stream<Path> paths = Files.walk(pathToCsv)) {

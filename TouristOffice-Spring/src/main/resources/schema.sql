@@ -46,7 +46,7 @@ CREATE TABLE occupancy
     usedbeds INT NOT NULL,
     year INT NOT NULL,
     month INT NOT NULL,
-    nationality int NOT NULL,
+    nationality int NULL,
     CONSTRAINT fk_hotel FOREIGN KEY (id) REFERENCES hotel(id)
 );
 --Codeende_Achill_25.03.2024_OccupancyTable

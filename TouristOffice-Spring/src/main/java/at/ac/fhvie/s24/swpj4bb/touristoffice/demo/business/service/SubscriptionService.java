@@ -31,7 +31,5 @@ public class SubscriptionService {
             return false; // Hotel nicht gefunden
         }
     }
-
 }
-
 //Codeend_15.04.2024_Lang_Sub_button

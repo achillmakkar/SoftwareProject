@@ -6,7 +6,6 @@ import at.ac.fhvie.s24.swpj4bb.touristoffice.demo.business.service.HotelService;
 import at.ac.fhvie.s24.swpj4bb.touristoffice.demo.business.service.ReportService;
 import at.ac.fhvie.s24.swpj4bb.touristoffice.demo.business.service.SubscriptionService;
 import at.ac.fhvie.s24.swpj4bb.touristoffice.demo.business.validation.HotelValidator;
-import net.sf.jasperreports.engine.JRException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -16,8 +15,6 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.util.List;
 
 @Controller
@@ -40,22 +37,22 @@ public class HotelController {
     //Codeend_15.04.2024_Lang_Sub_button--------------------------------------------------------------------------
   }
 
-  //Codebegin_Lang_15.04.2024_Sub_button----------------------------------------------------------------------------
+  //Codebegin_Lang_15.04.2024/25.04.2024_Sub_button----------------------------------------------------------------------------
 
   @PostMapping("/{hotelId}/updateSubscription")
   @ResponseBody
-  public ResponseEntity<String> updateSubscription(@PathVariable String hotelId, @RequestBody(required = false) String body) {
-         //Falsch??:
-          //(@RequestParam String hotelId) {
+  public ResponseEntity<Boolean> updateSubscription(@PathVariable String hotelId, @RequestBody(required = false) String body) {
     boolean subscribed = subscriptionService.updateSubscription(hotelId);
+
+    //TO DO: besseren Code schreiben!!
     if (subscribed) {
-      return ResponseEntity.ok("Subscription updated successfully!");
+      return ResponseEntity.ok(true);
     } else {
       return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-              .body("There was an error updating the subscription.");
+              .body(false);
     }
   }
-  //Codeend_15.04.2024_Lang_Sub_button-------------------------------------------------------------------------------
+  //Codeend_15.04.2024/25.04.2024_Lang_Sub_button-------------------------------------------------------------------------------
 
   // Here the form is called and the template is provided with an empty Hotel Instance
   @GetMapping("/hotelform")
