@@ -29,6 +29,7 @@
         }
         .form-group {
             margin-bottom: 10px;
+            margin-right: 20px;
         }
         label {
             font-weight: bold;
@@ -70,17 +71,17 @@
 
     <h2>add occupancy data: </h2>
     <div class="form-group">
-        <label for="hotelId">Hotel ID:</label>
-        <input type="text" id="hotelId" name="hotelId" readonly th:value="${occupancy.occupancyid}">
+        <label for="hotel.id">Hotel ID:</label>
+        <input type="text" id="hotel.id" name="hotel.id" readonly th:value="${occupancy.hotel.id}">
     </div>
-    <!--<div class="form-group">
+    <div class="form-group">
         <label for="name">Hotel Name:</label>
         <input type="text" id="name" name="name" readonly th:value="${occupancy.hotel.name}">
-    </div>-->
-    <!--<div class="form-group">
-        <label for="zip">ZIP:</label>
-        <input type="text" id="zip" name="zip" min="0" pattern="\d{4}" readonly th:value="${occupancy.zip}">
-    </div>-->
+    </div>
+    <div class="form-group">
+        <label for="hotel.cityCode">ZIP:</label>
+        <input type="text" id="hotel.cityCode" name="hotel.cityCode" pattern="\d{4}" readonly th:value="${occupancy.hotel.cityCode}">
+    </div>
     <div class="form-group">
         <label for="year">Year:</label>
         <input type="number" id="year" name="year" pattern="\d{4}" minlength="4" maxlength="4" readonly th:value="${occupancy.year}">

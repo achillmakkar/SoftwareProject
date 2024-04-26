@@ -72,17 +72,17 @@
 
     <h2>add occupancy data: </h2>
     <div class="form-group">
-        <label for="id">Hotel ID:</label>
-        <input type="text" id="id" name="id" min="0" required pattern="\d*">
+        <label for="hotel.id">Hotel ID:</label>
+        <input type="text" id="hotel.id" name="hotel.id" min="0" required pattern="\d*">
     </div>
-    <!--<div class="form-group">
+    <div class="form-group">
         <label for="hotel.name">Hotel Name:</label>
         <input type="text" id="hotel.name" name="hotel.name" required>
-    </div>-->
-    <!--<div class="form-group">
-        <label for="zip">ZIP:</label>
-        <input type="text" id="zip" name="zip" min="0" required pattern="\d{4}">
-    </div>-->
+    </div>
+    <div class="form-group">
+        <label for="hotel.cityCode">ZIP:</label>
+        <input type="text" id="hotel.cityCode" name="hotel.cityCode" min="0" required pattern="\d{4}">
+    </div>
     <div class="form-group">
         <label for="year">Year:</label>
         <input type="number" id="year" name="year" pattern="\d{4}" minlength="4" maxlength="4" required>
@@ -119,7 +119,8 @@
     </div>
     <p>
         <button type="submit">ADD</button>
-        <button type="button">CANCEL</button>
+        <button type="button" onclick="window.location.href='/index';">Cancel</button>
+
     </p>
 
 </form>
