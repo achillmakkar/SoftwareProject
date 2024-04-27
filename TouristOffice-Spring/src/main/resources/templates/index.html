@@ -138,11 +138,11 @@
                 var hotelOwner = $(button).data('owner');
                 var hotelContact = $(button).data('contact');
                 var hotelPhone = $(button).data('phone');
-                var hotelemail = $(button).data('emailAddress');
+                var hotelemail = $(button).data('email-address');
                 var hotelurl = $(button).data('url');
                 var hotelcategory = $(button).data('category');
-                var hotelfamilyFriendly = $(button).data('familyFriendly');
-                var hoteldogFriendly = $(button).data('dogFriendly');
+                var hotelfamilyFriendly = $(button).data('family-friendly');
+                var hoteldogFriendly = $(button).data('dog-friendly')
                 var hotelspa = $(button).data('spa');
                 var hotelfitness = $(button).data('fitness');
                 var hotelsubscribed = $(button).data('subscribed');
@@ -158,13 +158,13 @@
                     '<strong>Contact:</strong> ' + hotelContact + '<br>' +
                     '<strong>Phone:</strong> ' + hotelPhone + '<br>' +
                     '<strong>E-Mail Address:</strong> ' + hotelemail + '<br>' +
-                    '<strong>URL:</strong> <button class="btn btn-secondary" onclick="window.open(\'' + hotelurl + '\');">URL</button><br><br> ' +
+                    '<strong>URL:</strong> <a href="' + hotelurl + '" target="_blank">' + hotelurl + '</a><br><br> ' +
                     '<strong>Category:</strong> ' + hotelcategory + '<br>' +
-                    '<strong>family friendly:</strong> ' + hotelfamilyFriendly + '<br>' +
-                    '<strong>dog friendly:</strong> ' + hoteldogFriendly + '<br>' +
-                    '<strong>spa:</strong> ' + hotelspa + '<br>' +
-                    '<strong>fitness:</strong> ' + hotelfitness + '<br>' +
-                    '<strong>subscribed:</strong> ' + hotelsubscribed + '<br>'
+                    '<strong>family friendly:</strong> ' + (hotelfamilyFriendly ? '<img src="/images/okgreenPNG.png" alt="okgreen" style="width: 20px; height: 20px;">' : '<img src="/images/noredPNG.png" alt="nored" style="width: 20px; height: 20px;">') + '<br>' +
+                    '<strong>dog friendly:</strong> ' + (hoteldogFriendly ? '<img src="/images/okgreenPNG.png" alt="okgreen" style="width: 20px; height: 20px;">' : '<img src="/images/noredPNG.png" alt="nored" style="width: 20px; height: 20px;">') + '<br>' +
+                    '<strong>spa:</strong> ' + (hotelspa ? '<img src="/images/okgreenPNG.png" alt="okgreen" style="width: 20px; height: 20px;">' : '<img src="/images/noredPNG.png" alt="nored" style="width: 20px; height: 20px;">') + '<br>' +
+                    '<strong>fitness:</strong> ' + (hotelfitness ? '<img src="/images/okgreenPNG.png" alt="okgreen" style="width: 20px; height: 20px;">' : '<img src="/images/noredPNG.png" alt="nored" style="width: 20px; height: 20px;">') + '<br>' +
+                    '<strong>subscribed:</strong> ' + (hotelsubscribed ? '<img src="/images/okgreenPNG.png" alt="okgreen" style="width: 20px; height: 20px;">' : '<img src="/images/noredPNG.png" alt="nored" style="width: 20px; height: 20px;">') + '<br>'
                 );
 
                 $('#hotelInfoModal').show();
@@ -614,15 +614,16 @@
             <!-- Codebegin_Dominik_Lang_07.04.2024_added center code-->
             <td style="text-align: center;">
                 <!-- Codeend_Dominik_Lang_07.04.2024_added center code-->
+                <!-- CodeAnfang_Achill_Hotel Info-->
                 <button class="btn infoBtn"
-                        style="width: 100%; height: 100%; padding: 0; border: 2px solid black;
-                        background: #cccccc; display: flex; justify-content: center; align-items: center;"
+                        style="width: 100%; height: 100%; padding: 0; border: 2px solid black; background: #cccccc; display: flex; justify-content: center; align-items: center;"
                         th:data-id="${hotel.id}" th:data-name="${hotel.name}"
                         th:data-address="${hotel.address}" th:data-zip="${hotel.cityCode}"
                         th:data-city="${hotel.city}" th:data-owner="${hotel.owner}"
                         th:data-contact="${hotel.contact}" th:data-phone="${hotel.phone}"
-                        th:data-emailAdress="${hotel.emailAddress}" th:data-url="${hotel.url}"
-                        th:data-category="${hotel.category}" th:data-familyFriendly="${hotel.familyFriendly}"
+                        th:data-email-address="${hotel.emailAddress}" th:data-url="${hotel.url}"
+                        th:data-category="${hotel.category}" th:data-family-friendly="${hotel.familyFriendly}"
+                        th:data-dog-friendly="${hotel.dogFriendly}"
                         th:data-spa="${hotel.spa}" th:data-fitness="${hotel.fitness}"
                         th:data-subscribed="${hotel.subscribed}"
                         onclick="showHotelInfo(this)">
@@ -630,7 +631,7 @@
                     <img src="/images/detailsPNG.png" alt="details" style="width: 20px; height: 20px;">
                     <!-- Codeend_Dominik_Lang_07.04.2024_added icon-->
                 </button>
-
+                <!-- Codeende_Achill_Hotel Info-->
                 <!-- Codebegin_Dominik_Lang_07.04.2024_added buttons and icons to html table-->
             <td style="text-align: center; padding: 0;">
                 <button class="btn" style="width: 100%; height: 100%; padding: 0; border: 2px solid black; background: #cccccc; display: flex; justify-content: center; align-items: center;">
@@ -684,13 +685,12 @@
 </div>
 <div id="hotelInfoModal" class="modal">
     <div class="modal-content">
-        <span class="close">&times;</span>
         <h2>HOTEL INFO:</h2>
         <div id="hotelInfoContent">
             <!-- Hotelinfos -->
         </div>
         <br>
-        <button id="closeInfo">CLOSE</button>
+        <button id="closeInfo">CANCEL</button>
     </div>
 </div>
 <br>
