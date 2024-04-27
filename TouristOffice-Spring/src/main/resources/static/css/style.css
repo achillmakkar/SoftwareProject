@@ -173,6 +173,7 @@ hr {
 #hotelData tr:nth-child(even) {
     background-color: #ccffff;
 }
+
 /* The Modal (background) */
 .modal {
     display: none;
@@ -198,6 +199,46 @@ hr {
     border-radius: 5px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
+
+/*Codebegin_Lang_27.04.2024_Histogram_Pop_up_window*/
+
+.histogram-modal-content {
+    position: fixed; /* oder 'absolute', falls das Modal innerhalb eines scrollbaren Bereichs sein soll */
+    top: 5%; /* oder entsprechend, um das Modal vertikal zu zentrieren */
+    left: 5%; /* 5% Abstand von der linken Seite des Viewports */
+    right: 5%; /* 5% Abstand von der rechten Seite des Viewports, damit das Modal insgesamt 90% der Breite einnimmt */
+    min-height: 300px;
+    height: 80vh;
+    min-width: 300px;
+    width: 90vw;
+    background-color: #ffffff;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    z-index: 1000; /* Stellt sicher, dass das Modal über anderen Elementen liegt */
+    overflow: auto; /* Stellt sicher, dass ein Scrollbalken erscheint, wenn der Inhalt größer als das Modal ist */
+}
+
+#histogramCloseBtn {
+    background-color: #333366;
+    position: absolute; /* Positioniert den Button absolut innerhalb seines Elternelements */
+    bottom: 10px; /* Abstand vom unteren Rand des Modals */
+    right: 10px; /* Abstand vom rechten Rand des Modals */
+    width: auto; /* Entfernt eine spezifische Breite, damit der Button den Inhalt umschließt */
+    padding: 5px 15px; /* Etwas weniger Polsterung für einen nicht so breiten Button */
+    border: none;
+    color: white;
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+    border: 2px solid black;
+}
+
+/*Codebegin_Lang_27.04.2024_Histogram_Pop_up_window*/
 
 /* The Close Button */
 .close {
