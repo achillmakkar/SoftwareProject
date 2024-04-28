@@ -219,6 +219,36 @@ hr {
     overflow: auto; /* Stellt sicher, dass ein Scrollbalken erscheint, wenn der Inhalt größer als das Modal ist */
 }
 
+#histogramTitle {
+    font-weight: bold;
+    text-align: center;
+}
+
+#histogramChartContainer {
+    display: flex;
+    justify-content: center; /* horizontal zentriert */
+    flex-direction: column; /* Ändert die Ausrichtung auf eine Spalte */
+    align-items: center; /* vertikal zentriert */
+    height: 100%; /* volle Höhe des Containers, damit das Element vertikal zentriert wird */
+    margin-top: 10px; /* Abstand zwischen dem Histogramm und dem Bild */
+}
+
+#imageContainer {
+    margin-top: 50px; /* Abstand zwischen dem Histogramm und dem Bild */
+}
+
+#histogramChart {
+    text-align: center;
+    color: #000000;
+    font-size: 40px; /* Ändere die Schriftgröße nach Bedarf */
+
+    /* Flexbox-Eigenschaften für vertikales Zentrieren */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    /*TO DO*/
+}
+
 #histogramCloseBtn {
     background-color: #333366;
     position: absolute; /* Positioniert den Button absolut innerhalb seines Elternelements */
