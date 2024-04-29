@@ -203,25 +203,25 @@ hr {
 /*Codebegin_Lang_27.04.2024_Histogram_Pop_up_window*/
 
 .histogram-modal-content {
-    position: fixed; /* oder 'absolute', falls das Modal innerhalb eines scrollbaren Bereichs sein soll */
-    top: 5%; /* oder entsprechend, um das Modal vertikal zu zentrieren */
-    left: 5%; /* 5% Abstand von der linken Seite des Viewports */
-    right: 5%; /* 5% Abstand von der rechten Seite des Viewports, damit das Modal insgesamt 90% der Breite einnimmt */
-    min-height: 300px;
-    height: 80vh;
-    min-width: 300px;
-    width: 90vw;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
     background-color: #ffffff;
     padding: 20px;
     border-radius: 5px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    z-index: 1000; /* Stellt sicher, dass das Modal über anderen Elementen liegt */
-    overflow: auto; /* Stellt sicher, dass ein Scrollbalken erscheint, wenn der Inhalt größer als das Modal ist */
+    z-index: 1000;
+    overflow: auto;
+    display: inline-block; /* oder 'block', je nach Bedarf */
+    max-width: 90vw; /* Maximale Breite, kann auf 'none' gesetzt werden, wenn nicht benötigt */
+    max-height: 80vh; /* Maximale Höhe, kann auf 'none' gesetzt werden, wenn nicht benötigt */
 }
 
 #histogramTitle {
     font-weight: bold;
     text-align: center;
+    margin-bottom: 37.8px; /*Abstand*/
 }
 
 #histogramChartContainer {
@@ -230,12 +230,14 @@ hr {
     flex-direction: column; /* Ändert die Ausrichtung auf eine Spalte */
     align-items: center; /* vertikal zentriert */
     height: 100%; /* volle Höhe des Containers, damit das Element vertikal zentriert wird */
-    margin-top: 10px; /* Abstand zwischen dem Histogramm und dem Bild */
+    margin-top: 10px; /* Abstand */
+    margin-bottom: 37.8px;
 }
 
-#imageContainer {
-    margin-top: 50px; /* Abstand zwischen dem Histogramm und dem Bild */
+/*#imageContainer {
+    margin-top: 50px;
 }
+ */
 
 #histogramChart {
     text-align: center;
@@ -266,6 +268,7 @@ hr {
     margin: 4px 2px;
     cursor: pointer;
     border: 2px solid black;
+    margin-top: 37.8px; /* Fügt 1 cm Abstand über dem Schließknopf hinzu */
 }
 
 /*Codebegin_Lang_27.04.2024_Histogram_Pop_up_window*/

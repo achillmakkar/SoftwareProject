@@ -12,6 +12,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umed/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <!-- Codeanfang_Achill_24.03.2024/27.08.2024/28.08.2024/01.04.2024/03.04.2024/_Page-Navigation,SwitchZIPAscDesc,HotelDataInfo -->
     <script>
         // Achill
@@ -207,15 +208,77 @@
                     }
                 });
 
-                //Codebegin_Lang_27.04.2024_Histogramm_DUMMY
+                //Codebegin_Lang_27.04.2024/29.04.2024_Histogramm
+
+                let myChart = null;  // To keep track of the existing chart instance
 
                 function drawHistogram() {
-                    // TO DO: HISTOGRAMM HIER EINFÜGEN
+                    if (myChart) {
+                        myChart.destroy();  // Destroy the existing chart instance if it exists
+                    }
+                    const ctx = document.getElementById('myChart').getContext('2d');
+                    myChart = new Chart(ctx, {
+                        type: 'bar',
+                        data: {
+                            labels: ['Now-Minus6Year', 'Now-Minus5Year', 'Now-Minus4Year', 'Now-Minus3Year', 'Now-Minus2Year', 'Now-Minus1Year'],
+                            datasets: [{
+                                label: 'sum of all hotel room occupancies',
+                                data: [12, 19, 3, 5, 2, 3],
+                                backgroundColor: 'rgb(255,189,89)',
+                                borderColor: 'rgb(255,189,89)',
+                                borderWidth: 1
+                            }, {
+                                label: 'sum of all hotel bed occupancies',
+                                data: [10, 20, 8, 6, 7, 4],
+                                backgroundColor: 'rgb(74,141,208)',
+                                borderColor: 'rgb(74,141,208)',
+                                borderWidth: 1
+                            }]
+                        },
+                        options: {
+                            scales: {
+                                y: {
+                                    beginAtZero: true
+                                },
+                                x: {
+                                    barPercentage: 0.4, // Adjusts the bar thickness
+                                }
+                            },
+                            plugins: {
+                                tooltip: {
+                                    enabled: true
+                                },
+                                legend: {
+                                    display: true,
+                                    position: 'bottom', // Move the legend to the bottom
+                                    align: 'start' // Align the legend to the left
+                                },
+
+                                // Custom plugin to draw text under bars
+                                afterDraw: chart => {
+                                    var ctx = chart.ctx;
+                                    chart.data.labels.forEach(function(label, i) {
+                                        var meta = chart.getDatasetMeta(0); // 0 index for first dataset meta
+                                        var x = meta.data[i].x;
+                                        var y = chart.chartArea.bottom + 20; // Adjust to position right below x-axis
+
+                                        ctx.save();
+                                        ctx.textAlign = 'center';
+                                        ctx.textBaseline = 'top';
+                                        ctx.font = '12px Arial';
+                                        ctx.fillStyle = '#666';
+                                        ctx.fillText(label, x, y);
+                                        ctx.restore();
+                                    });
+                                }
+                            }
+                        }
+                    });
                 }
 
             });
 
-
+            //Codeend_Lang_27.04.2024/29.04.2024_Histogramm
 
             //Codeend_Lang_27.04.2024_Histogramm_Popup Window
 
@@ -521,12 +584,19 @@
                         <!-- Modal content -->
                         <div class="modal-content histogram-modal-content">
                             <h2 id="histogramTitle">Statistics of all Hotels as Histogram</h2>
+                            <!--
                                     <div id="histogramChartContainer">
                                         <div id="histogramChart" >Histogram requirement in progress</div>
                                             <div id="imageContainer">
                                                 <img src="/images/Baustelle.png" alt="Baustelle" style="width: 200px; height: 200px;">
                                             </div>
                                         </div>
+                            -->
+
+                            <div>
+                                <canvas id="myChart"></canvas>
+                            </div>
+
                             <button id="histogramCloseBtn" class="close">CLOSE</button>
                         </div>
                     </div>
