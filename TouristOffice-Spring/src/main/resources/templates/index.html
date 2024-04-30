@@ -212,6 +212,9 @@
 
                 let myChart = null;  // To keep track of the existing chart instance
 
+                //ERSTER CODE:
+
+                /*
                 function drawHistogram() {
                     if (myChart) {
                         myChart.destroy();  // Destroy the existing chart instance if it exists
@@ -276,9 +279,71 @@
                     });
                 }
 
+               */
+
+            //TESTCODE:
+
+                function drawHistogram() {
+                    if (myChart) {
+                        myChart.destroy();  // Destroy the existing chart instance if it exists
+                    }
+                    const ctx = document.getElementById('myChart').getContext('2d');
+
+                    fetch('/occupancy/histogram-data')
+                        .then(response => response.json())
+                        .then(data => {
+                            let labels, roomData;
+                            if (Array.isArray(data)) {
+                                // Anpassung der Feldnamen gemäß der Datenstruktur, die von der API zurückgegeben wird
+                                labels = data.map(item => item.period);  // Nutze 'period', wie aus der API-Antwort
+                                roomData = data.map(item => item.totalUsedRooms);  // Nutze 'totalUsedRooms', wie aus der API-Antwort
+
+                                myChart = new Chart(ctx, {
+                                    type: 'bar',
+                                    data: {
+                                        labels: labels,
+                                        datasets: [{
+                                            label: 'sum of all hotel room occupancies',
+                                            data: roomData,
+                                            backgroundColor: 'rgb(255,189,89)',
+                                            borderColor: 'rgb(255,189,89)',
+                                            borderWidth: 1
+                                        }]
+                                    },
+                                    options: {
+                                        scales: {
+                                            y: {
+                                                beginAtZero: true
+                                            },
+                                            x: {
+                                                barPercentage: 0.4, // Adjusts the bar thickness
+                                            }
+                                        },
+                                        plugins: {
+                                            tooltip: {
+                                                enabled: true
+                                            },
+                                            legend: {
+                                                display: true,
+                                                position: 'bottom', // Move the legend to the bottom
+                                                align: 'start' // Align the legend to the left
+                                            }
+                                        }
+                                    }
+                                });
+                            } else {
+                                console.error('Erwartetes Array, erhalten:', data);
+                            }
+                            console.log(data);
+                        })
+                        .catch(error => console.error('Error loading the occupancy data:', error));
+                }
+
+
             });
 
-            //Codeend_Lang_27.04.2024/29.04.2024_Histogramm
+
+                //Codeend_Lang_27.04.2024/29.04.2024_Histogramm
 
             //Codeend_Lang_27.04.2024_Histogramm_Popup Window
 
