@@ -5,6 +5,8 @@ import at.ac.fhvie.s24.swpj4bb.touristoffice.demo.business.constants.Nationality
 import lombok.*;
 
 import javax.persistence.*;
+import java.util.List;
+import java.util.Optional;
 
 /**
  * Occupancy entity
@@ -54,6 +56,25 @@ public class Occupancy {
     // Codeanfang_Anes:22.04.2024_Nationality
     private Nationality nationality;
 
+    //Codeanfang_Lang_01.05.2024_Histogram
+
+    // Method to find the oldest year in the database
+    public static Integer findOldestYear(List<Occupancy> occupancies) {
+        Optional<Integer> oldestYear = occupancies.stream()
+                .map(Occupancy::getYear)
+                .min(Integer::compareTo);
+        return oldestYear.orElse(null);
+    }
+
+    // Method to find the youngest (most recent) year in the database
+    public static Integer findYoungestYear(List<Occupancy> occupancies) {
+        Optional<Integer> youngestYear = occupancies.stream()
+                .map(Occupancy::getYear)
+                .max(Integer::compareTo);
+        return youngestYear.orElse(null);
+    }
+
+    //Codeende_Lang_01.05.2024_Histogram
 
     public static OccupancyBuilder builder() {
         return new OccupancyBuilder();
@@ -72,7 +93,6 @@ public class Occupancy {
         // Codeende_Anes_22.04.2024_Nationality
         return this;
     }
-
 
     public static class OccupancyBuilder {
         private int occupancyid;
@@ -141,6 +161,7 @@ public class Occupancy {
             return this;
         }
         // Codeende_Anes_22.04.2024_Nationality
+
         public Occupancy build() {
             return new Occupancy(occupancyid, hotel, rooms, usedrooms, beds, usedbeds, year, month, nationality);
         }
