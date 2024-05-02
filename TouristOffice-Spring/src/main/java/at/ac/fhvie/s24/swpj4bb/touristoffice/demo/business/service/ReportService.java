@@ -1,7 +1,9 @@
 package at.ac.fhvie.s24.swpj4bb.touristoffice.demo.business.service;
 
 import at.ac.fhvie.s24.swpj4bb.touristoffice.demo.business.entity.Hotel;
+import at.ac.fhvie.s24.swpj4bb.touristoffice.demo.business.entity.Occupancy;
 import at.ac.fhvie.s24.swpj4bb.touristoffice.demo.business.repository.HotelRepository;
+import at.ac.fhvie.s24.swpj4bb.touristoffice.demo.business.repository.OccupancyRepository;
 import net.sf.jasperreports.engine.*;
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,7 +18,7 @@ import java.util.*;
 public class ReportService
 {
   @Autowired
-  private HotelRepository repository;
+  private OccupancyRepository repository;
 
     public boolean exportReport(String reportFormat) {
         try {
@@ -27,21 +29,21 @@ public class ReportService
                 reportDir.mkdirs();
             }
 
-            List<Hotel> hotels = repository.findAllByOrderByIdAsc();
+            List<Occupancy> occupancies = repository.findAllByOrderByOccupancyidAsc();
             ClassPathResource reportResource = new ClassPathResource("jasper/allhotels.jrxml");
             InputStream reportInputStream = reportResource.getInputStream();
             JasperReport jasperReport = JasperCompileManager.compileReport(reportInputStream);
 
-            JRBeanCollectionDataSource dataSource = new JRBeanCollectionDataSource(hotels);
+            JRBeanCollectionDataSource dataSource = new JRBeanCollectionDataSource(occupancies);
             Map<String, Object> parameters = new HashMap<>();
             parameters.put("createdBy", "Achill");
 
             JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, dataSource);
 
             if ("html".equalsIgnoreCase(reportFormat)) {
-                JasperExportManager.exportReportToHtmlFile(jasperPrint, reportFolderPath + File.separator + "hotels.html");
+                JasperExportManager.exportReportToHtmlFile(jasperPrint, reportFolderPath + File.separator + "occupancy.html");
             } else if ("pdf".equalsIgnoreCase(reportFormat)) {
-                JasperExportManager.exportReportToPdfFile(jasperPrint, reportFolderPath + File.separator + "hotels.pdf");
+                JasperExportManager.exportReportToPdfFile(jasperPrint, reportFolderPath + File.separator + "occupancy.pdf");
             }
 
             reportInputStream.close();
