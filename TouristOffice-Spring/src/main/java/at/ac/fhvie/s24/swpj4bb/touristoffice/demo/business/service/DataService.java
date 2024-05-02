@@ -3,6 +3,7 @@ package at.ac.fhvie.s24.swpj4bb.touristoffice.demo.business.service;
 import at.ac.fhvie.s24.swpj4bb.touristoffice.demo.business.entity.CsvFileHelper;
 import at.ac.fhvie.s24.swpj4bb.touristoffice.demo.business.entity.Occupancy;
 import at.ac.fhvie.s24.swpj4bb.touristoffice.demo.business.repository.OccupancyRepository;
+import at.ac.fhvie.s24.swpj4bb.touristoffice.demo.business.validation.CsvValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.PropertySource;
@@ -49,20 +50,27 @@ public class DataService {
     public boolean processFile(Path path) {
         if (Files.exists(path) && !Files.isDirectory(path)) {
             try (InputStream is = Files.newInputStream(path)) {
-                List<Occupancy> occupancies = CsvFileHelper.convertCsvToListOfOccupancy(is);
-                for (Occupancy occupancy : occupancies) {
-                    occupancyService.saveOccupancy(occupancy);
+                try {
+                    List<Occupancy> occupancies = CsvFileHelper.convertCsvToListOfOccupancy(is);
+                    occupancies.forEach(occupancyService::saveOccupancy);
+                    // Verschieben der korrekten Datei in den entsprechenden Ordner
+                    moveFile(path, correctFilesPath);
+                    return true;
+                } catch (CsvValidator e) {
+                    // Behandlung spezifischer CSV-Fehler
+                    System.err.println("Fehler bei der Verarbeitung der Datei: " + path + ": " + e.getMessage());
+                    moveFile(path, problemFilesPath);
+                    return false;
                 }
-                // Verschieben der korrekten Datei in den entsprechenden Ordner
-                Path destination = correctFilesPath.resolve(path.getFileName());
-                Files.move(path, destination, StandardCopyOption.REPLACE_EXISTING);
-                return true;
             } catch (IOException e) {
-                logProblemFile(path, e);
+                System.err.println("IO-Fehler beim Lesen der Datei: " + path);
                 return false;
             }
         }
         return false;
+    }
+    private void moveFile(Path source, Path targetDir) throws IOException {
+        Files.move(source, targetDir.resolve(source.getFileName()), StandardCopyOption.REPLACE_EXISTING);
     }
 
     private void logProblemFile(Path path, IOException e) {
