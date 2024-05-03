@@ -66,6 +66,16 @@
             const maxBedsInput = document.getElementById('beds');
             const bookedBedsInput = document.getElementById('usedbeds');
 
+            const urlParams = new URLSearchParams(window.location.search);
+            const hotelId = urlParams.get('hotelId');
+            const hotelName = urlParams.get('hotelName');
+            const hotelZip = urlParams.get('hotelZip');
+
+            // Setze die Werte in die Formularfelder
+            document.getElementById('hotel.id').value = hotelId || '';
+            document.getElementById('hotel.name').value = hotelName || '';
+            document.getElementById('hotel.cityCode').value = hotelZip || '';
+
             function validateInput(maxInput, bookedInput) {
                 bookedInput.addEventListener('input', function() {
                     const max = parseInt(maxInput.value, 10);
@@ -77,12 +87,12 @@
                     }
                 });
             }
+
+            // Validierung für Zimmer und Betten
             validateInput(maxRoomsInput, bookedRoomsInput);
             validateInput(maxBedsInput, bookedBedsInput);
         });
-
     </script>
-
 </head>
 
 <body>
