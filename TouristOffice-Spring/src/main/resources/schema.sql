@@ -2,6 +2,8 @@
 --Codestart_Achill_25.03.2024_OccupancyTable
 DROP TABLE IF EXISTS occupancy;
 DROP TABLE IF EXISTS hotel;
+DROP TABLE IF EXISTS import_events;
+
 --Codeende_Achill_25.03.2024_OccupancyTable
 /*==============================================================*/
 /* Table: hotel                                                 */
@@ -50,3 +52,15 @@ CREATE TABLE occupancy
     CONSTRAINT fk_hotel FOREIGN KEY (id) REFERENCES hotel(id)
 );
 --Codeende_Achill_25.03.2024_OccupancyTable
+
+-- Codestart_Achill_02.05.2024_ImportEventsTable
+DROP TABLE IF EXISTS import_events;
+
+CREATE TABLE import_events
+(
+    event_id BIGINT AUTO_INCREMENT PRIMARY KEY,
+    timestamp DATETIME NOT NULL,
+    status VARCHAR(255) NOT NULL,
+    user VARCHAR(255) NOT NULL
+);
+-- Codeende_Achill_02.05.2024_ImportEventsTable
