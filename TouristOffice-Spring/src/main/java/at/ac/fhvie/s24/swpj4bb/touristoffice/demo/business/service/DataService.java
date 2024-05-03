@@ -18,7 +18,10 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
+import java.time.LocalDateTime;
 import java.util.List;
+import java.util.concurrent.atomic.AtomicBoolean;
+import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Stream;
 
 
@@ -32,6 +35,10 @@ public class DataService {
 
     @Autowired
     private OccupancyService occupancyService;
+
+    @Autowired
+    private ImportCsvEventService importCsvEventService;
+
 
     // Pfad aus der Konfigurationsdatei lesen
 
@@ -92,23 +99,39 @@ public class DataService {
         }
     }
 
-    public boolean importCsvFilesFromDirectory() {
+    public boolean importCsvFilesFromDirectory(String user) {
+        AtomicInteger okCount = new AtomicInteger(0);
+        AtomicInteger failCount = new AtomicInteger(0);
+
         try {
             File directory = ResourceUtils.getFile(csvDirectoryPath.toUri().toString());
             Path pathToCsv = directory.toPath();
 
+            // Codeanfang_Achill_02.05.2024/03.05.2024_ImportCsvEvent
             try (Stream<Path> paths = Files.walk(pathToCsv)) {
                 paths.filter(Files::isRegularFile)
                         .filter(path -> path.toString().endsWith(".csv"))
-                        .forEach(this::processFile);
+                        .forEach(path -> {
+                            if (processFile(path)) {
+                                okCount.incrementAndGet();
+                            } else {
+                                failCount.incrementAndGet();
+                            }
+                        });
 
+                // Log the summary after all files have been processed
+                if (okCount.get() > 0 || failCount.get() > 0) {
+                    importCsvEventService.logSummaryEvent(okCount.get(), failCount.get(), user);
+                }
                 return true;
+                // Codeende_Achill_02.05.2024/03.05.2024_ImportCsvEvent
             }
         } catch (IOException e) {
             e.printStackTrace();
             return false;
         }
     }
+
 //  Codeende_Achill_ImportCsv_DataService/18.04.2024/19.04.2024/20.04.2024/23.04.2024/25.04.2024/26.04.2024
 
 }

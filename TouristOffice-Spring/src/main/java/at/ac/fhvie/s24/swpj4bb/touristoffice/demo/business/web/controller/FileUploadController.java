@@ -21,7 +21,7 @@ public class FileUploadController
 
     @GetMapping("/trigger-csv-import")
     public ResponseEntity<String> triggerCsvImport() {
-        boolean success = dataService.importCsvFilesFromDirectory();
+        boolean success = dataService.importCsvFilesFromDirectory("Achill");
 
         if (success) {
             return ResponseEntity.ok("Der Import der CSV-Dateien wurde erfolgreich durchgeführt.");
