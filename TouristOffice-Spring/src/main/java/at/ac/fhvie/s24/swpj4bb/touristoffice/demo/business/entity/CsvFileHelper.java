@@ -47,6 +47,12 @@ public class CsvFileHelper {
                 if (rooms < 0 || usedRooms < 0 || beds < 0 || usedBeds < 0) {
                     throw new CsvValidator("Negative Werte in Zeile: " + lineNumber);
                 }
+                if (usedRooms > rooms) {
+                    throw new CsvValidator("Used Rooms dürfen nicht größer als Rooms sein in Zeile: " + lineNumber);
+                }
+                if (usedBeds > beds) {
+                    throw new CsvValidator("Used Beds dürfen nicht größer als Beds sein in Zeile: " + lineNumber);
+                }
 
                 Occupancy occupancy = new Occupancy();
                 occupancy.setHotel(hotel);
