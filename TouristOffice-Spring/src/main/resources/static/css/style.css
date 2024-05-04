@@ -186,7 +186,6 @@ hr {
     background-color: rgba(0, 0, 0, 0.5);
 }
 
-
 .modal-content {
     position: absolute;
     top: 50%;
@@ -200,7 +199,9 @@ hr {
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
-/*Codebegin_Lang_27.04.2024_Histogram_Pop_up_window*/
+/*Codebegin_Lang_27.04.2024_04.05.2024_Histogram_Pop_up_window_Req#6_HelpWindow_add_hotel*/
+
+/*HISTOGRAM:*/
 
 .histogram-modal-content {
     position: fixed;
@@ -224,33 +225,6 @@ hr {
     margin-bottom: 37.8px; /*Abstand*/
 }
 
-#histogramChartContainer {
-    display: flex;
-    justify-content: center; /* horizontal zentriert */
-    flex-direction: column; /* Ändert die Ausrichtung auf eine Spalte */
-    align-items: center; /* vertikal zentriert */
-    height: 100%; /* volle Höhe des Containers, damit das Element vertikal zentriert wird */
-    margin-top: 10px; /* Abstand */
-    margin-bottom: 37.8px;
-}
-
-/*#imageContainer {
-    margin-top: 50px;
-}
- */
-
-#histogramChart {
-    text-align: center;
-    color: #000000;
-    font-size: 40px; /* Ändere die Schriftgröße nach Bedarf */
-
-    /* Flexbox-Eigenschaften für vertikales Zentrieren */
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    /*TO DO*/
-}
-
 #histogramCloseBtn {
     background-color: #333366;
     position: absolute; /* Positioniert den Button absolut innerhalb seines Elternelements */
@@ -260,7 +234,6 @@ hr {
     padding: 5px 15px; /* Etwas weniger Polsterung für einen nicht so breiten Button */
     border: none;
     color: white;
-    padding: 10px 20px;
     text-align: center;
     text-decoration: none;
     display: inline-block;
@@ -271,7 +244,93 @@ hr {
     margin-top: 37.8px; /* Fügt 1 cm Abstand über dem Schließknopf hinzu */
 }
 
-/*Codebegin_Lang_27.04.2024_Histogram_Pop_up_window*/
+/*HELP:*/
+
+.help-modal-content {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #ffffff;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    z-index: 1000;
+    overflow: auto;
+    display: inline-block; /* oder 'block', je nach Bedarf */
+    max-width: 90vw; /* Maximale Breite, kann auf 'none' gesetzt werden, wenn nicht benötigt */
+    max-height: 80vh; /* Maximale Höhe, kann auf 'none' gesetzt werden, wenn nicht benötigt */
+}
+
+#helpTitle {
+    font-weight: bold;
+    text-align: center;
+    margin-bottom: 37.8px; /*Abstand*/
+}
+
+#helpCloseBtn {
+    background-color: #333366;
+    position: absolute; /* Positioniert den Button absolut innerhalb seines Elternelements */
+    bottom: 10px; /* Abstand vom unteren Rand des Modals */
+    right: 10px; /* Abstand vom rechten Rand des Modals */
+    width: auto; /* Entfernt eine spezifische Breite, damit der Button den Inhalt umschließt */
+    padding: 5px 15px; /* Etwas weniger Polsterung für einen nicht so breiten Button */
+    border: none;
+    color: white;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+    border: 2px solid black;
+    margin-top: 37.8px; /* Fügt 1 cm Abstand über dem Schließknopf hinzu */
+}
+
+/*ADD_HOTEL:*/
+
+.addHotel-modal-content {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #ffffff;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    z-index: 1000;
+    overflow: auto;
+    display: inline-block; /* oder 'block', je nach Bedarf */
+    max-width: 90vw; /* Maximale Breite, kann auf 'none' gesetzt werden, wenn nicht benötigt */
+    max-height: 80vh; /* Maximale Höhe, kann auf 'none' gesetzt werden, wenn nicht benötigt */
+}
+
+#addHotelTitle {
+    font-weight: bold;
+    text-align: center;
+    margin-bottom: 37.8px; /*Abstand*/
+}
+
+#addHotelCloseBtn {
+    background-color: #333366;
+    position: absolute; /* Positioniert den Button absolut innerhalb seines Elternelements */
+    bottom: 10px; /* Abstand vom unteren Rand des Modals */
+    right: 10px; /* Abstand vom rechten Rand des Modals */
+    width: auto; /* Entfernt eine spezifische Breite, damit der Button den Inhalt umschließt */
+    padding: 5px 15px; /* Etwas weniger Polsterung für einen nicht so breiten Button */
+    border: none;
+    color: white;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+    border: 2px solid black;
+    margin-top: 37.8px; /* Fügt 1 cm Abstand über dem Schließknopf hinzu */
+}
+
+/*Codebegin_Lang_27.04.2024_04.05.2024_Histogram_Pop_up_window_Req#6_HelpWindow_add_hotel*/
 
 /* The Close Button */
 .close {
