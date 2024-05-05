@@ -221,6 +221,52 @@
                     }
                 });
 
+                //Codebegin_Req#8_Lang_04.05.2024_Help Button Pop Up Window
+
+                $(document).ready(function() {
+                    // Show Help-Modal on btnHelp click
+                    $('#btnHelp').on('click', function() {
+                        $("#helpModal").show();
+                    });
+
+                    // Close Help-Modal
+                    $("#helpModal .close, #helpModal #helpCloseBtn").click(function() {
+                        $("#helpModal").hide();
+                    });
+
+                    // Close Help-Modal when clicking outside of it
+                    $(window).click(function(event) {
+                        if ($(event.target).is("#helpModal")) {
+                            $("#helpModal").hide();
+                        }
+                    });
+                });
+
+                //Codeend_Req#8_Lang_04.05.2024_Help Button Pop Up Window
+
+                //Codebegin_Lang_04.05.2024_AddHotel Button Pop Up Window
+
+                $(document).ready(function() {
+                    // Show AddHotel-Modal
+                    $('#btnAddHotel').on('click', function() {
+                        $("#addHotelModal").show();
+                    });
+
+                    // Close AddHotel-Modal
+                    $("#addHotelModal .close, #addHotelModal #addHotelCloseBtn").click(function() {
+                        $("#addHotelModal").hide();
+                    });
+
+                    // Close AddHotel-Modal when clicking outside of it
+                    $(window).click(function(event) {
+                        if ($(event.target).is("#addHotelModal")) {
+                            $("#addHotelModal").hide();
+                        }
+                    });
+                });
+
+                //Codeend_Lang_04.05.2024_AddHotel Button Pop Up Window
+
                 //Codebegin_Lang_27.04.2024/29.04.2024_Histogramm
 
                 let myChart = null;  // To keep track of the existing chart instance
@@ -293,7 +339,6 @@
                 }
 
             });
-
 
                 //Codeend_Lang_27.04.2024/29.04.2024_Histogramm
 
@@ -600,16 +645,49 @@
             <a class="btn btn-secondary" href="#deletedhotels" style="width: 170px; height: 42px;color:black; background-color: #dee2e6; font-weight: bold; border: 2px solid #004d40;">Deleted Hotels</a>
             <img src="/images/englandFlagPNG.png" alt="Language 2" style="width: 50px; height: 42px;">
             <img src="/images/austriaflagPNG.png" alt="Language 1" style="width: 50px; height: 42px;">
-            <a class="btn btn-secondary" href="#help" style="width: 80px; height: 42px;color:black; background-color: #dee2e6; font-weight: bold; border: 2px solid #004d40;">Help</a>
+
+            <!-- Codebegin_Req#8_Lang_04.05.2024 -->
+
+            <!-- Button -->
+            <a id="btnHelp" class="btn btn-secondary" style="width: 80px; height: 42px;color:black; background-color: #dee2e6; font-weight: bold; border: 2px solid #004d40;">Help</a>
+
+            <!-- Modal -->
+            <div id="helpModal" class="modal">
+                <div class="modal-content help-modal-content">
+                    <h2 id="helpTitle">Help Information</h2>
+                    <p id="helpText">Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat nulla facilisis at vero et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit augue duis dolore te feugait nulla facilisi. Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat nulla facilisis at vero et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit augue duis dolore te feugait nulla facilisi. Nam liber tempor cum soluta nobis eleifend option congue nihil imperdiet doming id quod mazim placerat facer possim assum.</p>
+                    <button id="helpCloseBtn" class="close-btn">Close</button>
+                </div>
+            </div>
+
+            <!-- Codeend_Req#8_Lang_04.05.2024 -->
+
             <a class="btn btn-secondary" href="#logout" style="width: 80px; height: 42px;color:black; background-color: #dee2e6; font-weight: bold; border: 2px solid #004d40;">Logout</a>
        </div>
         <div class="menu-under-flags">
         <!-- Zweite Navigationsleiste für Menülinks -->
             <div class="topnav topnav-lower">
                 <div class="navigation-links">
-                    <!--Codebegin_Lang_29.04.2024_added "addHotel_Button-->
-                    <a class="btn btn-secondary" style="color: white; background-color: teal; font-weight: bold; border: 2px solid black">Add Hotel</a>
-                    <!--Codeend_Lang_29.04.2024_added "addHotel_Button-->
+
+                    <!--Codebegin_Lang_29.04.2024_04.05.2024_added_addHotel_Button-->
+
+                    <!-- Button für Add Hotel -->
+                    <a id="btnAddHotel" class="btn btn-secondary btn-AddHotel" style="color: white; background-color: teal; font-weight: bold; border: 2px solid black">Add Hotel</a>
+
+                    <!-- The Modal -->
+                    <div id="addHotelModal" class="modal">
+                        <!-- Modal content -->
+                        <div class="modal-content addHotel-modal-content">
+                            <h2 id="addHotelTitle">Add Hotel:</h2>
+
+                            <p>TEST TEXT</p>
+
+                            <button id="addHotelCloseBtn" class="close">CLOSE</button>
+                        </div>
+                    </div>
+
+                    <!--Codeend_Lang_29.04.2024_04.05.2024_added_addHotel_Button-->
+
                     <!-- Codeanfang_Achill_ImportCsv_DataService/18.04.2024/19.04.2024/20.04.2024/23.04.2024/25.04.2024/26.04.2024 -->
                     <a class="btn btn-secondary" id="triggerCsvImport" href="javascript:void(0);" style="color: white; background-color: teal; font-weight: bold; border: 2px solid black">Import CSV Data</a>
                     <!-- Codeende_Achill_ImportCsv_DataService/18.04.2024/19.04.2024/20.04.2024/23.04.2024/25.04.2024/26.04.2024 -->
@@ -639,15 +717,6 @@
                         <!-- Modal content -->
                         <div class="modal-content histogram-modal-content">
                             <h2 id="histogramTitle">Statistics of all Hotels as Histogram</h2>
-                            <!--
-                                    <div id="histogramChartContainer">
-                                        <div id="histogramChart" >Histogram requirement in progress</div>
-                                            <div id="imageContainer">
-                                                <img src="/images/Baustelle.png" alt="Baustelle" style="width: 200px; height: 200px;">
-                                            </div>
-                                        </div>
-                            -->
-
                             <div>
                                 <canvas id="myChart"></canvas>
                             </div>
@@ -726,7 +795,9 @@
             <th style="width: 80px; text-align: center">subscribed</th>
             <th style="width: 100px; text-align: center">change subscription</th>
             <th style="width: 100px; text-align: center" >info</th>
-
+            <!-- Codebegin_Dominik_Lang_04.05.2024_added_"updateHotel-->
+            <th style="width: 100px; text-align: center" >update hotel</th>
+            <!-- Codeend_Dominik_Lang_04.05.2024_added_"updateHotel-->
             <!-- Code Anfang #3_Nikola_06.04_Add Occupancy Form - Link "Add Occupancy" einfügen -->
             <th style="width: 100px; text-align: center">
                 <a href="/occupancyform" style="color: white;">add occp. data</a>
@@ -813,6 +884,16 @@
                     <!-- Codeend_Dominik_Lang_07.04.2024_added icon-->
                 </button>
                 <!-- Codeende_Achill_Hotel Info-->
+
+                <!-- Codebegin_Dominik_Lang_04.05.2024_added updateHotel-button and icons to html table-->
+            <td style="text-align: center; padding: 0;">
+                <!-- TO DO: style to css-->
+                <button class="update-button" style="width: 100%; height: 100%; padding: 0; border: 2px solid black; background: #cccccc; display: flex; justify-content: center; align-items: center;">
+                    <img src="/images/" alt="update" style="width: 20px; height: 20px;">
+                </button>
+            </td>
+            <!-- Codeend_Dominik_Lang_04.05.2024_added updateHotel-button and icons to html table-->
+
                 <!-- Codebegin_Dominik_Lang_07.04.2024_added buttons and icons to html table-->
             <td style="text-align: center; padding: 0;">
             <!--Code Anfang #3_Nikola_02.05 Occupancy Form -->
@@ -823,6 +904,7 @@
                 </button>
             <!--Code Ende #3_Nikola_02.05 Occupancy Form -->
             </td>
+
             <td style="text-align: center; padding: 0;">
                 <button class="btn" style="width: 100%; height: 100%; padding: 0; border: 2px solid black; background: #cccccc; display: flex; justify-content: center; align-items: center;">
                     <img src="/images/deletePNG.png" alt="delete" style="width: 20px; height: 20px;">
@@ -918,11 +1000,12 @@
 </div>
 <!-- Codeende #1_Achill_10.03.2024/27.03.2024/28.03.2024/03.04.2024_Overview Of Hotels -->
 
-<!--Codeanfang_Achill_16.04.2024_OccupancyData -->
+<!--Codeanfang_Tuchan Occupancytable 05.05.-->
 <div th:if="${occupancyPage != null}">
     <table>
         <thead>
         <tr style="color: white; width: 80px; text-align: center">
+            <th>Hotel ID</th>
             <th>Hotel Name</th>
             <th>ZIP</th>
             <th>Category</th>
@@ -937,6 +1020,7 @@
         </thead>
         <tbody style="background-color: white;">
         <tr th:each="occupancy : ${occupancyPage.content}" th:if="${occupancy != null}">
+            <td th:text="${occupancy.hotel.id}">Hotel ID</td>
             <td th:text="${occupancy.hotel.name}">Hotel Name</td>
             <td th:text="${occupancy.hotel.cityCode}">ZIP Code</td>
             <td th:text="${occupancy.hotel.category}">Category</td>
@@ -953,6 +1037,6 @@
 </div>
 
 
-<!--Codeanfang_Achill_16.04.2024_OccupancyData-->
+<!--Codeanfang_Tuchan Occupancy Table 05.05-->
 </body>
 </html>

@@ -13,7 +13,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
@@ -28,6 +30,7 @@ public class MainController {
   //Codeanfang_Achill_16.04.2024_OccupancyData
   private OccupancyService occupancyService;
 
+  private List<Occupancy> occupancies;
 
   @Autowired
   public MainController(final HotelService hotelService,  final OccupancyService occupancyService)
@@ -38,6 +41,7 @@ public class MainController {
 
 
   //Codestart_Achill_20.03.2024_PagePerPage
+  // Code angepasst von SUlim am 04.05.
   @RequestMapping(value = {"/", "/index"}, method = RequestMethod.GET)
   public String index(final Model model,
                       @RequestParam("page") Optional<Integer> page,
@@ -47,30 +51,37 @@ public class MainController {
 
     Pageable pageable = PageRequest.of(currentPage - 1, pageSize);
     Page<Hotel> hotelPage = hotelService.findAllOrderedById(pageable);
-    //Codeanfang_Achill_16.04.2024_OccupancyData
     Page<Occupancy> occupancyPage = occupancyService.findAllOrderedById(pageable);
+
     if (occupancyPage.hasContent()) {
       model.addAttribute("occupancyPage", occupancyPage);
     } else {
       model.addAttribute("occupancyPage", Page.empty());
     }
-    //Codeende_Achill_16.04.2024_OccupancyData
 
     model.addAttribute("hotelPage", hotelPage);
-    //Codeanfang_Achill_16.04.2024_OccupancyData
-    model.addAttribute("occupancyPage", occupancyPage);
-    preparePaginationModel(model, currentPage, hotelPage.getTotalPages());
-    //Codeende_Achill_16.04.2024_OccupancyData
 
-// methode von sulim hinzugefügt 19.04. finddistinctyears
-
+    // Erweiterung: Abruf der Belegungsdaten nach Hotel und Jahr
     List<Integer> years = occupancyService.findDistinctYears();
-    model.addAttribute("years", years);
+    Map<Hotel, Map<Integer, List<Occupancy>>> hotelOccupancyMap = new HashMap<>();
+    for (Hotel hotel : hotelPage.getContent()) {
+      Map<Integer, List<Occupancy>> yearlyData = new HashMap<>();
+      for (Integer year : years) {
+        occupancies = occupancyService.getOccupancyDataForHotelAndYear(hotel, year);
+        yearlyData.put(year, occupancies);
+      }
+      hotelOccupancyMap.put(hotel, yearlyData);
+    }
 
+    model.addAttribute("hotelOccupancyMap", hotelOccupancyMap);
+    preparePaginationModel(model, currentPage, hotelPage.getTotalPages());
 
-    return "index"; // Ensure that the 'index' view can display years
-
+    return "index"; // Ensure that the 'index' view can display years and occupancy data
   }
+
+
+
+
   //Codeende_Achill_20.03.2024_PagePerPage
 
   //Codeanfang_Achill_16.04.2024_OccupancyData
