@@ -48,6 +48,18 @@ public class OccupancyService
         return occupancyRepository.findAll(pageRequest);
     }
 
+    //code sulim 04.05.
+
+    public List<Occupancy> getOccupancyDataForHotelAndYear(Hotel id, int year) {
+        return occupancyRepository.findByHotelAndYear(id, year);
+    }
+
+    //code sulim 29.04.
+
+    public List<Integer> findDistinctYearsByHotelId(int hotelId) {
+        return occupancyRepository.findDistinctYearsByHotelId(hotelId);
+    }
+
     //Code Sulim 18.04.
 
     public List<Occupancy> findOccupanciesById(int Id) {
@@ -63,6 +75,8 @@ public class OccupancyService
     }
     // Codeanfang_Nikola_07.04.2024_SaveOccupancy
     // Occupancy-Objekt wird in der Datenbank gespeichert
+
+
     public void saveOccupancy(Occupancy occupancy) {
         occupancyRepository.save(occupancy);  //nimmt Objekt aus FormController engegen
     }

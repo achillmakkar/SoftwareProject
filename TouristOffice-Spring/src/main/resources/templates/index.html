@@ -962,11 +962,12 @@
 </div>
 <!-- Codeende #1_Achill_10.03.2024/27.03.2024/28.03.2024/03.04.2024_Overview Of Hotels -->
 
-<!--Codeanfang_Achill_16.04.2024_OccupancyData -->
+<!--Codeanfang_Tuchan Occupancytable 05.05.-->
 <div th:if="${occupancyPage != null}">
     <table>
         <thead>
         <tr style="color: white; width: 80px; text-align: center">
+            <th>Hotel ID</th>
             <th>Hotel Name</th>
             <th>ZIP</th>
             <th>Category</th>
@@ -981,6 +982,7 @@
         </thead>
         <tbody style="background-color: white;">
         <tr th:each="occupancy : ${occupancyPage.content}" th:if="${occupancy != null}">
+            <td th:text="${occupancy.hotel.id}">Hotel ID</td>
             <td th:text="${occupancy.hotel.name}">Hotel Name</td>
             <td th:text="${occupancy.hotel.cityCode}">ZIP Code</td>
             <td th:text="${occupancy.hotel.category}">Category</td>
@@ -997,6 +999,6 @@
 </div>
 
 
-<!--Codeanfang_Achill_16.04.2024_OccupancyData-->
+<!--Codeanfang_Tuchan Occupancy Table 05.05-->
 </body>
 </html>
