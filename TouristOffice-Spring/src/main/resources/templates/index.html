@@ -115,7 +115,7 @@
                 localStorage.setItem('selectedSize', $(this).val());
             });
 
-            // PDF-Modal Achill
+            /* PDF-Modal Achill
             $("#myBtn").click(function (event) {
                 event.preventDefault();
                 fetch('/report/pdf')
@@ -129,7 +129,7 @@
                     .catch(error => {
                         alert("An error occurred: " + error);
                     });
-            });
+            }); */
 
             $("#myModal .close, #myModal #closeBtn").click(function () {
                 $("#myModal").hide();
@@ -362,6 +362,43 @@
             //Codeend_Lang_14.04.2024_Sub_button_Script--------------------------------------------------------------------
         });
 
+        document.addEventListener('DOMContentLoaded', function() {
+            var myBtn = document.getElementById("myBtn");
+            if (myBtn) {
+                myBtn.addEventListener("click", function(event) {
+                    event.preventDefault();
+                    fetch('/occupancy/histogram-report', {
+                        headers: {
+                            'Accept': 'application/pdf'
+                        }
+                    })
+                        .then(response => {
+                            if (response.ok) {
+                                return response.blob();  // Liest die Antwort als Blob, wenn die Antwort erfolgreich war
+                            } else {
+                                throw new Error('Failed to generate report');
+                            }
+                        })
+                        .then(blob => {
+                            const url = window.URL.createObjectURL(blob);
+                            const a = document.createElement('a');
+                            a.style.display = 'none';
+                            a.href = url;
+                            a.download = 'occupancy_histogram.pdf';
+                            document.body.appendChild(a);
+                            a.click();
+                            window.URL.revokeObjectURL(url);
+                            document.body.removeChild(a);
+                        })
+                        .catch(error => {
+                            alert("An error occurred: " + error.message);
+                        });
+                });
+            } else {
+                console.log("Button not found");
+            }
+        });
+
         // tuchan code
 
 
@@ -477,7 +514,8 @@
             }
         }
 
-    <!-- Codeende_Achill_24.03.2024/27.08.2024/28.08.2024/01.04.2024/03.04.2024/19.04.2024/20.04.2024_Page-Navigation,SwitchZIPAscDesc,HotelDataInfo, ImportCsvData -->
+
+        <!-- Codeende_Achill_24.03.2024/27.08.2024/28.08.2024/01.04.2024/03.04.2024/19.04.2024/20.04.2024_Page-Navigation,SwitchZIPAscDesc,HotelDataInfo, ImportCsvData -->
     </script>
     <style>
         .topnav-upper {
