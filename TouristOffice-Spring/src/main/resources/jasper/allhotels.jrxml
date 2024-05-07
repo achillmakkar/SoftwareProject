@@ -29,7 +29,7 @@
                 <textFieldExpression><![CDATA["Seite " + $V{PAGE_NUMBER} + " von "]]></textFieldExpression>
             </textField>
             <textField evaluationTime="Report">
-                <reportElement mode="Opaque" x="475" y="0" width="60" height="50" backcolor="#E6E6E6"/>
+                <reportElement mode="Opaque" x="50" y="0" width="60" height="50" backcolor="#E6E6E6"/>
                 <textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
             </textField>
         </band>
