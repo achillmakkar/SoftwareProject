@@ -50,8 +50,8 @@ public class OccupancyService
 
     //code sulim 04.05.
 
-    public List<Occupancy> getOccupancyDataForHotelAndYear(Hotel id, int year) {
-        return occupancyRepository.findByHotelAndYear(id, year);
+    public List<Occupancy> getOccupancyDataForHotelAndYear(Hotel hotel, int year) {
+        return occupancyRepository.findByHotelAndYear(hotel, year);
     }
 
     //code sulim 29.04.

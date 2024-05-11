@@ -67,12 +67,12 @@ public class MainController {
     for (Hotel hotel : hotelPage.getContent()) {
       Map<Integer, List<Occupancy>> yearlyData = new HashMap<>();
       for (Integer year : years) {
-        occupancies = occupancyService.getOccupancyDataForHotelAndYear(hotel, year);
-        yearlyData.put(year, occupancies);
+        List<Occupancy> occupancy = occupancyService.getOccupancyDataForHotelAndYear(hotel, year);
+        yearlyData.put(year, occupancy);
       }
       hotelOccupancyMap.put(hotel, yearlyData);
     }
-
+    model.addAttribute("years", years);
     model.addAttribute("hotelOccupancyMap", hotelOccupancyMap);
     preparePaginationModel(model, currentPage, hotelPage.getTotalPages());
 

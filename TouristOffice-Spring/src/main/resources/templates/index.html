@@ -8,11 +8,15 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" th:href="@{/css/style.css}" />
     <link rel="stylesheet" href="path/to/occupancyTableStyle.css">
+
     <!-- CSS EINBINDUNG ACHILL -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umed/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js"></script>
+
     <!-- Codeanfang_Achill_24.03.2024/27.08.2024/28.08.2024/01.04.2024/03.04.2024/_Page-Navigation,SwitchZIPAscDesc,HotelDataInfo -->
     <script>
         //Code Anfang #3_Nikola_02.05 Occupancy Form
@@ -1000,7 +1004,7 @@
 </div>
 <!-- Codeende #1_Achill_10.03.2024/27.03.2024/28.03.2024/03.04.2024_Overview Of Hotels -->
 
-<!--Codeanfang_Tuchan Occupancytable 05.05.-->
+<!--Codeanfang_Tuchan Occupancytable 05.05.
 <div th:if="${occupancyPage != null}">
     <table>
         <thead>
@@ -1009,21 +1013,32 @@
             <th>Hotel Name</th>
             <th>ZIP</th>
             <th>Category</th>
-            <th>Total Rooms</th>
-            <th>Booked Rooms</th>
-            <th>Room Occ. in %</th>
-            <th>Total Beds</th>
-            <th>Booked Beds</th>
-            <th>Bed Occ. in %</th>
-            <th>#1 of National Guest</th>
+
         </tr>
         </thead>
         <tbody style="background-color: white;">
-        <tr th:each="occupancy : ${occupancyPage.content}" th:if="${occupancy != null}">
+
+        <tr th:block th:each="occupancy : ${occupancyPage.content}"> </tr>
+        <tr data-toggle="collapse" th:attr="data-target='#yearToggle' + ${i.index}" class="accordion-toggle">
             <td th:text="${occupancy.hotel.id}">Hotel ID</td>
             <td th:text="${occupancy.hotel.name}">Hotel Name</td>
             <td th:text="${occupancy.hotel.cityCode}">ZIP Code</td>
             <td th:text="${occupancy.hotel.category}">Category</td>
+            </tr>
+         <tr>
+             <th></th>
+             <td colspan="7" class="hiddenRow">
+                 <div class="accordian-body collapse" th:id="'yearToggle' + ${i.index}">
+                     <table class="table table-striped">
+                         <thead>
+                         <tr class="info">
+                             <th>Year</th>
+                         </tr>
+
+                         </thead>
+                     </table>
+                 </div>
+
             <td th:text="${occupancy.rooms}">0</td>
             <td th:text="${occupancy.usedrooms}">0</td>
             <td th:text="${occupancy.rooms > 0 ? (occupancy.usedrooms * 100 / occupancy.rooms) : 0} + '%'">0%</td>
@@ -1031,12 +1046,90 @@
             <td th:text="${occupancy.usedbeds}">0</td>
             <td th:text="${occupancy.beds > 0 ? (occupancy.usedbeds * 100 / occupancy.beds) : 0}">0%</td>
 
-        </tr>
+                     </tr>
+
         </tbody>
     </table>
 </div>
+Codeanfang_Tuchan Occupancy Table 05.05 -- NEU 08.05. TABLE Occupancy Hotel listview  Tuchan-->
+<div class="container-fluid" style="padding-top: 125px;">
+    <div class="d-flex justify-content-center">
+        <table class="w-75 table table-hover table-bordered table-striped table-expandable" id="hotelTable">
+            <thead>
+            <tr class="header">
+                <th>Hotel ID</th>
+                <th>Hotel Name</th>
+                <th>ZIP Code</th>
+                <th>Category</th>
+            </tr>
+            </thead>
+            <tbody>
+            <th:block th:each="hotelEntry, hotelIterStat : ${hotelOccupancyMap}">
+                <tr data-toggle="collapse" th:attr="data-target='#hotelDetails' + ${hotelIterStat.index}" class="accordion-toggle">
+                    <td th:text="${hotelEntry.key.id}">Hotel ID</td>
+                    <td th:text="${hotelEntry.key.name}">Hotel Name</td>
+                    <td th:text="${hotelEntry.key.cityCode}">ZIP Code</td>
+                    <td th:text="${hotelEntry.key.category}">Category</td>
+                </tr>
+                <tr>
+                    <td colspan="4" class="hiddenRow">
+                        <div th:id="'hotelDetails' + ${hotelIterStat.index}" class="collapse">
+                            <table class="table table-striped">
+                                <thead>
+                                <tr>
+                                    <th>Year</th>
+                                    <th>Details</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <th:block th:each="yearEntry, yearIterStat : ${hotelEntry.value.entrySet()}">
+                                    <tr data-toggle="collapse" th:attr="data-target='#yearDetails' + ${hotelIterStat.index} + '_' + ${yearIterStat.index}" class="accordion-toggle">
+                                        <td th:text="${yearEntry.key}">Year</td>
+                                        <td>Click to view details</td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="2" class="hiddenRow">
+                                            <div th:id="'yearDetails' + ${hotelIterStat.index} + '_' + ${yearIterStat.index}" class="collapse">
+                                                <table class="table table-striped">
+                                                    <thead>
+                                                    <tr>
+                                                        <th>Month</th>
+                                                        <th>Rooms Available</th>
+                                                        <th>Rooms Used</th>
+                                                        <th>% Rooms Used</th>
+                                                        <th>Beds Available</th>
+                                                        <th>Beds Used</th>
+                                                        <th>% Beds Used</th>
+                                                    </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                    <tr th:each="occupancy : ${yearEntry.value}">
+                                                        <td th:text="${occupancy.month}">Month</td>
+                                                        <td th:text="${occupancy.rooms}">Rooms Available</td>
+                                                        <td th:text="${occupancy.usedrooms}">Rooms Used</td>
+                                                        <td th:text="${occupancy.rooms > 0 ? (occupancy.usedrooms * 100 / occupancy.rooms) + '%' : '0%'}">% Rooms Used</td>
+                                                        <td th:text="${occupancy.beds}">Beds Available</td>
+                                                        <td th:text="${occupancy.usedbeds}">Beds Used</td>
+                                                        <td th:text="${occupancy.beds > 0 ? (occupancy.usedbeds * 100 / occupancy.beds) + '%' : '0%'}">% Beds Used</td>
+                                                    </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </th:block>
+                                </tbody>
+                            </table>
+                        </div>
+                    </td>
+                </tr>
+            </th:block>
+            </tbody>
+        </table>
+    </div>
+</div>
 
 
-<!--Codeanfang_Tuchan Occupancy Table 05.05-->
+
 </body>
 </html>
