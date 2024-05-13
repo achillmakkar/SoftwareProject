@@ -4,18 +4,18 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title>NOE Tourismus</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" th:href="@{/css/style.css}" />
-    <link rel="stylesheet" href="path/to/occupancyTableStyle.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+
 
     <!-- CSS EINBINDUNG ACHILL -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umed/popper.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+
 
     <!-- Codeanfang_Achill_24.03.2024/27.08.2024/28.08.2024/01.04.2024/03.04.2024/_Page-Navigation,SwitchZIPAscDesc,HotelDataInfo -->
     <script>
@@ -451,111 +451,6 @@
         // tuchan code
 
 
-        /* document.addEventListener('DOMContentLoaded', function() {
-            const hotelRows = document.querySelectorAll('#hotelData tbody .hotel-row');
-
-            hotelRows.forEach(row => {
-                row.addEventListener('click', function() {
-                    // Entferne existierende Detailtabellen, bevor eine neue erstellt wird
-                    removeExistingDetailTables();
-
-                    const hotelId = this.dataset.hotelId;
-                    createDetailTable(hotelId, this);
-                });
-            });
-        });
-        /*
-        function createDetailTable(hotelId, insertAfterElement) {
-            var containerRow = insertAfterElement.parentNode.insertRow(insertAfterElement.rowIndex);
-            var cell = containerRow.insertCell();
-            // Setze colspan auf die Anzahl der Spalten in der übergeordneten Tabelle
-            cell.colSpan = insertAfterElement.children.length;
-
-            var table = document.createElement('table');
-            table.className = 'detailTable';  // Füge eine Klasse hinzu, um die Tabelle leichter identifizieren zu können
-            table.style.width = '100%';
-            table.style.background = 'lightgray';
-            table.border = '1';
-
-            var header = table.createTHead();
-            var headerRow = header.insertRow();
-            var headers = ['Total Rooms', 'Booked Rooms', 'Total Beds', 'Booked Beds'];
-            headers.forEach(headerText => {
-                var cell = headerRow.insertCell();
-                cell.textContent = headerText;
-                cell.style.fontWeight = 'bold';
-                cell.style.color = 'black';
-            });
-
-            fetchOccupancyData(hotelId, function(occupancyData) {
-                var body = table.createTBody();
-                var row = body.insertRow();
-                var data = [occupancyData.totalRooms, occupancyData.bookedRooms, occupancyData.totalBeds, occupancyData.bookedBeds];
-                data.forEach(cellData => {
-                    var cell = row.insertCell();
-                    cell.textContent = cellData;
-                });
-
-                cell.appendChild(table);
-            });
-        }
-
-        function fetchOccupancyData(hotelId, callback) {
-            // Beispiel-Daten
-            callback({ totalRooms: 20, bookedRooms: 10, totalBeds: 40, bookedBeds: 25 });
-        }
-
-        function removeExistingDetailTables() {
-            // Entferne alle Tabellen mit der Klasse 'detailTable'
-            document.querySelectorAll('.detailTable').forEach(table => {
-                table.parentNode.parentNode.remove(); // Entfernt die Zeile, die die Tabelle enthält
-            });
-        }
-
-
-
-
-        /* // Tuchan code
-                document.addEventListener('DOMContentLoaded', function() {
-                    const hotelRows = document.querySelectorAll('.hotel-row');
-                    hotelRows.forEach(row => {
-                        row.addEventListener('click', function() {
-                            const Id = this.dataset.Id; // Stellen Sie sicher, dass die Hotelzeilen ein data-hotel-id Attribut haben
-                            fetch(`/occupancy/by-hotel/${Id}`)
-                                .then(response => response.json())
-                                .then(data => {
-                                    displayOccupancyData(data, this);
-                                })
-                                .catch(error => console.error('Error loading occupancy data:', error));
-                        });
-                    });
-                });
-
-                function displayOccupancyData(data, hotelRow) {
-                    const occupancyTable = document.createElement('table');
-                    occupancyTable.innerHTML = `
-                <tr>
-                    <th>Total Rooms</th>
-                    <th>Booked Rooms</th>
-                    <th>Total Beds</th>
-                    <th>Booked Beds</th>
-                </tr>
-                ${data.map(occ => `
-                    <tr>
-                        <td>${occ.rooms}</td>
-                        <td>${occ.usedrooms}</td>
-                        <td>${occ.beds}</td>
-                        <td>${occ.usedbeds}</td>
-                    </tr>
-                `).join('')}
-            `;
-                    // Fügen Sie die generierte Tabelle direkt unter der Hotelzeile ein
-                    hotelRow.parentNode.insertBefore(occupancyTable, hotelRow.nextSibling);
-                }
-        */
-
-
-
         function toggleRow(hotelId) {
             var detailRow = document.getElementById('details-' + hotelId);
             if (detailRow) {
@@ -567,6 +462,11 @@
         <!-- Codeende_Achill_24.03.2024/27.08.2024/28.08.2024/01.04.2024/03.04.2024/19.04.2024/20.04.2024_Page-Navigation,SwitchZIPAscDesc,HotelDataInfo, ImportCsvData -->
     </script>
     <style>
+
+        body
+        {
+            background-color:#66ccff;
+        }
         .topnav-upper {
             background-color: #66ccff;
             display: flex;
@@ -813,48 +713,43 @@
             <!-- Codeende_Dominik_Lang_07.04.2024_added style="width and text-align: center to Achills and Nikolas Code-->
         </tr>
         </thead>
-        <tbody style="background-color: white">
-        <tr th:each="hotel, iStat : ${hotelPage.content}"
-            th:style="${iStat.odd}? 'font-weight: bold;'"
-            th:alt-title="${iStat.even}? 'even' : 'odd'">
-            <td style="text-align: center;" th:text="${hotel.id}" />
-            <td th:text="${hotel.name}" />
-            <td style="text-align: center;" th:text="${hotel.cityCode}" />
-            <td th:text="${hotel.category}" />
-
-            <!-- Tuchan occupancy option
-           <td>
-               <div th:each="occupancy : ${occupancyPage.content}" th:if="${occupancy.occupancyid == hotel.id}">
-                   <p>
-                       <strong th:text="${'Year: ' + occupancy.year}"></strong><br/>
-                       Rooms: <span th:text="${occupancy.usedrooms} + '/' + ${occupancy.rooms}"></span><br/>
-                       Beds: <span th:text="${occupancy.usedbeds} + '/' + ${occupancy.beds}"></span>
-                   </p>
-               </div>
-           </td>
--->
+        <tbody>
+        <th:block th:each="hotelEntry, hotelIterStat : ${hotelOccupancyMap}">
+            <tr>
+                <td data-toggle="collapse" th:attr="data-target='#hotelDetails' + ${hotelIterStat.index}" style="cursor: pointer;">
+                    <span th:text="${hotelEntry.key.id}">Hotel ID</span>
+                </td>
+                <td data-toggle="collapse" th:attr="data-target='#hotelDetails' + ${hotelIterStat.index}"style="cursor: pointer;">
+                    <span th:text="${hotelEntry.key.name}">Hotel Name</span>
+                </td>
+                <td data-toggle="collapse" th:attr="data-target='#hotelDetails' + ${hotelIterStat.index}"style="cursor: pointer;">
+                    <span th:text="${hotelEntry.key.cityCode}">ZIP Code</span>
+                </td>
+                <td data-toggle ="collapse" th:attr="data-target='#hotelDetails' + ${hotelIterStat.index}"style="cursor: pointer;">
+                    <span th:text="${hotelEntry.key.category}">Category</span>
+                </td>
 
 
             <!-- Codebegin_Dominik_Lang_06.04.2024_added attributes and icons-->
             <td style="text-align: center;"> <!-- TO DO: style to css-->
-                <img th:if="${hotel.familyFriendly}" src="/images/okgreenPNG.png" alt="okgreen" style="width: 20px; height: 20px;">
-                <img th:unless="${hotel.familyFriendly}" src="/images/noredPNG.png" alt="nored" style="width: 20px; height: 20px;">
+                <img th:if="${hotelEntry.key.familyFriendly}" src="/images/okgreenPNG.png" alt="okgreen" style="width: 20px; height: 20px;">
+                <img th:unless="${hotelEntry.key.familyFriendly}" src="/images/noredPNG.png" alt="nored" style="width: 20px; height: 20px;">
             </td>
             <td style="text-align: center;"> <!-- TO DO: style to css-->
-                <img th:if="${hotel.dogFriendly}" src="/images/okgreenPNG.png" alt="okgreen" style="width: 20px; height: 20px;">
-                <img th:unless="${hotel.dogFriendly}" src="/images/noredPNG.png" alt="nored" style="width: 20px; height: 20px;">
+                <img th:if="${hotelEntry.key.dogFriendly}" src="/images/okgreenPNG.png" alt="okgreen" style="width: 20px; height: 20px;">
+                <img th:unless="${hotelEntry.key.dogFriendly}" src="/images/noredPNG.png" alt="nored" style="width: 20px; height: 20px;">
             </td>
             <td style="text-align: center;"> <!-- TO DO: style to css-->
-                <img th:if="${hotel.spa}" src="/images/okgreenPNG.png" alt="okgreen" style="width: 20px; height: 20px;">
-                <img th:unless="${hotel.spa}" src="/images/noredPNG.png" alt="nored" style="width: 20px; height: 20px;">
+                <img th:if="${hotelEntry.key.spa}" src="/images/okgreenPNG.png" alt="okgreen" style="width: 20px; height: 20px;">
+                <img th:unless="${hotelEntry.key.spa}" src="/images/noredPNG.png" alt="nored" style="width: 20px; height: 20px;">
             </td>
             <td style="text-align: center;"> <!-- TO DO: style to css-->
-                <img th:if="${hotel.fitness}" src="/images/okgreenPNG.png" alt="okgreen" style="width: 20px; height: 20px;">
-                <img th:unless="${hotel.fitness}" src="/images/noredPNG.png" alt="nored" style="width: 20px; height: 20px;">
+                <img th:if="${hotelEntry.key.fitness}" src="/images/okgreenPNG.png" alt="okgreen" style="width: 20px; height: 20px;">
+                <img th:unless="${hotelEntry.key.fitness}" src="/images/noredPNG.png" alt="nored" style="width: 20px; height: 20px;">
             </td>
             <td style="text-align: center;"> <!-- TO DO: style to css-->
-                <img class="subscription-icon" data-hotel-id="${hotel.id}" th:if="${hotel.subscribed}" src="/images/okgreenPNG.png" alt="okgreen" style="width: 20px; height: 20px;">
-                <img class="subscription-icon" data-hotel-id="${hotel.id}" th:unless="${hotel.subscribed}" src="/images/noredPNG.png" alt="nored" style="width: 20px; height: 20px;">
+                <img class="subscription-icon" data-hotel-id="${hotel.id}" th:if="${hotelEntry.key.subscribed}" src="/images/okgreenPNG.png" alt="okgreen" style="width: 20px; height: 20px;">
+                <img class="subscription-icon" data-hotel-id="${hotel.id}" th:unless="${hotelEntry.key.subscribed}" src="/images/noredPNG.png" alt="nored" style="width: 20px; height: 20px;">
             </td>
             <!-- Codeend_Dominik_Lang_06.04.2024_added attributes and icons-->
 
@@ -862,9 +757,9 @@
             <td style="text-align: center; padding: 0;">
                 <!-- TO DO: style to css-->
                 <button class="subscription-button" style="width: 100%; height: 100%; padding: 0; border: 2px solid black; background: #cccccc; display: flex; justify-content: center; align-items: center;"
-                    th:data-hotel-id="${hotel.id}">
-                    <img th:if="${hotel.subscribed}" src="/images/subminusPNG.png" alt="subminus" style="width: 20px; height: 20px;">
-                    <img th:unless="${hotel.subscribed}" src="/images/subplusPNG.png" alt="subplus" style="width: 20px; height: 20px;">
+                    th:data-hotel-id="${hotelEntry.key.id}">
+                    <img th:if="${hotelEntry.key.subscribed}" src="/images/subminusPNG.png" alt="subminus" style="width: 20px; height: 20px;">
+                    <img th:unless="${hotelEntry.key.subscribed}" src="/images/subplusPNG.png" alt="subplus" style="width: 20px; height: 20px;">
                 </button>
             </td>
             <!-- Codeend_Dominik_Lang_07.04.2024_added buttons and icons to html table-->
@@ -873,15 +768,15 @@
                 <!-- CodeAnfang_Achill_Hotel Info-->
                 <button class="btn infoBtn"
                         style="width: 100%; height: 100%; padding: 0; border: 2px solid black; background: #cccccc; display: flex; justify-content: center; align-items: center;"
-                        th:data-id="${hotel.id}" th:data-name="${hotel.name}"
-                        th:data-address="${hotel.address}" th:data-zip="${hotel.cityCode}"
-                        th:data-city="${hotel.city}" th:data-owner="${hotel.owner}"
-                        th:data-contact="${hotel.contact}" th:data-phone="${hotel.phone}"
-                        th:data-email-address="${hotel.emailAddress}" th:data-url="${hotel.url}"
-                        th:data-category="${hotel.category}" th:data-family-friendly="${hotel.familyFriendly}"
-                        th:data-dog-friendly="${hotel.dogFriendly}"
-                        th:data-spa="${hotel.spa}" th:data-fitness="${hotel.fitness}"
-                        th:data-subscribed="${hotel.subscribed}"
+                        th:data-id="${hotelEntry.key.id}" th:data-name="${hotelEntry.key.name}"
+                        th:data-address="${hotelEntry.key.address}" th:data-zip="${hotelEntry.key.cityCode}"
+                        th:data-city="${hotelEntry.key.city}" th:data-owner="${hotelEntry.key.owner}"
+                        th:data-contact="${hotelEntry.key.contact}" th:data-phone="${hotelEntry.key.phone}"
+                        th:data-email-address="${hotelEntry.key.emailAddress}" th:data-url="${hotelEntry.key.url}"
+                        th:data-category="${hotelEntry.key.category}" th:data-family-friendly="${hotelEntry.key.familyFriendly}"
+                        th:data-dog-friendly="${hotelEntry.key.dogFriendly}"
+                        th:data-spa="${hotelEntry.key.spa}" th:data-fitness="${hotelEntry.key.fitness}"
+                        th:data-subscribed="${hotelEntry.key.subscribed}"
                         onclick="showHotelInfo(this)">
                     <!-- Codebegin_Dominik_Lang_07.04.2024_added icon-->
                     <img src="/images/detailsPNG.png" alt="details" style="width: 20px; height: 20px;">
@@ -902,7 +797,7 @@
             <td style="text-align: center; padding: 0;">
             <!--Code Anfang #3_Nikola_02.05 Occupancy Form -->
                 <button class="btn" style="width: 100%; height: 100%; padding: 0; border: 2px solid black; background: #cccccc; display: flex; justify-content: center; align-items: center;"
-                        th:data-id="${hotel.id}" th:data-name="${hotel.name}" th:data-zip="${hotel.cityCode}"
+                        th:data-id="${hotelEntry.key.id}" th:data-name="${hotelEntry.key.name}" th:data-zip="${hotelEntry.key.cityCode}"
                         onclick="addOccupancy(this)">
                     <img src="/images/addOccpPNG.png" alt="addOccp" style="width: 20px; height: 20px;">
                 </button>
@@ -921,36 +816,59 @@
             </td>
             -->
 
-
-            <!-- sulim code für occupancy table
-                  </tr>
-                  </tbody>
-
-                  <tr style="color: white; width: 80px; text-align: center">
-                      <th>Total Rooms</th>
-                      <th>Booked Rooms</th>
-                      <th>Room Occ. in %</th>
-                      <th>Total Beds</th>
-                      <th>Booked Beds</th>
-                      <th>Bed Occ. in %</th>
-                      <th>#1 of National Guest</th>
-                  </tr>
-                  </thead>
-                  <tbody style="background-color: white;">
-                  <tr th:each="occupancy : ${occupancyPage.content}" th:if="${occupancy != null}">
-
-                      <td th:text="${occupancy.rooms}">0</td>
-                      <td th:text="${occupancy.usedrooms}">0</td>
-                      <td th:text="${occupancy.rooms > 0 ? (occupancy.usedrooms * 100 / occupancy.rooms) : 0} + '%'">0%</td>
-                      <td th:text="${occupancy.beds}">0</td>
-                      <td th:text="${occupancy.usedbeds}">0</td>
-                      <td th:text="${occupancy.beds > 0 ? (occupancy.usedbeds * 100 / occupancy.beds) : 0}">0%</td>
-                  </tr>
-           code ende occupancy table -->
-
-
-
         </tr>
+
+            <tr>
+                <td colspan="14" class="hiddenRow">
+                    <div th:id="'hotelDetails' + ${hotelIterStat.index}" class="collapse">
+                        <table class="table" style="background-color: #000000;width: 100%;">
+                            <tbody style="background-color: #9f9f9f;">
+                            <th:block th:each="yearEntry, yearIterStat : ${hotelEntry.value.entrySet()}">
+                                <tr data-toggle="collapse" th:attr="data-target='#yearDetails' + ${hotelIterStat.index} + '_' + ${yearIterStat.index}" class="accordion-toggle" style="cursor: pointer;">
+                                    <td th:text="${yearEntry.key}" style="text-align: left;"></td>
+
+                                </tr>
+                                <tr>
+                                    <td colspan="14" class="hiddenRow">
+                                        <div th:id="'yearDetails' + ${hotelIterStat.index} + '_' + ${yearIterStat.index}" class="collapse">
+                                            <table class="table" style="width: 100%">
+                                                <thead>
+                                                <tr>
+                                                    <th style="width: 80px; text-align: center">month</th>
+                                                    <th style="width: 80px; text-align: center">total rooms</th>
+                                                    <th style="width: 80px; text-align: center">booked rooms</th>
+                                                    <th style="width: 80px; text-align: center">room occp. in %</th>
+                                                    <th style="width: 80px; text-align: center">total beds</th>
+                                                    <th style="width: 80px; text-align: center">booked beds</th>
+                                                    <th style="width: 80px; text-align: center">bed occp. in %</th>
+                                                    <th style="width: 80px; text-align: center">#1 of national guest</th>
+                                                </tr>
+                                                </thead>
+                                                <tbody>
+                                                <tr th:each="occupancy : ${yearEntry.value}">
+                                                    <td th:text="${occupancy.month}" style="text-align: center;"></td>
+                                                    <td th:text="${occupancy.rooms}" style="text-align: center;"></td>
+                                                    <td th:text="${occupancy.usedrooms}" style="text-align: center;"></td>
+                                                    <td th:text="${occupancy.rooms > 0 ? (occupancy.usedrooms * 100 / occupancy.rooms) + '%' : '0%'}" style="text-align: center;"></td>
+                                                    <td th:text="${occupancy.beds}" style="text-align: center;"></td>
+                                                    <td th:text="${occupancy.usedbeds}" style="text-align: center;"></td>
+                                                    <td th:text="${occupancy.beds > 0 ? (occupancy.usedbeds * 100 / occupancy.beds) + '%' : '0%'}" style="text-align: center;"></td>
+                                                    <td th:text="${occupancy.nationality}" style="text-align: center;"></td>
+                                                </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </th:block>
+                            </tbody>
+                        </table>
+                    </div>
+                </td>
+            </tr>
+
+        </th:block>
+
         </tbody>
     </table>
 </div>
@@ -1003,131 +921,6 @@
     </div>
 </div>
 <!-- Codeende #1_Achill_10.03.2024/27.03.2024/28.03.2024/03.04.2024_Overview Of Hotels -->
-
-<!--Codeanfang_Tuchan Occupancytable 05.05.
-<div th:if="${occupancyPage != null}">
-    <table>
-        <thead>
-        <tr style="color: white; width: 80px; text-align: center">
-            <th>Hotel ID</th>
-            <th>Hotel Name</th>
-            <th>ZIP</th>
-            <th>Category</th>
-
-        </tr>
-        </thead>
-        <tbody style="background-color: white;">
-
-        <tr th:block th:each="occupancy : ${occupancyPage.content}"> </tr>
-        <tr data-toggle="collapse" th:attr="data-target='#yearToggle' + ${i.index}" class="accordion-toggle">
-            <td th:text="${occupancy.hotel.id}">Hotel ID</td>
-            <td th:text="${occupancy.hotel.name}">Hotel Name</td>
-            <td th:text="${occupancy.hotel.cityCode}">ZIP Code</td>
-            <td th:text="${occupancy.hotel.category}">Category</td>
-            </tr>
-         <tr>
-             <th></th>
-             <td colspan="7" class="hiddenRow">
-                 <div class="accordian-body collapse" th:id="'yearToggle' + ${i.index}">
-                     <table class="table table-striped">
-                         <thead>
-                         <tr class="info">
-                             <th>Year</th>
-                         </tr>
-
-                         </thead>
-                     </table>
-                 </div>
-
-            <td th:text="${occupancy.rooms}">0</td>
-            <td th:text="${occupancy.usedrooms}">0</td>
-            <td th:text="${occupancy.rooms > 0 ? (occupancy.usedrooms * 100 / occupancy.rooms) : 0} + '%'">0%</td>
-            <td th:text="${occupancy.beds}">0</td>
-            <td th:text="${occupancy.usedbeds}">0</td>
-            <td th:text="${occupancy.beds > 0 ? (occupancy.usedbeds * 100 / occupancy.beds) : 0}">0%</td>
-
-                     </tr>
-
-        </tbody>
-    </table>
-</div>
-Codeanfang_Tuchan Occupancy Table 05.05 -- NEU 08.05. TABLE Occupancy Hotel listview  Tuchan-->
-<div class="container-fluid" style="padding-top: 125px;">
-    <div class="d-flex justify-content-center">
-        <table class="w-75 table table-hover table-bordered table-striped table-expandable" id="hotelTable">
-            <thead>
-            <tr class="header">
-                <th>Hotel ID</th>
-                <th>Hotel Name</th>
-                <th>ZIP Code</th>
-                <th>Category</th>
-            </tr>
-            </thead>
-            <tbody>
-            <th:block th:each="hotelEntry, hotelIterStat : ${hotelOccupancyMap}">
-                <tr data-toggle="collapse" th:attr="data-target='#hotelDetails' + ${hotelIterStat.index}" class="accordion-toggle">
-                    <td th:text="${hotelEntry.key.id}">Hotel ID</td>
-                    <td th:text="${hotelEntry.key.name}">Hotel Name</td>
-                    <td th:text="${hotelEntry.key.cityCode}">ZIP Code</td>
-                    <td th:text="${hotelEntry.key.category}">Category</td>
-                </tr>
-                <tr>
-                    <td colspan="4" class="hiddenRow">
-                        <div th:id="'hotelDetails' + ${hotelIterStat.index}" class="collapse">
-                            <table class="table table-striped">
-                                <thead>
-                                <tr>
-                                    <th>Year</th>
-                                    <th>Details</th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                <th:block th:each="yearEntry, yearIterStat : ${hotelEntry.value.entrySet()}">
-                                    <tr data-toggle="collapse" th:attr="data-target='#yearDetails' + ${hotelIterStat.index} + '_' + ${yearIterStat.index}" class="accordion-toggle">
-                                        <td th:text="${yearEntry.key}">Year</td>
-                                        <td>Click to view details</td>
-                                    </tr>
-                                    <tr>
-                                        <td colspan="2" class="hiddenRow">
-                                            <div th:id="'yearDetails' + ${hotelIterStat.index} + '_' + ${yearIterStat.index}" class="collapse">
-                                                <table class="table table-striped">
-                                                    <thead>
-                                                    <tr>
-                                                        <th>Month</th>
-                                                        <th>Rooms Available</th>
-                                                        <th>Rooms Used</th>
-                                                        <th>% Rooms Used</th>
-                                                        <th>Beds Available</th>
-                                                        <th>Beds Used</th>
-                                                        <th>% Beds Used</th>
-                                                    </tr>
-                                                    </thead>
-                                                    <tbody>
-                                                    <tr th:each="occupancy : ${yearEntry.value}">
-                                                        <td th:text="${occupancy.month}">Month</td>
-                                                        <td th:text="${occupancy.rooms}">Rooms Available</td>
-                                                        <td th:text="${occupancy.usedrooms}">Rooms Used</td>
-                                                        <td th:text="${occupancy.rooms > 0 ? (occupancy.usedrooms * 100 / occupancy.rooms) + '%' : '0%'}">% Rooms Used</td>
-                                                        <td th:text="${occupancy.beds}">Beds Available</td>
-                                                        <td th:text="${occupancy.usedbeds}">Beds Used</td>
-                                                        <td th:text="${occupancy.beds > 0 ? (occupancy.usedbeds * 100 / occupancy.beds) + '%' : '0%'}">% Beds Used</td>
-                                                    </tr>
-                                                    </tbody>
-                                                </table>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                </th:block>
-                                </tbody>
-                            </table>
-                        </div>
-                    </td>
-                </tr>
-            </th:block>
-            </tbody>
-        </table>
-    </div>
-</div>
 
 
 
