@@ -65,3 +65,28 @@ CREATE TABLE import_events
 );
 -- Codeende_Achill_02.05.2024_ImportEventsTable
 
+-- Codeanfang Veton 13.05.2024_CreatingRoles
+DROP TABLE IF EXISTS users_roles;
+DROP TABLE IF EXISTS users;
+DROP TABLE IF EXISTS roles;
+
+CREATE TABLE users (
+    user_id int(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    username varchar(45) NOT NULL,
+    full_name varchar(45) NOT NULL,
+    password varchar(64) NOT NULL,
+    enabled tinyint(4) DEFAULT 1  -- Standardwert als Beispiel gesetzt, anpassen nach Bedarf
+);
+
+CREATE TABLE roles (
+    role_id int(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    name varchar(45) NOT NULL
+);
+
+CREATE TABLE users_roles (
+    user_id int(11) NOT NULL,
+    role_id int(11) NOT NULL,
+    PRIMARY KEY(user_id, role_id),  -- Composite Primary Key für die Verknüpfungstabellen
+    CONSTRAINT role_fk FOREIGN KEY (role_id) REFERENCES roles (role_id),
+    CONSTRAINT user_fk FOREIGN KEY (user_id) REFERENCES users (user_id)
+);
