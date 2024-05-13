@@ -28,6 +28,19 @@ table
     border-color: black;
 }
 
+/* Style für jede zweite Zeile in der Tabelle */
+
+tr:nth-child(even) {
+    background-color: #ccffff;
+}
+
+tbody:nth-child(even) {
+    background-color: #ccffff;
+}
+
+
+
+
 
 
 .logo {
@@ -171,10 +184,7 @@ hr {
     align-items: center;
     padding: 10px;
 }
-/* Style für jede zweite Zeile in der Tabelle */
-#hotelData tr:nth-child(even) {
-    background-color: #ccffff;
-}
+
 
 /* The Modal (background) */
 .modal {

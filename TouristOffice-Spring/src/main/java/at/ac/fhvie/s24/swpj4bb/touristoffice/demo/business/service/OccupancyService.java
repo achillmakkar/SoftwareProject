@@ -54,11 +54,6 @@ public class OccupancyService
         return occupancyRepository.findByHotelAndYear(hotel, year);
     }
 
-    //code sulim 29.04.
-
-    public List<Integer> findDistinctYearsByHotelId(int hotelId) {
-        return occupancyRepository.findDistinctYearsByHotelId(hotelId);
-    }
 
     //Code Sulim 18.04.
 

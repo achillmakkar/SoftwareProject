@@ -463,6 +463,12 @@
     </script>
     <style>
 
+        .hiddenRow {
+            height: 0;
+            padding: 0;
+            overflow: hidden;
+        }
+
         body
         {
             background-color:#66ccff;
@@ -492,10 +498,12 @@
             color: white;
             border-color: #46b8da;
         }
-        /* Style für jede zweite Zeile in der Tabelle */
+        /* Style für jede zweite Zeile in der Tabelle
         #hotelData tr:nth-child(even) {
             background-color: #ccffff;
         }
+        */
+
         tr
         {
             background-color: white;
@@ -542,10 +550,12 @@
             align-items: center;
             padding: 10px;
         }
-        /* Style für jede zweite Zeile in der Tabelle */
+        /* Style für jede zweite Zeile in der Tabelle
         #hotelData tr:nth-child(even) {
             background-color: #ccffff;
         }
+
+         */
         .btn-pagination-arrow {
             background-color: #666666;
             border-color: black;
@@ -862,7 +872,7 @@
 
                                 </tr>
                                 <tr>
-                                    <td colspan="14" class="hiddenRow">
+                                    <td colspan="14" class="hiddenRow" style="height: 0; padding: 0; overflow: hidden;">
                                         <div th:id="'yearDetails' + ${hotelIterStat.index} + '_' + ${yearIterStat.index}" class="collapse">
                                             <table class="table" style="width: 100%">
                                                 <thead>
