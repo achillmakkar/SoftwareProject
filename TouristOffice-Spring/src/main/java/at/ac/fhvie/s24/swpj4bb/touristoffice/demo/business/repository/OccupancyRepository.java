@@ -34,6 +34,7 @@ public interface OccupancyRepository  extends PagingAndSortingRepository<Occupan
     //and the last 12 entries
     @Query("SELECT DISTINCT o.year FROM Occupancy o ORDER BY o.year")
     List<Integer> findDistinctYears();
+
 }
 
 

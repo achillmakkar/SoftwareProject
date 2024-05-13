@@ -64,3 +64,4 @@ CREATE TABLE import_events
     user VARCHAR(255) NOT NULL
 );
 -- Codeende_Achill_02.05.2024_ImportEventsTable
+
