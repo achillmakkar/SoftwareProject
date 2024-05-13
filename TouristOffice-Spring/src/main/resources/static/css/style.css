@@ -215,6 +215,12 @@ hr {
 
 /*HISTOGRAM:*/
 
+.histogram-container {
+    width: 50%; /* Breite des Containers auf 100% des Elternelements setzen */
+    height: 50%; /* Höhe festlegen, anpassbar nach Bedarf */
+    margin: auto; /* Zentrieren des Containers */
+}
+
 .histogram-modal-content {
     position: fixed;
     top: 50%;
@@ -342,7 +348,7 @@ hr {
     margin-top: 37.8px; /* Fügt 1 cm Abstand über dem Schließknopf hinzu */
 }
 
-/*Codebegin_Lang_27.04.2024_04.05.2024_Histogram_Pop_up_window_Req#6_HelpWindow_add_hotel*/
+/*Codeend_Lang_27.04.2024_04.05.2024_Histogram_Pop_up_window_Req#6_HelpWindow_add_hotel*/
 
 /* The Close Button */
 .close {
