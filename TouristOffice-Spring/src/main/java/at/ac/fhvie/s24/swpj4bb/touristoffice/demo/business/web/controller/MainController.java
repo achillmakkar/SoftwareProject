@@ -50,7 +50,7 @@ public class MainController {
     int pageSize = size.orElse(10);
 
     Pageable pageable = PageRequest.of(currentPage - 1, pageSize);
-    Page<Hotel> hotelPage = hotelService.findAllOrderedById(pageable);
+    Page<Hotel> hotelPage = hotelService.getHotelsOrderedByZipAndName(pageable);
     Page<Occupancy> occupancyPage = occupancyService.findAllOrderedById(pageable);
 
     if (occupancyPage.hasContent()) {

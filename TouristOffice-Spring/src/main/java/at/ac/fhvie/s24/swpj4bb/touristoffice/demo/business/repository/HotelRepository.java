@@ -30,4 +30,10 @@ public interface HotelRepository  extends PagingAndSortingRepository<Hotel, Inte
   List<Hotel> findByName(String lastName);
 
   List<Hotel> findAllById(int id, Pageable pageable);
+
+  // Codeanfang_Achill_12.05.2024_ZIP_Name_HotelSortieren
+  @Query("SELECT h FROM Hotel h GROUP BY zip, id, name ORDER BY zip, name")
+  Page<Hotel> findAllByOrderByZipAscNameAsc(Pageable pageable);
+  // Codeende_Achill_12.05.2024_ZIP_Name_HotelSortieren
+
 }

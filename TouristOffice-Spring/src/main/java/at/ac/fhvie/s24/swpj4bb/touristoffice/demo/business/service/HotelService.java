@@ -41,7 +41,6 @@ public class HotelService {
   @Autowired
   public HotelService(final HotelRepository hotelRepository) {
     this.hotelRepository = hotelRepository;
-
   }
 
   /**
@@ -89,7 +88,9 @@ public class HotelService {
     return index;
   }
 
-
+  public Page<Hotel> getHotelsOrderedByZipAndName(Pageable pageable) {
+    return hotelRepository.findAllByOrderByZipAscNameAsc(pageable);
+  }
 
 
   /**
@@ -101,8 +102,6 @@ public class HotelService {
   public boolean save(final Hotel newHotel) {
     hotelRepository.save(newHotel);
     exportDatabase();
-
-
     return true;
   }
 
