@@ -344,7 +344,7 @@
 
             });
 
-                //Codeend_Lang_27.04.2024/29.04.2024_Histogramm
+            //Codeend_Lang_27.04.2024/29.04.2024_Histogramm
 
             //Codeend_Lang_27.04.2024_Histogramm_Popup Window
 
@@ -473,6 +473,11 @@
         {
             background-color:#66ccff;
         }
+        #hotelData tbody tr:nth-child(even) {
+            background-color: #ccffff !important;
+        }
+
+
         .btn-pagination {
             background-color: white;
             color:black;
@@ -610,9 +615,9 @@
             <!-- Codeend_Req#8_Lang_04.05.2024 -->
 
             <a class="btn btn-secondary" href="#logout" style="width: 80px; height: 42px;color:black; background-color: #dee2e6; font-weight: bold; border: 2px solid #004d40;">Logout</a>
-       </div>
+        </div>
         <div class="menu-under-flags">
-        <!-- Zweite Navigationsleiste für Menülinks -->
+            <!-- Zweite Navigationsleiste für Menülinks -->
             <div class="topnav topnav-lower">
                 <div class="navigation-links">
 
@@ -639,19 +644,19 @@
                     <a class="btn btn-secondary" id="triggerCsvImport" href="javascript:void(0);" style="color: white; background-color: teal; font-weight: bold; border: 2px solid black">Import CSV Data</a>
                     <!-- Codeende_Achill_ImportCsv_DataService/18.04.2024/19.04.2024/20.04.2024/23.04.2024/25.04.2024/26.04.2024 -->
                     <a id="myBtn" class="btn btn-secondary" style="color:black; background-color: orange; font-weight: bold; border: 2px solid black">Statistics as PDF</a>
-                <!-- The Modal -->
-                        <div id="myModal" class="modal">
+                    <!-- The Modal -->
+                    <div id="myModal" class="modal">
 
-                            <!-- Modal content -->
-                            <div class="modal-content">
-                                <span class="close">&times;</span>
-                                <h2 style="font-weight: bold">Statistics as PDF</h2>
-                                <br>
-                                     <p style="font-weight: bold">PDF has been saved.</p>
-                                <br>
-                                <button id="closeBtn">CLOSE</button>
-                            </div>
+                        <!-- Modal content -->
+                        <div class="modal-content">
+                            <span class="close">&times;</span>
+                            <h2 style="font-weight: bold">Statistics as PDF</h2>
+                            <br>
+                            <p style="font-weight: bold">PDF has been saved.</p>
+                            <br>
+                            <button id="closeBtn">CLOSE</button>
                         </div>
+                    </div>
 
 
                     <!--Codeanfang_Lang_27.04.2024_Histogram_Button-->
@@ -727,7 +732,7 @@
 <br>
 <div style="display: flex; justify-content: center;">
     <!-- Codebegin_Dominik_Lang_07.04.2024_added background color (mockup)-->
-    <table id="hotelData" border="1" style="background-color: #6699cc;">
+    <table id="hotelData" border="1">
         <!-- Codeend_Dominik_Lang_07.04.2024_added background color (mockup)-->
         <thead>
         <tr style="color: white; background-color: #6699cc" data-hotel-id="1" class="hotel-row">
@@ -774,93 +779,93 @@
                 </td>
 
 
-            <!-- Codebegin_Dominik_Lang_06.04.2024_added attributes and icons-->
-            <td style="text-align: center;"> <!-- TO DO: style to css-->
-                <img th:if="${hotelEntry.key.familyFriendly}" src="/images/okgreenPNG.png" alt="okgreen" style="width: 20px; height: 20px;">
-                <img th:unless="${hotelEntry.key.familyFriendly}" src="/images/noredPNG.png" alt="nored" style="width: 20px; height: 20px;">
-            </td>
-            <td style="text-align: center;"> <!-- TO DO: style to css-->
-                <img th:if="${hotelEntry.key.dogFriendly}" src="/images/okgreenPNG.png" alt="okgreen" style="width: 20px; height: 20px;">
-                <img th:unless="${hotelEntry.key.dogFriendly}" src="/images/noredPNG.png" alt="nored" style="width: 20px; height: 20px;">
-            </td>
-            <td style="text-align: center;"> <!-- TO DO: style to css-->
-                <img th:if="${hotelEntry.key.spa}" src="/images/okgreenPNG.png" alt="okgreen" style="width: 20px; height: 20px;">
-                <img th:unless="${hotelEntry.key.spa}" src="/images/noredPNG.png" alt="nored" style="width: 20px; height: 20px;">
-            </td>
-            <td style="text-align: center;"> <!-- TO DO: style to css-->
-                <img th:if="${hotelEntry.key.fitness}" src="/images/okgreenPNG.png" alt="okgreen" style="width: 20px; height: 20px;">
-                <img th:unless="${hotelEntry.key.fitness}" src="/images/noredPNG.png" alt="nored" style="width: 20px; height: 20px;">
-            </td>
-            <td style="text-align: center;"> <!-- TO DO: style to css-->
-                <img class="subscription-icon" data-hotel-id="${hotel.id}" th:if="${hotelEntry.key.subscribed}" src="/images/okgreenPNG.png" alt="okgreen" style="width: 20px; height: 20px;">
-                <img class="subscription-icon" data-hotel-id="${hotel.id}" th:unless="${hotelEntry.key.subscribed}" src="/images/noredPNG.png" alt="nored" style="width: 20px; height: 20px;">
-            </td>
-            <!-- Codeend_Dominik_Lang_06.04.2024_added attributes and icons-->
-
-            <!-- Codebegin_Dominik_Lang_07.04.2024_added buttons and icons to html table-->
-            <td style="text-align: center; padding: 0;">
-                <!-- TO DO: style to css-->
-                <button class="subscription-button" style="width: 100%; height: 100%; padding: 0; border: 2px solid black; background: #cccccc; display: flex; justify-content: center; align-items: center;"
-                    th:data-hotel-id="${hotelEntry.key.id}">
-                    <img th:if="${hotelEntry.key.subscribed}" src="/images/subminusPNG.png" alt="subminus" style="width: 20px; height: 20px;">
-                    <img th:unless="${hotelEntry.key.subscribed}" src="/images/subplusPNG.png" alt="subplus" style="width: 20px; height: 20px;">
-                </button>
-            </td>
-            <!-- Codeend_Dominik_Lang_07.04.2024_added buttons and icons to html table-->
-
-            <td style="text-align: center;">
-                <!-- CodeAnfang_Achill_Hotel Info-->
-                <button class="btn infoBtn"
-                        style="width: 100%; height: 100%; padding: 0; border: 2px solid black; background: #cccccc; display: flex; justify-content: center; align-items: center;"
-                        th:data-id="${hotelEntry.key.id}" th:data-name="${hotelEntry.key.name}"
-                        th:data-address="${hotelEntry.key.address}" th:data-zip="${hotelEntry.key.cityCode}"
-                        th:data-city="${hotelEntry.key.city}" th:data-owner="${hotelEntry.key.owner}"
-                        th:data-contact="${hotelEntry.key.contact}" th:data-phone="${hotelEntry.key.phone}"
-                        th:data-email-address="${hotelEntry.key.emailAddress}" th:data-url="${hotelEntry.key.url}"
-                        th:data-category="${hotelEntry.key.category}" th:data-family-friendly="${hotelEntry.key.familyFriendly}"
-                        th:data-dog-friendly="${hotelEntry.key.dogFriendly}"
-                        th:data-spa="${hotelEntry.key.spa}" th:data-fitness="${hotelEntry.key.fitness}"
-                        th:data-subscribed="${hotelEntry.key.subscribed}"
-                        onclick="showHotelInfo(this)">
-                    <!-- Codebegin_Dominik_Lang_07.04.2024_added icon-->
-                    <img src="/images/detailsPNG.png" alt="details" style="width: 20px; height: 20px;">
-                    <!-- Codeend_Dominik_Lang_07.04.2024_added icon-->
-                </button>
-                <!-- Codeende_Achill_Hotel Info-->
-
-                <!-- Codebegin_Dominik_Lang_04.05.2024_added updateHotel-button and icons to html table-->
-            <td style="text-align: center; padding: 0;">
-                <!-- TO DO: style to css-->
-                <button class="update-button" style="width: 100%; height: 100%; padding: 0; border: 2px solid black; background: #cccccc; display: flex; justify-content: center; align-items: center;">
-                    <img src="/images/update_PNG.png" alt="update" style="width: 20px; height: 20px;">
-                </button>
-            </td>
-            <!-- Codeend_Dominik_Lang_04.05.2024_added updateHotel-button and icons to html table-->
+                <!-- Codebegin_Dominik_Lang_06.04.2024_added attributes and icons-->
+                <td style="text-align: center;"> <!-- TO DO: style to css-->
+                    <img th:if="${hotelEntry.key.familyFriendly}" src="/images/okgreenPNG.png" alt="okgreen" style="width: 20px; height: 20px;">
+                    <img th:unless="${hotelEntry.key.familyFriendly}" src="/images/noredPNG.png" alt="nored" style="width: 20px; height: 20px;">
+                </td>
+                <td style="text-align: center;"> <!-- TO DO: style to css-->
+                    <img th:if="${hotelEntry.key.dogFriendly}" src="/images/okgreenPNG.png" alt="okgreen" style="width: 20px; height: 20px;">
+                    <img th:unless="${hotelEntry.key.dogFriendly}" src="/images/noredPNG.png" alt="nored" style="width: 20px; height: 20px;">
+                </td>
+                <td style="text-align: center;"> <!-- TO DO: style to css-->
+                    <img th:if="${hotelEntry.key.spa}" src="/images/okgreenPNG.png" alt="okgreen" style="width: 20px; height: 20px;">
+                    <img th:unless="${hotelEntry.key.spa}" src="/images/noredPNG.png" alt="nored" style="width: 20px; height: 20px;">
+                </td>
+                <td style="text-align: center;"> <!-- TO DO: style to css-->
+                    <img th:if="${hotelEntry.key.fitness}" src="/images/okgreenPNG.png" alt="okgreen" style="width: 20px; height: 20px;">
+                    <img th:unless="${hotelEntry.key.fitness}" src="/images/noredPNG.png" alt="nored" style="width: 20px; height: 20px;">
+                </td>
+                <td style="text-align: center;"> <!-- TO DO: style to css-->
+                    <img class="subscription-icon" data-hotel-id="${hotel.id}" th:if="${hotelEntry.key.subscribed}" src="/images/okgreenPNG.png" alt="okgreen" style="width: 20px; height: 20px;">
+                    <img class="subscription-icon" data-hotel-id="${hotel.id}" th:unless="${hotelEntry.key.subscribed}" src="/images/noredPNG.png" alt="nored" style="width: 20px; height: 20px;">
+                </td>
+                <!-- Codeend_Dominik_Lang_06.04.2024_added attributes and icons-->
 
                 <!-- Codebegin_Dominik_Lang_07.04.2024_added buttons and icons to html table-->
-            <td style="text-align: center; padding: 0;">
-            <!--Code Anfang #3_Nikola_02.05 Occupancy Form -->
-                <button class="btn" style="width: 100%; height: 100%; padding: 0; border: 2px solid black; background: #cccccc; display: flex; justify-content: center; align-items: center;"
-                        th:data-id="${hotelEntry.key.id}" th:data-name="${hotelEntry.key.name}" th:data-zip="${hotelEntry.key.cityCode}"
-                        onclick="addOccupancy(this)">
-                    <img src="/images/addOccpPNG.png" alt="addOccp" style="width: 20px; height: 20px;">
-                </button>
-            <!--Code Ende #3_Nikola_02.05 Occupancy Form -->
-            </td>
+                <td style="text-align: center; padding: 0;">
+                    <!-- TO DO: style to css-->
+                    <button class="subscription-button" style="width: 100%; height: 100%; padding: 0; border: 2px solid black; background: #cccccc; display: flex; justify-content: center; align-items: center;"
+                            th:data-hotel-id="${hotelEntry.key.id}">
+                        <img th:if="${hotelEntry.key.subscribed}" src="/images/subminusPNG.png" alt="subminus" style="width: 20px; height: 20px;">
+                        <img th:unless="${hotelEntry.key.subscribed}" src="/images/subplusPNG.png" alt="subplus" style="width: 20px; height: 20px;">
+                    </button>
+                </td>
+                <!-- Codeend_Dominik_Lang_07.04.2024_added buttons and icons to html table-->
 
-            <td style="text-align: center; padding: 0;">
-                <button class="btn" style="width: 100%; height: 100%; padding: 0; border: 2px solid black; background: #cccccc; display: flex; justify-content: center; align-items: center;">
-                    <img src="/images/deletePNG.png" alt="delete" style="width: 20px; height: 20px;">
-                </button>
-            </td>
-            <!-- Codeend_Dominik_Lang_07.04.2024_added buttons and icons to html table-->
+                <td style="text-align: center;">
+                    <!-- CodeAnfang_Achill_Hotel Info-->
+                    <button class="btn infoBtn"
+                            style="width: 100%; height: 100%; padding: 0; border: 2px solid black; background: #cccccc; display: flex; justify-content: center; align-items: center;"
+                            th:data-id="${hotelEntry.key.id}" th:data-name="${hotelEntry.key.name}"
+                            th:data-address="${hotelEntry.key.address}" th:data-zip="${hotelEntry.key.cityCode}"
+                            th:data-city="${hotelEntry.key.city}" th:data-owner="${hotelEntry.key.owner}"
+                            th:data-contact="${hotelEntry.key.contact}" th:data-phone="${hotelEntry.key.phone}"
+                            th:data-email-address="${hotelEntry.key.emailAddress}" th:data-url="${hotelEntry.key.url}"
+                            th:data-category="${hotelEntry.key.category}" th:data-family-friendly="${hotelEntry.key.familyFriendly}"
+                            th:data-dog-friendly="${hotelEntry.key.dogFriendly}"
+                            th:data-spa="${hotelEntry.key.spa}" th:data-fitness="${hotelEntry.key.fitness}"
+                            th:data-subscribed="${hotelEntry.key.subscribed}"
+                            onclick="showHotelInfo(this)">
+                        <!-- Codebegin_Dominik_Lang_07.04.2024_added icon-->
+                        <img src="/images/detailsPNG.png" alt="details" style="width: 20px; height: 20px;">
+                        <!-- Codeend_Dominik_Lang_07.04.2024_added icon-->
+                    </button>
+                    <!-- Codeende_Achill_Hotel Info-->
 
-           <!-- <td>
-                <button onclick="toggleOccupancy('${hotel.id}')" class="btn btn-info">Show Occupancy</button>
-            </td>
-            -->
+                    <!-- Codebegin_Dominik_Lang_04.05.2024_added updateHotel-button and icons to html table-->
+                <td style="text-align: center; padding: 0;">
+                    <!-- TO DO: style to css-->
+                    <button class="update-button" style="width: 100%; height: 100%; padding: 0; border: 2px solid black; background: #cccccc; display: flex; justify-content: center; align-items: center;">
+                        <img src="/images/update_PNG.png" alt="update" style="width: 20px; height: 20px;">
+                    </button>
+                </td>
+                <!-- Codeend_Dominik_Lang_04.05.2024_added updateHotel-button and icons to html table-->
 
-        </tr>
+                <!-- Codebegin_Dominik_Lang_07.04.2024_added buttons and icons to html table-->
+                <td style="text-align: center; padding: 0;">
+                    <!--Code Anfang #3_Nikola_02.05 Occupancy Form -->
+                    <button class="btn" style="width: 100%; height: 100%; padding: 0; border: 2px solid black; background: #cccccc; display: flex; justify-content: center; align-items: center;"
+                            th:data-id="${hotelEntry.key.id}" th:data-name="${hotelEntry.key.name}" th:data-zip="${hotelEntry.key.cityCode}"
+                            onclick="addOccupancy(this)">
+                        <img src="/images/addOccpPNG.png" alt="addOccp" style="width: 20px; height: 20px;">
+                    </button>
+                    <!--Code Ende #3_Nikola_02.05 Occupancy Form -->
+                </td>
+
+                <td style="text-align: center; padding: 0;">
+                    <button class="btn" style="width: 100%; height: 100%; padding: 0; border: 2px solid black; background: #cccccc; display: flex; justify-content: center; align-items: center;">
+                        <img src="/images/deletePNG.png" alt="delete" style="width: 20px; height: 20px;">
+                    </button>
+                </td>
+                <!-- Codeend_Dominik_Lang_07.04.2024_added buttons and icons to html table-->
+
+                <!-- <td>
+                     <button onclick="toggleOccupancy('${hotel.id}')" class="btn btn-info">Show Occupancy</button>
+                 </td>
+                 -->
+
+            </tr>
 
             <tr>
                 <td colspan="14" class="hiddenRow">
