@@ -72,8 +72,8 @@
     <img src="/images/austriaflagPNG.png" alt="Austrian Flag">
 </div>
 
-<form action="path-to-your-login-processing" method="post" class="login-form">
-    <img src="/images/Logo.jpg" alt="NÖ Tourismusportal Logo" style="width: 300px;">
+<form action="/loginpage" th:action="@{/loginpage}" th:object="${command}"method="post" class="login-form">
+<img src="/images/Logo.jpg" alt="NÖ Tourismusportal Logo" style="width: 300px;">
     <div class="form-container">
         <div class="form-field">
             <label for="username">Username:</label>
@@ -98,30 +98,7 @@
 <body>
 <!-- Dein HTML -->
 
-<script>
-    function handleLogin(event) {
-        event.preventDefault();
-        var username = document.getElementById('username').value;
-        var password = document.getElementById('password').value;
 
-        // Dummy-Daten für den Benutzer Veton
-        var dummyUser = {
-            username: 'Veton',
-            password: '12345678'
-        };
-
-        // Überprüfung, ob die eingegebenen Daten mit den Dummy-Daten übereinstimmen
-        if(username === dummyUser.username && password === dummyUser.password) {
-            // Weiterleitung zur Index-Seite, wenn die Daten übereinstimmen
-            window.location.href = '/index'; // Pfad zur Index-Seite anpassen
-        } else {
-            alert('Falscher Benutzername oder Passwort!');
-        }
-    }
-
-    // Event-Listener zum Einloggen hinzufügen
-    document.querySelector('.login-form').addEventListener('submit', handleLogin);
-</script>
 </body>
 </html>
 

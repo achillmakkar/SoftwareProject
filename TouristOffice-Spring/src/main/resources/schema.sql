@@ -54,7 +54,7 @@ CREATE TABLE occupancy
 --Codeende_Achill_25.03.2024_OccupancyTable
 
 -- Codestart_Achill_02.05.2024_ImportEventsTable
-DROP TABLE IF EXISTS import_events;
+/*DROP TABLE IF EXISTS import_events;*/
 
 CREATE TABLE import_events
 (
