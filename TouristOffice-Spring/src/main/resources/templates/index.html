@@ -886,23 +886,25 @@
                                         <table class="table" style="width: 100%; background-color: #333;">
                                             <thead>
                                             <tr>
-                                                <th style="text-align: center;">Year</th>
-                                                <th style="text-align: center;">Month</th>
-                                                <th style="text-align: center;">Rooms</th>
-                                                <th style="text-align: center;">Used Rooms</th>
-                                                <th style="text-align: center;">Beds</th>
-                                                <th style="text-align: center;">Used Beds</th>
-                                                <th style="text-align: center;">Nationality</th>
+                                                <th style="width: 80px; text-align: center">month</th>
+                                                <th style="width: 80px; text-align: center">total rooms</th>
+                                                <th style="width: 80px; text-align: center">booked rooms</th>
+                                                <th style="width: 80px; text-align: center">room occp. in %</th>
+                                                <th style="width: 80px; text-align: center">total beds</th>
+                                                <th style="width: 80px; text-align: center">booked beds</th>
+                                                <th style="width: 80px; text-align: center">bed occp. in %</th>
+                                                <th style="width: 80px; text-align: center">#1 of national guest</th>
                                             </tr>
                                             </thead>
                                             <tbody>
                                             <tr th:each="occupancy : ${last12MonthsMap[hotelEntry.key]}">
-                                                <td th:text="${occupancy.year}" style="text-align: center;"></td>
                                                 <td th:text="${occupancy.month}" style="text-align: center;"></td>
                                                 <td th:text="${occupancy.rooms}" style="text-align: center;"></td>
                                                 <td th:text="${occupancy.usedrooms}" style="text-align: center;"></td>
+                                                <td th:text="${occupancy.rooms > 0 ? (occupancy.usedrooms * 100 / occupancy.rooms) + '%' : '0%'}" style="text-align: center;"></td>
                                                 <td th:text="${occupancy.beds}" style="text-align: center;"></td>
                                                 <td th:text="${occupancy.usedbeds}" style="text-align: center;"></td>
+                                                <td th:text="${occupancy.beds > 0 ? (occupancy.usedbeds * 100 / occupancy.beds) + '%' : '0%'}" style="text-align: center;"></td>
                                                 <td th:text="${occupancy.nationality}" style="text-align: center;"></td>
                                             </tr>
                                             </tbody>
