@@ -868,14 +868,52 @@
             </tr>
 
             <tr>
+
+
                 <td colspan="14" class="hiddenRow">
                     <div th:id="'hotelDetails' + ${hotelIterStat.index}" class="collapse">
                         <table class="table" style="background-color: #000000;width: 100%;">
                             <tbody style="background-color: #9f9f9f;">
+                            <!-- Hier die Tabelle "last 12 Entries" hinzufügen -->
+                            <tr data-toggle="collapse" th:attr="data-target='#last12Months' + ${hotelIterStat.index}" class="accordion-toggle" style="cursor: pointer;">
+                                <td colspan="14" style="text-align: left; background-color: dimgrey;">
+                                    <h3 style="font-size: 1.0em; margin: 0; color: white;">Last 12 Months</h3> <!-- Verkleinertes h3 und weißer Text -->
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="14" class="hiddenRow" style="height: 0; padding: 0; overflow: hidden">
+                                    <div th:id="'last12Months' + ${hotelIterStat.index}" class="collapse">
+                                        <table class="table" style="width: 100%; background-color: #333;">
+                                            <thead>
+                                            <tr>
+                                                <th style="text-align: center;">Year</th>
+                                                <th style="text-align: center;">Month</th>
+                                                <th style="text-align: center;">Rooms</th>
+                                                <th style="text-align: center;">Used Rooms</th>
+                                                <th style="text-align: center;">Beds</th>
+                                                <th style="text-align: center;">Used Beds</th>
+                                                <th style="text-align: center;">Nationality</th>
+                                            </tr>
+                                            </thead>
+                                            <tbody>
+                                            <tr th:each="occupancy : ${last12MonthsMap[hotelEntry.key]}">
+                                                <td th:text="${occupancy.year}" style="text-align: center;"></td>
+                                                <td th:text="${occupancy.month}" style="text-align: center;"></td>
+                                                <td th:text="${occupancy.rooms}" style="text-align: center;"></td>
+                                                <td th:text="${occupancy.usedrooms}" style="text-align: center;"></td>
+                                                <td th:text="${occupancy.beds}" style="text-align: center;"></td>
+                                                <td th:text="${occupancy.usedbeds}" style="text-align: center;"></td>
+                                                <td th:text="${occupancy.nationality}" style="text-align: center;"></td>
+                                            </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </td>
+                            </tr>
+                            <!-- Ende der Tabelle "last 12 Entries" -->
                             <th:block th:each="yearEntry, yearIterStat : ${hotelEntry.value.entrySet()}">
                                 <tr data-toggle="collapse" th:attr="data-target='#yearDetails' + ${hotelIterStat.index} + '_' + ${yearIterStat.index}" class="accordion-toggle" style="cursor: pointer;">
                                     <td th:text="${yearEntry.key}" style="text-align: left;"></td>
-
                                 </tr>
                                 <tr>
                                     <td colspan="14" class="hiddenRow" style="height: 0; padding: 0; overflow: hidden;">

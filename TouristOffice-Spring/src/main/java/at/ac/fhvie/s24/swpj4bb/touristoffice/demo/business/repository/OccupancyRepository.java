@@ -20,9 +20,12 @@ public interface OccupancyRepository  extends PagingAndSortingRepository<Occupan
     List<Occupancy> findById(int occupancyId);
 //code sulim 29.04 15:53 // angepasst am 04.05.2024 von hotelid zu hotel hotel
 
+
     List<Occupancy> findByHotelAndYear(Hotel hotel, int year); // Methode, um alle verfügbaren Jahre für ein bestimmtes Hotel abzurufen
-    @Query("SELECT DISTINCT o.year FROM Occupancy o WHERE o.hotel.id = :hotelId ORDER BY o.year")
-    List<Integer> findDistinctYearsByHotelId(int hotelId);
+
+    // code Sulim 16.05 -> 12 letzten einträge
+    @Query("SELECT DISTINCT o FROM Occupancy o WHERE o.hotel = :hotel ORDER BY o.year DESC, o.month DESC")
+    List<Occupancy> findTop12ByHotelOrderByYearDescMonthDesc(Hotel hotel, Pageable pageable);
 
     // Add this new method SULIM CODE isnt complete i need which years for a specific hotel - find all years in the occ table for the hotel id whatever.
     // get the Hotel ID das heisst mit LOOP nehmen wir mal die hotel ID

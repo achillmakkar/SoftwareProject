@@ -63,7 +63,9 @@ public class MainController {
 
     // Erweiterung: Abruf der Belegungsdaten nach Hotel und Jahr
     List<Integer> years = occupancyService.findDistinctYears();
+
     Map<Hotel, Map<Integer, List<Occupancy>>> hotelOccupancyMap = new HashMap<>();
+    Map<Hotel, List<Occupancy>> last12MonthsMap = new HashMap<>();
     for (Hotel hotel : hotelPage.getContent()) {
       Map<Integer, List<Occupancy>> yearlyData = new HashMap<>();
       for (Integer year : years) {
@@ -71,9 +73,12 @@ public class MainController {
         yearlyData.put(year, occupancy);
       }
       hotelOccupancyMap.put(hotel, yearlyData);
+      List<Occupancy> last12Months = occupancyService.getLast12MonthsForHotel(hotel);
+      last12MonthsMap.put(hotel, last12Months);
     }
     model.addAttribute("years", years);
     model.addAttribute("hotelOccupancyMap", hotelOccupancyMap);
+    model.addAttribute("last12MonthsMap", last12MonthsMap);
     preparePaginationModel(model, currentPage, hotelPage.getTotalPages());
 
     return "index"; // Ensure that the 'index' view can display years and occupancy data

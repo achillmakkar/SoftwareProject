@@ -6,6 +6,7 @@ import at.ac.fhvie.s24.swpj4bb.touristoffice.demo.business.repository.HotelRepos
 import at.ac.fhvie.s24.swpj4bb.touristoffice.demo.business.repository.OccupancyRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -68,6 +69,13 @@ public class OccupancyService
     public List<Integer> findDistinctYears() {
         return occupancyRepository.findDistinctYears();
     }
+
+    //code Sulim 16.05. -> 12 last entries
+    public List<Occupancy> getLast12MonthsForHotel(Hotel hotel) {
+        Pageable pageable = PageRequest.of(0, 12);
+        return occupancyRepository.findTop12ByHotelOrderByYearDescMonthDesc(hotel, pageable);
+    }
+
     // Codeanfang_Nikola_07.04.2024_SaveOccupancy
     // Occupancy-Objekt wird in der Datenbank gespeichert
 
