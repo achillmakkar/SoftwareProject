@@ -40,8 +40,8 @@ public class MainController {
   }
 
 
-  //Codestart_Achill_20.03.2024_PagePerPage
-  // Code angepasst von SUlim am 04.05.
+  //Codestart_Achill_20.03.2024/17.05.2024/18.05.2024_PagePerPage_Pagination_HotelsOverview
+  // Code angepasst von SUlim am 04.05
   @RequestMapping(value = {"/", "/index"}, method = RequestMethod.GET)
   public String index(final Model model,
                       @RequestParam("page") Optional<Integer> page,
@@ -94,17 +94,22 @@ public class MainController {
 
     return "index"; // Ensure that the 'index' view can display years and occupancy data
   }
+  //Codeende_Achill_20.03.2024/17.05.2024/18.05.2024_PagePerPage_Pagination_HotelsOverview
 
-
-
-
-  //Codeende_Achill_20.03.2024_PagePerPage
-
-  //Codeanfang_Achill_16.04.2024_OccupancyData
+  //Codeanfang_Achill_16.04.2024/17.05.2024/18.05.2024_Pagination
   private void preparePaginationModel(Model model, int currentPage, int totalPages) {
     int window = 2;
     int start = Math.max(1, currentPage - window);
     int end = Math.min(totalPages, currentPage + window);
+
+
+    if (end - start + 1 < 5) {
+      if (start == 1) {
+        end = Math.min(totalPages, start + 4);
+      } else if (end == totalPages) {
+        start = Math.max(1, end - 4);
+      }
+    }
 
     if (start > 1) {
       model.addAttribute("startEllipsis", true);
@@ -121,7 +126,7 @@ public class MainController {
     model.addAttribute("totalPages", totalPages);
     model.addAttribute("pageNumbers", pageNumbers);
   }
-  //Codeende_Achill_16.04.2024_OccupancyData
+  //Codeende_Achill_16.04.2024/17.05.2024/18.05.2024_Pagination
 
 }
 
