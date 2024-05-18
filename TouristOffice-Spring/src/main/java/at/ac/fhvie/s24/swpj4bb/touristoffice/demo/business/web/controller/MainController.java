@@ -49,8 +49,19 @@ public class MainController {
     int currentPage = page.orElse(1);
     int pageSize = size.orElse(10);
 
+    if (currentPage < 1) {
+      model.addAttribute("errorMessage", "Die angeforderte Seite existiert nicht.");
+      currentPage = 1;
+    }
+
     Pageable pageable = PageRequest.of(currentPage - 1, pageSize);
     Page<Hotel> hotelPage = hotelService.getHotelsOrderedByZipAndName(pageable);
+
+    if (currentPage > hotelPage.getTotalPages()) {
+      model.addAttribute("errorMessage", "Die angeforderte Seite existiert nicht.");
+      currentPage = 1;
+    }
+
     Page<Occupancy> occupancyPage = occupancyService.findAllOrderedById(pageable);
 
     if (occupancyPage.hasContent()) {

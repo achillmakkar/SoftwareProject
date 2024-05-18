@@ -9,16 +9,30 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 
 
-    <!-- CSS EINBINDUNG ACHILL -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umed/popper.min.js"></script>
+    <!-- JAVA EINBINDUNG ACHILL -->
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
 
 
-    <!-- Codeanfang_Achill_24.03.2024/27.08.2024/28.08.2024/01.04.2024/03.04.2024/_Page-Navigation,SwitchZIPAscDesc,HotelDataInfo -->
+    <!-- Codeanfang_Achill_24.03.2024/27.08.2024/28.08.2024/01.04.2024/03.04.2024/16.05.2024/17.05.2024/18.05.2024_Page-Navigation,SwitchZIPAscDesc,HotelDataInfo -->
     <script>
+        $(document).ready(function() {
+            // Debugging: Überprüfen, ob eine Fehlermeldung vorhanden ist
+            var errorMessage = $('.modal-body p').text().trim();
+            console.log("Fehlermeldung: ", errorMessage);
+
+            // Überprüfen, ob eine Fehlermeldung vorhanden ist und das Modal anzeigen
+            if (errorMessage.length > 0) {
+                $('#errorModal').modal('show');
+                console.log("Modal wird angezeigt");
+            } else {
+                console.log("Keine Fehlermeldung vorhanden");
+            }
+        });
+
         //Code Anfang #3_Nikola_02.05 Occupancy Form
         function addOccupancy(element) {
             // Daten auslesen
@@ -972,6 +986,27 @@
     </div>
 </div>
 <br>
+
+<!-- Modal -->
+<div class="modal fade" id="errorModal" tabindex="-1" aria-labelledby="errorModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="errorModalLabel">Fehler</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p th:text="${errorMessage}"></p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Schließen</button>
+            </div>
+        </div>
+    </div>
+</div>
+
 <!-- Paginierungscontainer -->
 <div class="pagination-and-size-selector">
     <div class="pagination-container" >
