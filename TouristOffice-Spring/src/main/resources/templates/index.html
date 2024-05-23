@@ -262,28 +262,257 @@
 
                 //Codeend_Req#8_Lang_04.05.2024_Help Button Pop Up Window
 
-                //Codebegin_Lang_04.05.2024_AddHotel Button Pop Up Window
+                //Codebegin_Lang_04.05.2024_19.05.2024_AddHotel Button Pop Up Window
 
                 $(document).ready(function() {
-                    // Show AddHotel-Modal
+                    console.log('Document ready');
+
+                    let hotelDetailsArray = [];
+
                     $('#btnAddHotel').on('click', function() {
-                        $("#addHotelModal").show();
+                        console.log('Add Hotel button clicked');
+                        $('#addHotelModal').show();
                     });
 
-                    // Close AddHotel-Modal
-                    $("#addHotelModal .close, #addHotelModal #addHotelCloseBtn").click(function() {
-                        $("#addHotelModal").hide();
+                    $('#addHotelCloseBtn').on('click', function() {
+                        console.log('Close button clicked');
+                        $('#addHotelModal').hide();
+                        $('#addHotelForm')[0].reset(); // Setzt alle Felder im Formular zurück
+                        resetValidation(); // Setzt die Validierungsfehler zurück
                     });
 
-                    // Close AddHotel-Modal when clicking outside of it
-                    $(window).click(function(event) {
-                        if ($(event.target).is("#addHotelModal")) {
-                            $("#addHotelModal").hide();
+                    $(window).on('click', function(event) {
+                        if ($(event.target).is('#addHotelModal')) {
+                            console.log('Clicked outside modal');
+                            $('#addHotelModal').hide();
+                            $('#addHotelForm')[0].reset(); // Setzt alle Felder im Formular zurück
+                            resetValidation(); // Setzt die Validierungsfehler zurück
                         }
                     });
+
+                    $('#addHotelForm').on('submit', function(event) {
+                        event.preventDefault();
+                        console.log('Form submitted');
+
+                        // Validierung
+                        let isValid = true;
+
+                        // Hotel Name Validierung
+                        let hotelName = $('#addHotelName').val();
+                        // if (!hotelName) {
+                        //     isValid = false;
+                        //     $('#addHotelName').addClass('is-invalid');
+                        //     $('#addHotelName').attr('title', 'Hotel name is required.');
+                        // } else {
+                        //     $('#addHotelName').removeClass('is-invalid');
+                        //     $('#addHotelName').removeAttr('title');
+                        // }
+
+                        // Address Validierung (Buchstaben, Zahlen und Sonderzeichen erlaubt)
+                        let address = $('#addHotelAddress').val();
+                        // if (!address) {
+                        //     isValid = false;
+                        //     $('#addHotelAddress').addClass('is-invalid');
+                        //     $('#addHotelAddress').attr('title', 'Address is required.');
+                        // } else {
+                        //     $('#addHotelAddress').removeClass('is-invalid');
+                        //     $('#addHotelAddress').removeAttr('title');
+                        // }
+
+                        // ZIP Validierung (nur Zahlen)
+                        let zip = $('#addHotelZip').val();
+                        // if (!zip) {
+                        //     isValid = false;
+                        //     $('#addHotelZip').addClass('is-invalid');
+                        //     $('#addHotelZip').attr('title', 'ZIP code is required.');
+                        // } else if (!/^\d+$/.test(zip)) {
+                        //     isValid = false;
+                        //     $('#addHotelZip').addClass('is-invalid');
+                        //     $('#addHotelZip').attr('title', 'ZIP code must contain only numbers.');
+                        // } else {
+                        //     $('#addHotelZip').removeClass('is-invalid');
+                        //     $('#addHotelZip').removeAttr('title');
+                        // }
+
+                        // City Validierung (nur Buchstaben)
+                        let city = $('#addHotelCity').val();
+                        // if (!city) {
+                        //     isValid = false;
+                        //     $('#addHotelCity').addClass('is-invalid');
+                        //     $('#addHotelCity').attr('title', 'City is required.');
+                        // } else if (!/^[a-zA-Z\s]+$/.test(city)) {
+                        //     isValid = false;
+                        //     $('#addHotelCity').addClass('is-invalid');
+                        //     $('#addHotelCity').attr('title', 'City must contain only letters.');
+                        // } else {
+                        //     $('#addHotelCity').removeClass('is-invalid');
+                        //     $('#addHotelCity').removeAttr('title');
+                        // }
+
+                        // Owner Validierung (nur Buchstaben)
+                        let owner = $('#addHotelOwner').val();
+                        // if (!owner) {
+                        //     isValid = false;
+                        //     $('#addHotelOwner').addClass('is-invalid');
+                        //     $('#addHotelOwner').attr('title', 'Owner is required.');
+                        // } else if (!/^[a-zA-Z\s]+$/.test(owner)) {
+                        //     isValid = false;
+                        //     $('#addHotelOwner').addClass('is-invalid');
+                        //     $('#addHotelOwner').attr('title', 'Owner must contain only letters.');
+                        // } else {
+                        //     $('#addHotelOwner').removeClass('is-invalid');
+                        //     $('#addHotelOwner').removeAttr('title');
+                        // }
+
+                        // Contact Validierung (nur Buchstaben)
+                        let contact = $('#addHotelContact').val();
+                        // if (!contact) {
+                        //     isValid = false;
+                        //     $('#addHotelContact').addClass('is-invalid');
+                        //     $('#addHotelContact').attr('title', 'Contact is required.');
+                        // } else if (!/^[a-zA-Z\s]+$/.test(contact)) {
+                        //     isValid = false;
+                        //     $('#addHotelContact').addClass('is-invalid');
+                        //     $('#addHotelContact').attr('title', 'Contact must contain only letters.');
+                        // } else {
+                        //     $('#addHotelContact').removeClass('is-invalid');
+                        //     $('#addHotelContact').removeAttr('title');
+                        // }
+
+                        // Phone Validierung (keine Buchstaben)
+                        let phone = $('#addHotelPhone').val();
+                        // if (!phone) {
+                        //     isValid = false;
+                        //     $('#addHotelPhone').addClass('is-invalid');
+                        //     $('#addHotelPhone').attr('title', 'Phone number is required.');
+                        // } else if (!/^[\d\s\+\-()]+$/.test(phone)) {
+                        //     isValid = false;
+                        //     $('#addHotelPhone').addClass('is-invalid');
+                        //     $('#addHotelPhone').attr('title', 'Phone number must contain only numbers and special characters.');
+                        // } else {
+                        //     $('#addHotelPhone').removeClass('is-invalid');
+                        //     $('#addHotelPhone').removeAttr('title');
+                        // }
+
+                        // E-Mail Validierung (muss "@" enthalten)
+                        let email = $('#addHotelEmail').val();
+                        // if (!email) {
+                        //     isValid = false;
+                        //     $('#addHotelEmail').addClass('is-invalid');
+                        //     $('#addHotelEmail').attr('title', 'E-mail is required.');
+                        // } else if (!/@/.test(email)) {
+                        //     isValid = false;
+                        //     $('#addHotelEmail').addClass('is-invalid');
+                        //     $('#addHotelEmail').attr('title', 'E-mail must contain "@".');
+                        // } else {
+                        //     $('#addHotelEmail').removeClass('is-invalid');
+                        //     $('#addHotelEmail').removeAttr('title');
+                        // }
+
+                        // URL Validierung (alle Zeichen erlaubt)
+                        let url = $('#addHotelUrl').val();
+                        // if (!url) {
+                        //     isValid = false;
+                        //     $('#addHotelUrl').addClass('is-invalid');
+                        //     $('#addHotelUrl').attr('title', 'URL is required.');
+                        // } else {
+                        //     $('#addHotelUrl').removeClass('is-invalid');
+                        //     $('#addHotelUrl').removeAttr('title');
+                        // }
+
+                        // Category Validierung (muss ausgewählt sein)
+                        let category = $('#addHotelCategory').val();
+                        // if (!category || !['1', '2', '3', '4', '5'].includes(category)) {
+                        //     isValid = false;
+                        //     $('#addHotelCategory').addClass('is-invalid');
+                        //     $('#addHotelCategory').attr('title', 'Category is required.');
+                        // } else {
+                        //     $('#addHotelCategory').removeClass('is-invalid');
+                        //     $('#addHotelCategory').removeAttr('title');
+                        // }
+
+                        // if (isValid) {
+                        const hotelDetails = {
+                            hotelName,
+                            address,
+                            zip,
+                            city,
+                            owner,
+                            contact,
+                            phone,
+                            email,
+                            url,
+                            category,
+                            familyFriendly: $('#addHotelFamilyFriendly').is(':checked'),
+                            dogFriendly: $('#addHotelDogFriendly').is(':checked'),
+                            spa: $('#addHotelSpa').is(':checked'),
+                            fitness: $('#addHotelFitness').is(':checked'),
+                            subscribed: $('#addHotelSubscribed').is(':checked')
+                        };
+
+                        hotelDetailsArray.push(hotelDetails);
+
+                        displayHotelDetails(hotelDetails);
+                        $('#addHotelModal').hide();
+                        $('#hotelDetailsModal').show();
+                        $('#addHotelForm')[0].reset(); // Setzt alle Felder im Formular zurück
+                        resetValidation(); // Setzt die Validierungsfehler zurück
+                        // } else {
+                        //     alert('Please correct the highlighted fields.');
+                        // }
+                    });
+
+                    function resetValidation() {
+                        $('.is-invalid').removeClass('is-invalid');
+                        $('[title]').removeAttr('title');
+                    }
+
+                    function displayHotelDetails(details) {
+                        const categoryStars = '★'.repeat(details.category);
+                        const familyFriendly = details.familyFriendly ? '✔' : '✖';
+                        const dogFriendly = details.dogFriendly ? '✔' : '✖';
+                        const spa = details.spa ? '✔' : '✖';
+                        const fitness = details.fitness ? '✔' : '✖';
+                        const subscribed = details.subscribed ? '✔' : '✖';
+
+                        const detailsHtml = `
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h2 class="modal-title">Hotel Details:</h2>
+                </div>
+                <div class="modal-body">
+                    <p><strong>Hotel Name:</strong> ${details.hotelName}</p>
+                    <p><strong>Address:</strong> ${details.address}</p>
+                    <p><strong>ZIP:</strong> ${details.zip}</p>
+                    <p><strong>City:</strong> ${details.city}</p>
+                    <p><strong>Owner:</strong> ${details.owner}</p>
+                    <p><strong>Contact:</strong> ${details.contact}</p>
+                    <p><strong>Phone:</strong> ${details.phone}</p>
+                    <p><strong>E-mail address:</strong> ${details.email}</p>
+                    <p><strong>URL:</strong> ${details.url}</p>
+                    <p><strong>Category:</strong> ${categoryStars}</p>
+                    <p><strong>Family friendly:</strong> ${familyFriendly}</p>
+                    <p><strong>Dog friendly:</strong> ${dogFriendly}</p>
+                    <p><strong>Spa:</strong> ${spa}</p>
+                    <p><strong>Fitness:</strong> ${fitness}</p>
+                    <p><strong>Subscribed:</strong> ${subscribed}</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" id="closeDetailsBtn">Close</button>
+                </div>
+            </div>
+        `;
+
+                        $('#hotelDetailsModal .modal-dialog').html(detailsHtml);
+
+                        $('#closeDetailsBtn').on('click', function() {
+                            $('#hotelDetailsModal').hide();
+                        });
+                    }
                 });
 
-                //Codeend_Lang_04.05.2024_AddHotel Button Pop Up Window
+
+                //Codeend_Lang_04.05.2024_19.05.2024_AddHotel Button Pop Up Window
 
                 //Codebegin_Lang_27.04.2024/29.04.2024_Histogramm
 
@@ -640,15 +869,106 @@
                     <!-- Button für Add Hotel -->
                     <a id="btnAddHotel" class="btn btn-secondary btn-AddHotel" style="color: white; background-color: teal; font-weight: bold; border: 2px solid black">Add Hotel</a>
 
-                    <!-- The Modal -->
-                    <div id="addHotelModal" class="modal">
-                        <!-- Modal content -->
-                        <div class="modal-content addHotel-modal-content">
-                            <h2 id="addHotelTitle">Add Hotel:</h2>
+                    <!-- Add Hotel Modal -->
+                    <div id="addHotelModal" class="modal" style="display: none;">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h2 class="modal-title">Add Hotel:</h2>
+                                </div>
+                                <div class="modal-body">
+                                    <form id="addHotelForm">
+                                        <!-- Änderungen: Das Formular bleibt größtenteils unverändert -->
+                                        <div class="form-group">
+                                            <label for="addHotelName">Hotel Name:</label>
+                                            <input type="text" id="addHotelName" name="addHotelName" class="form-control">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="addHotelAddress">Address:</label>
+                                            <input type="text" id="addHotelAddress" name="addHotelAddress" class="form-control">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="addHotelZip">ZIP:</label>
+                                            <input type="text" id="addHotelZip" name="addHotelZip" class="form-control">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="addHotelCity">City:</label>
+                                            <input type="text" id="addHotelCity" name="addHotelCity" class="form-control">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="addHotelOwner">Owner:</label>
+                                            <input type="text" id="addHotelOwner" name="addHotelOwner" class="form-control">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="addHotelContact">Contact:</label>
+                                            <input type="text" id="addHotelContact" name="addHotelContact" class="form-control">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="addHotelPhone">Phone:</label>
+                                            <input type="text" id="addHotelPhone" name="addHotelPhone" class="form-control">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="addHotelEmail">E-mail address:</label>
+                                            <input type="email" id="addHotelEmail" name="addHotelEmail" class="form-control">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="addHotelUrl">URL:</label>
+                                            <input type="text" id="addHotelUrl" name="addHotelUrl" class="form-control">
+                                        </div>
+                                        <div class="form-group category">
+                                            <label for="addHotelCategory">Category:</label>
+                                            <select id="addHotelCategory" name="addHotelCategory" class="form-control select">
+                                                <option value="" selected disabled>Select a category</option>
+                                                <option value="1">1</option>
+                                                <option value="2">2</option>
+                                                <option value="3">3</option>
+                                                <option value="4">4</option>
+                                                <option value="5">5</option>
+                                            </select>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="addHotelFamilyFriendly">Family friendly:</label>
+                                            <input type="checkbox" id="addHotelFamilyFriendly" name="addHotelFamilyFriendly">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="addHotelDogFriendly">Dog friendly:</label>
+                                            <input type="checkbox" id="addHotelDogFriendly" name="addHotelDogFriendly">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="addHotelSpa">Spa:</label>
+                                            <input type="checkbox" id="addHotelSpa" name="addHotelSpa">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="addHotelFitness">Fitness:</label>
+                                            <input type="checkbox" id="addHotelFitness" name="addHotelFitness">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="addHotelSubscribed">Subscribed:</label>
+                                            <input type="checkbox" id="addHotelSubscribed" name="addHotelSubscribed">
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="submit" class="btn btn-primary">Add</button>
+                                            <button type="button" class="btn btn-secondary" id="addHotelCloseBtn">Cancel</button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
 
-                            <p>TEST TEXT</p>
-
-                            <button id="addHotelCloseBtn" class="close">CLOSE</button>
+                    <!-- Hotel Details Modal -->
+                    <!-- Änderung: Hinzufügen des Modals für Hotel-Details -->
+                    <div id="hotelDetailsModal" class="modal" style="display: none;">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h2 class="modal-title">Hotel Details:</h2>
+                                </div>
+                                <div class="modal-body" id="hotelDetailsContent"></div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" id="closeDetailsBtn">Close</button>
+                                </div>
+                            </div>
                         </div>
                     </div>
 

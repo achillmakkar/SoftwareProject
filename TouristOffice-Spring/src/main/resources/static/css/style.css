@@ -284,6 +284,7 @@ hr {
     font-weight: bold;
     text-align: center;
     margin-bottom: 37.8px; /*Abstand*/
+    margin-bottom: 37.8px; /*Abstand*/
 }
 
 #helpCloseBtn {
@@ -305,50 +306,163 @@ hr {
     margin-top: 37.8px; /* Fügt 1 cm Abstand über dem Schließknopf hinzu */
 }
 
-/*ADD_HOTEL:*/
+/*ADD_HOTEL:----------------------------------------------------------------------------------------------------------------------------------------------------*/
 
-.addHotel-modal-content {
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    background-color: #ffffff;
-    padding: 20px;
-    border-radius: 5px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    z-index: 1000;
-    overflow: auto;
-    display: inline-block; /* oder 'block', je nach Bedarf */
-    max-width: 90vw; /* Maximale Breite, kann auf 'none' gesetzt werden, wenn nicht benötigt */
-    max-height: 80vh; /* Maximale Höhe, kann auf 'none' gesetzt werden, wenn nicht benötigt */
+/* Add Hotel Modal Background */
+#addHotelModal.modal {
+    display: none; /* Verstecke das Modal standardmäßig */
+    position: fixed; /* Positioniere das Modal fest */
+    z-index: 1; /* Stelle sicher, dass das Modal im Vordergrund ist */
+    left: 0;
+    top: 0;
+    width: 100%; /* Volle Breite */
+    height: 100%; /* Volle Höhe */
+    background-color: rgba(0, 0, 0, 0.4); /* Schwarzer Hintergrund mit Transparenz */
+    display: flex; /* Verwende Flexbox */
+    justify-content: center; /* Zentriere horizontal */
+    overflow: auto; /* Verhindere das Scrollen der Seite */
+    padding: 1rem; /* Füge Padding hinzu, um sicherzustellen, dass das Modal vollständig sichtbar ist */
 }
 
-#addHotelTitle {
+/* Add Hotel Modal Dialog */
+#addHotelModal .modal-dialog {
+    width: auto; /* Passe die Breite des Modals an */
+    max-width: 1200px; /* Maximalbreite des Modals, wurde weiter vergrößert */
+    min-width: 600px; /* Mindestbreite des Modals */
+    margin: 0; /* Setze Margin auf 0 */
+    box-sizing: border-box; /* Bezieht Padding und Border in die Breite und Höhe ein */
+    max-height: 100%; /* Maximale Höhe 100% des Viewports */
+    overflow: auto; /* Ermögliche Scrollen, wenn der Inhalt zu groß ist */
+}
+
+/* Add Hotel Modal Content Styling */
+#addHotelModal .modal-content {
+    background-color: #d3d3d3; /* Heller Hintergrund */
+    padding: 10px; /* Reduziertes Padding */
+    border-radius: 8px;
+    border: 2px solid black; /* Schwarzer Rand */
+    display: flex;
+    flex-direction: column; /* Inhalt von oben nach unten anordnen */
+    max-height: 100%; /* Maximale Höhe 100% des Modals */
+    overflow: auto; /* Ermögliche Scrollen innerhalb des Modals */
+}
+
+/* Add Hotel Modal Header Styling */
+#addHotelModal .modal-header h2 {
+    text-align: center;
     font-weight: bold;
-    text-align: center;
-    margin-bottom: 37.8px; /*Abstand*/
+    color: black;
+    width: 100%;
+    font-size: 1.25rem; /* Kleinere Schriftgröße */
 }
 
-#addHotelCloseBtn {
-    background-color: #333366;
-    position: absolute; /* Positioniert den Button absolut innerhalb seines Elternelements */
-    bottom: 10px; /* Abstand vom unteren Rand des Modals */
-    right: 10px; /* Abstand vom rechten Rand des Modals */
-    width: auto; /* Entfernt eine spezifische Breite, damit der Button den Inhalt umschließt */
-    padding: 5px 15px; /* Etwas weniger Polsterung für einen nicht so breiten Button */
-    border: none;
-    color: white;
-    text-align: center;
-    text-decoration: none;
-    display: inline-block;
-    font-size: 16px;
-    margin: 4px 2px;
-    cursor: pointer;
+/* Add Hotel Form Group Styling */
+#addHotelModal .form-group {
+    display: flex;
+    align-items: center;
+    margin-bottom: 0.5rem; /* Weniger Abstand */
+}
+
+/* Add Hotel Label Styling */
+#addHotelModal label {
+    font-weight: bold;
+    color: black;
+    flex: 1;
+    font-size: 0.9rem; /* Kleinere Schriftgröße */
+}
+
+/* Add Hotel Input Styling */
+#addHotelModal .form-control {
+    border: 1px solid black;
+    border-radius: 4px;
+    background-color: white;
+    color: black;
+    flex: 2;
+    font-size: 0.9rem; /* Kleinere Schriftgröße */
+    padding: 0.25rem; /* Weniger Padding */
+}
+
+/* Add Hotel Select Styling */
+#addHotelModal .form-control.select {
+    border: 1px solid black;
+    border-radius: 4px;
+    background-color: white;
+    color: black;
+    flex: 2;
+    font-size: 0.9rem; /* Kleinere Schriftgröße */
+    padding: 0.25rem; /* Weniger Padding */
+}
+
+/* Add Hotel Checkbox Group Styling */
+#addHotelModal .form-group input[type="checkbox"] {
+    margin-left: 0.25rem; /* Weniger Abstand zwischen Label und Checkbox */
+}
+
+/* Spezifischer Abstand für die Kategorie und die Checkbox-Gruppe */
+#addHotelModal .form-group.category {
+    margin-bottom: 1.5rem; /* Größerer Abstand */
+}
+
+/* Add Hotel Modal Footer Styling */
+#addHotelModal .modal-footer {
+    display: flex;
+    justify-content: space-between;
+    padding-top: 0.5rem; /* Weniger Abstand */
+    padding-left: 10px; /* Abstand links */
+    padding-right: 10px; /* Abstand rechts */
+    padding-bottom: 5px; /* Weniger Abstand unten */
+}
+
+/* Add Hotel Button Styling */
+#addHotelModal .modal-footer .btn {
+    font-weight: bold;
     border: 2px solid black;
-    margin-top: 37.8px; /* Fügt 1 cm Abstand über dem Schließknopf hinzu */
+    border-radius: 4px;
+    padding: 0.25rem 1rem; /* Kleinere Buttons */
+    font-size: 0.9rem; /* Kleinere Schriftgröße */
 }
 
-/*Codeend_Lang_27.04.2024_04.05.2024_Histogram_Pop_up_window_Req#6_HelpWindow_add_hotel*/
+#addHotelModal .modal-footer .btn-secondary {
+    background-color: #2c3e50; /* Dunkelblau für Cancel */
+    color: white;
+    margin-left: 0; /* Setze den Cancel-Button nach rechts */
+}
+
+#addHotelModal .modal-footer .btn-primary {
+    background-color: #f1c40f; /* Gelb für Add */
+    color: black;
+    margin-right: 0; /* Setze den Add-Button nach links */
+}
+
+/*Hoteldetail_addHotel:-------------------------------------------------------------------------------------------*/
+
+/* Hotel Details Modal Background */
+#hotelDetailsModal.modal {
+    display: none; /* Verstecke das Modal standardmäßig */
+    position: fixed; /* Positioniere das Modal fest */
+    z-index: 1; /* Stelle sicher, dass das Modal im Vordergrund ist */
+    left: 0;
+    top: 0;
+    width: 100%; /* Volle Breite */
+    height: 100%; /* Volle Höhe */
+    background-color: rgba(0, 0, 0, 0.4); /* Schwarzer Hintergrund mit Transparenz */
+    display: flex; /* Verwende Flexbox */
+    justify-content: center; /* Zentriere horizontal */
+    overflow: auto; /* Aktiviere das Scrollen, wenn nötig */
+    padding: 1rem; /* Füge Padding hinzu, um sicherzustellen, dass das Modal vollständig sichtbar ist */
+}
+
+/* Hotel Details Modal Dialog */
+#hotelDetailsModal .modal-dialog {
+    background-color: #fff;
+    border-radius: 5px;
+    width: 90%;
+    max-width: 600px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+    padding: 20px;
+}
+
+/*Codeend_Lang_27.04.2024_04.05.2024_Histogram_Pop_up_window_Req#6_HelpWindow_add_hotel---------------------------------------------------------*/
 
 /* The Close Button */
 .close {
