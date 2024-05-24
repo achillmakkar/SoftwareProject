@@ -21,6 +21,8 @@
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+        <smtp.properties>src/main/resource/smtp.properties</smtp.properties>
+        <smtpuser.properties>src/main/resources/smptuser.properties</smtpuser.properties>
         <java.version>1.8</java.version>
     </properties>
 
@@ -61,6 +63,11 @@
             <version>1.5.3</version>
         </dependency>
 
+        <dependency>
+            <groupId>com.sun.mail</groupId>
+            <artifactId>jakarta.mail</artifactId>
+        </dependency>
+
         <!-- Code_Ende_Achill_PDF_Reoprt -->
 
         <!-- Code_Anfang_Achill_18.04.2024_Excel -->
@@ -82,12 +89,16 @@
             <scope>test</scope>
         </dependency>
 
-
+<!-- Nikola -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-mail</artifactId>
-            <version>3.2.5</version>
         </dependency>
+        <!--<dependency>
+            <groupId>javax.mail</groupId>
+            <artifactId>mail</artifactId>
+        </dependency>-->
+        <!-- Ende Nikola -->
 
         <!-- https://mvnrepository.com/artifact/org.projectlombok/lombok -->
         <dependency>
@@ -96,23 +107,6 @@
             <version>1.18.4</version>
             <scope>provided</scope>
         </dependency>
-        <dependency>
-            <groupId>org.eclipse.angus</groupId>
-            <artifactId>jakarta.mail</artifactId>
-            <version>2.0.3</version>
-        </dependency>
-
-        <dependency>
-            <groupId>com.sun.activation</groupId>
-            <artifactId>javax.activation</artifactId>
-            <version>1.2.0</version>
-        </dependency>
-        <!-- https://mvnrepository.com/artifact/javax.mail/javax.mail-api -->
-        <dependency>
-        <groupId>javax.mail</groupId>
-            <artifactId>javax.mail-api</artifactId>
-        <version>1.6.2</version>
-    </dependency>
 
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -164,8 +158,28 @@
                     <skipTests>true</skipTests>
                 </configuration>
             </plugin>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>properties-maven-plugin</artifactId>
+                <version>1.0.0</version>
+                <executions>
+                    <execution>
+                        <phase>initialize</phase>
+                        <goals>
+                            <goal>read-project-properties</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <files>
+                        <file>smtp.properties</file>
+                        <file>smtpuser.properties</file>
+                    </files>
+                    <outputFile/>
+                    <properties/>
+                </configuration>
+            </plugin>
         </plugins>
-
     </build>
 
 </project>
