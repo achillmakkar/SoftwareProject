@@ -2,19 +2,16 @@ package at.ac.fhvie.s24.swpj4bb.touristoffice.demo.business.service;
 
 import at.ac.fhvie.s24.swpj4bb.touristoffice.demo.business.constants.Category;
 import at.ac.fhvie.s24.swpj4bb.touristoffice.demo.business.converter.CategoryConverter;
-import at.ac.fhvie.s24.swpj4bb.touristoffice.demo.business.entity.Occupancy;
 import at.ac.fhvie.s24.swpj4bb.touristoffice.demo.business.repository.HotelRepository;
 import at.ac.fhvie.s24.swpj4bb.touristoffice.demo.business.entity.Hotel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.GetMapping;
 
 import java.io.*;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -40,7 +37,7 @@ public class HotelService {
 
   @Autowired
   public HotelService(final HotelRepository hotelRepository) {
-    this.hotelRepository = hotelRepository;
+      this.hotelRepository = hotelRepository;
   }
 
   /**
@@ -105,6 +102,10 @@ public class HotelService {
     return true;
   }
 
+  public void addHotel(Hotel hotel) {
+    hotelRepository.save(hotel);
+  }
+
   public void update(final Hotel alteredHotel) {
 
     // Data of the original one has to be altered with the new ones.
@@ -160,4 +161,6 @@ public class HotelService {
       exc.printStackTrace();
     }
   }
+
+
 }

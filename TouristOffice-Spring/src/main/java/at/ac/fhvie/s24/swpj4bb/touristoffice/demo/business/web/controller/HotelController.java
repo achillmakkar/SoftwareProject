@@ -54,6 +54,23 @@ public class HotelController {
   }
   //Codeend_15.04.2024/25.04.2024_Lang_Sub_button-------------------------------------------------------------------------------
 
+  //Codebegin_23.05.2024_LANG_add_hotel
+
+  @GetMapping("/addhotel")
+  public String addHotelForm(Model model) {
+    model.addAttribute("hotel", new Hotel());
+    return "addhotel";
+  }
+
+  @PostMapping("/addhotel")
+  public ResponseEntity<String> addHotel(@RequestBody Hotel hotel) {
+    hotelService.addHotel(hotel);
+    return ResponseEntity.status(HttpStatus.CREATED).body("Hotel erfolgreich hinzugefügt!");
+  }
+
+
+  //Codeend_23.05.2024_LANG_add_hotel
+
   // Here the form is called and the template is provided with an empty Hotel Instance
   @GetMapping("/hotelform")
   public String fooForm(final Model model) {
