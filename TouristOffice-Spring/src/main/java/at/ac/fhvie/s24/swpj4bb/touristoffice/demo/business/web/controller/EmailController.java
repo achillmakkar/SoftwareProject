@@ -4,7 +4,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 
-import javax.mail.MessagingException;
 
 @Controller
 public class EmailController {
@@ -14,7 +13,16 @@ public class EmailController {
 
     @GetMapping("/sendSubscriptionMail")
     public String sendSubscriptionMail() {
-        emailService.sendMessageWithAttachment("hotelstatistics01@gmail.com", "Hotel Subscription", "Here is your requested PDF file.", "/path/to/hotels.pdf");
+        emailService.sendMessageWithAttachment("nikola.marunic@icloud.com", "Hotel Subscription",
+                "Here is your requested PDF file.", "reports/occupancy.pdf");
+        return "redirect:/index";
+    }
+
+    @GetMapping("/sendDATFile")
+    public String sendDATFile() {
+        // TODO: Change last parameter to DAT file path
+        emailService.sendMessageWithAttachment("nikola.marunic@icloud.com", "DAT File",
+                "Here is your requested DAT file.", "CHANGE ME");
         return "redirect:/index";
     }
 }
