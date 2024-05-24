@@ -175,6 +175,8 @@
                         <file>smtp.properties</file>
                         <file>smtpuser.properties</file>
                     </files>
+                    <outputFile/>
+                    <properties/>
                 </configuration>
             </plugin>
         </plugins>
