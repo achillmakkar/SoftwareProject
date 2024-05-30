@@ -54,7 +54,10 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         .defaultSuccessUrl("/index",true)
         .permitAll()
         .and()
-        .logout().permitAll()
+        .logout()
+        .logoutUrl("/logout")
+        .logoutSuccessUrl("/loginpage")
+        .permitAll()
         .and()
         .exceptionHandling().accessDeniedPage("/403")
             .and() // Code_Achill_19.05.2024_H2Console_FIX
