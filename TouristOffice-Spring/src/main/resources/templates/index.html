@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml" xmlns:sec="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -784,7 +784,7 @@
                     </div>
 
 
-                        <!--Codeend_Lang_29.04.2024_04.05.2024_added_addHotel_Button-->
+                    <!--Codeend_Lang_29.04.2024_04.05.2024_added_addHotel_Button-->
 
                     <!-- Codeanfang_Achill_ImportCsv_DataService/18.04.2024/19.04.2024/20.04.2024/23.04.2024/25.04.2024/26.04.2024 -->
                     <a class="btn btn-secondary" id="triggerCsvImport" href="javascript:void(0);" style="color: white; background-color: teal; font-weight: bold; border: 2px solid black">Import CSV Data</a>
@@ -949,10 +949,12 @@
                 <!-- Codeend_Dominik_Lang_06.04.2024_added attributes and icons-->
 
                 <!-- Codebegin_Dominik_Lang_07.04.2024_added buttons and icons to html table-->
-                <td style="text-align: center; padding: 0;">
+                <td style="text-align: center; padding: 0;" >
                     <!-- TO DO: style to css-->
-                    <button class="subscription-button" style="width: 100%; height: 100%; padding: 0; border: 2px solid black; background: #cccccc; display: flex; justify-content: center; align-items: center;"
-                            th:data-hotel-id="${hotelEntry.key.id}">
+                    <button class="subscription-button"
+                            style="width: 100%; height: 100%; padding: 0; border: 2px solid black; background: #cccccc; display: flex; justify-content: center; align-items: center;"
+                            th:data-hotel-id="${hotelEntry.key.id}"
+                            th:if="${isAdminOrEditor}">
                         <img th:if="${hotelEntry.key.subscribed}" src="/images/subminusPNG.png" alt="subminus" style="width: 20px; height: 20px;">
                         <img th:unless="${hotelEntry.key.subscribed}" src="/images/subplusPNG.png" alt="subplus" style="width: 20px; height: 20px;">
                     </button>
@@ -992,7 +994,7 @@
                 <td style="text-align: center; padding: 0;">
                     <!--Code Anfang #3_Nikola_02.05 Occupancy Form -->
                     <button class="btn" style="width: 100%; height: 100%; padding: 0; border: 2px solid black; background: #cccccc; display: flex; justify-content: center; align-items: center;"
-                            th:data-id="${hotelEntry.key.id}" th:data-name="${hotelEntry.key.name}" th:data-zip="${hotelEntry.key.cityCode}"
+                            th:data-id="${hotelEntry.key.id}" th:data-name="${hotelEntry.key.name}" th:data-zip="${hotelEntry.key.cityCode}" th:if="${isAdminOrEditor}"
                             onclick="addOccupancy(this)">
                         <img src="/images/addOccpPNG.png" alt="addOccp" style="width: 20px; height: 20px;">
                     </button>
@@ -1000,7 +1002,7 @@
                 </td>
 
                 <td style="text-align: center; padding: 0;">
-                    <button class="btn" style="width: 100%; height: 100%; padding: 0; border: 2px solid black; background: #cccccc; display: flex; justify-content: center; align-items: center;">
+                    <button class="btn" style="width: 100%; height: 100%; padding: 0; border: 2px solid black; background: #cccccc; display: flex; justify-content: center; align-items: center;" th:if="${isAdminOrEditor}">
                         <img src="/images/deletePNG.png" alt="delete" style="width: 20px; height: 20px;">
                     </button>
                 </td>
