@@ -13,7 +13,7 @@ public class EmailController {
 
     @GetMapping("/sendSubscriptionMail")
     public String sendSubscriptionMail() {
-        emailService.sendMessageWithAttachment("nikola.marunic@icloud.com", "Hotel Subscription",
+        emailService.sendMessageWithAttachment("hotelstatistics01@gmail.com", "Hotel Subscription",
                 "Here is your requested PDF file.", "reports/occupancy.pdf");
         return "redirect:/index";
     }
@@ -21,7 +21,7 @@ public class EmailController {
     @GetMapping("/sendDATFile")
     public String sendDATFile() {
         // TODO: Change last parameter to DAT file path
-        emailService.sendMessageWithAttachment("nikola.marunic@icloud.com", "DAT File",
+        emailService.sendMessageWithAttachment("hotelstatistics01@gmail.com", "DAT File",
                 "Here is your requested DAT file.", "CHANGE ME");
         return "redirect:/index";
     }
