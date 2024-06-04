@@ -49,7 +49,7 @@ public class HotelController {
       return ResponseEntity.ok(true);
     } else {
       return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-              .body(false);
+          .body(false);
     }
   }
   //Codeend_15.04.2024/25.04.2024_Lang_Sub_button-------------------------------------------------------------------------------
@@ -70,6 +70,13 @@ public class HotelController {
 
 
   //Codeend_23.05.2024_LANG_add_hotel
+
+  @GetMapping("/updatehotel/{id}")
+  public String showUpdateHotelForm(@PathVariable("id") int id, Model model) {
+    Hotel hotel = hotelService.findById(id);
+    model.addAttribute("hotel", hotel);
+    return "updatehotel";
+  }
 
   // Here the form is called and the template is provided with an empty Hotel Instance
   @GetMapping("/hotelform")
@@ -160,7 +167,7 @@ public class HotelController {
       return ResponseEntity.ok("Report successfully generated!");
     } else {
       return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-              .body("There was an error generating the report.");
+          .body("There was an error generating the report.");
     }
   }
   // Codeende_Achill_01.04.2024-StatisticsAsPDF -->

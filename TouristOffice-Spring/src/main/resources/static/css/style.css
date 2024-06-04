@@ -2,6 +2,18 @@
 body {
     background-color: #66ccff;
 }
+.hiddenRow {
+    height: 0;
+    padding: 0;
+    overflow: hidden;
+}
+#hotelData tbody tr:nth-child(even) {
+    background-color: #ccffff !important;
+}
+tr
+{
+    background-color: white;
+}
 
 h1 {
     color: #55ff1f;
@@ -50,6 +62,10 @@ tbody:nth-child(even) {
     align-items: center;
     padding: 0.5rem;
 }
+/*
+.logo {
+    flex: 0 1 auto;
+} */
 
 .logo img {
     max-height: 100px;
@@ -156,6 +172,15 @@ hr {
         color: white;
         border-color: #46b8da;
     }
+.btn-pagination-arrow {
+    background-color: #666666;
+    border-color: black;
+    color:white;
+}
+
+.btn-pagination-arrow:hover {
+    background-color: #bbbbbb;
+}
 
 .user-controls {
     display: flex;

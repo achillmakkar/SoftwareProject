@@ -2,6 +2,9 @@ package at.ac.fhvie.s24.swpj4bb.touristoffice.demo.business.web.controller;
 
 import at.ac.fhvie.s24.swpj4bb.touristoffice.demo.business.entity.Hotel;
 import at.ac.fhvie.s24.swpj4bb.touristoffice.demo.business.entity.Occupancy;
+import at.ac.fhvie.s24.swpj4bb.touristoffice.demo.business.entity.Role;
+import at.ac.fhvie.s24.swpj4bb.touristoffice.demo.business.entity.User;
+import at.ac.fhvie.s24.swpj4bb.touristoffice.demo.business.repository.UserRepository;
 import at.ac.fhvie.s24.swpj4bb.touristoffice.demo.business.service.HotelService;
 import at.ac.fhvie.s24.swpj4bb.touristoffice.demo.business.service.OccupancyService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,6 +12,8 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -29,14 +34,15 @@ public class MainController {
   private HotelService hotelService;
   //Codeanfang_Achill_16.04.2024_OccupancyData
   private OccupancyService occupancyService;
-
+  private UserRepository userRepository;
   private List<Occupancy> occupancies;
 
   @Autowired
-  public MainController(final HotelService hotelService,  final OccupancyService occupancyService)
+  public MainController(final HotelService hotelService,  final OccupancyService occupancyService, final UserRepository userRepository)
   {
     this.occupancyService = occupancyService;
     this.hotelService = hotelService;
+    this.userRepository = userRepository;
   }
 
 
@@ -87,12 +93,29 @@ public class MainController {
       List<Occupancy> last12Months = occupancyService.getLast12MonthsForHotel(hotel);
       last12MonthsMap.put(hotel, last12Months);
     }
+
+    Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+    String currentUsername = authentication.getName();
+
+    User currentUser = userRepository.getUserByUsername(currentUsername);
+    boolean isAdmin = currentUser.getRoles().stream().anyMatch(role -> role.getName().equals("ADMIN"));
+    boolean isUser = currentUser.getRoles().stream().anyMatch(role -> role.getName().equals("USER"));
+    boolean isCreator = currentUser.getRoles().stream().anyMatch(role -> role.getName().equals("CREATOR"));
+    boolean isEditor = currentUser.getRoles().stream().anyMatch(role -> role.getName().equals("EDITOR"));
+    boolean isAdminOrEditor = isAdmin || isEditor;
+
+
+    model.addAttribute("isAdmin", isAdmin);
+    model.addAttribute("isUser", isUser);
+    model.addAttribute("isCreator", isCreator);
+    model.addAttribute("isEditor", isEditor);
+    model.addAttribute("isAdminOrEditor", isAdminOrEditor);
     model.addAttribute("years", years);
     model.addAttribute("hotelOccupancyMap", hotelOccupancyMap);
     model.addAttribute("last12MonthsMap", last12MonthsMap);
     preparePaginationModel(model, currentPage, hotelPage.getTotalPages());
 
-    return "index"; // Ensure that the 'index' view can display years and occupancy data
+    return "index";
   }
   //Codeende_Achill_20.03.2024/17.05.2024/18.05.2024_PagePerPage_Pagination_HotelsOverview
 
@@ -119,8 +142,8 @@ public class MainController {
     }
 
     List<Integer> pageNumbers = IntStream.rangeClosed(start, end)
-            .boxed()
-            .collect(Collectors.toList());
+        .boxed()
+        .collect(Collectors.toList());
 
     model.addAttribute("currentPage", currentPage);
     model.addAttribute("totalPages", totalPages);
