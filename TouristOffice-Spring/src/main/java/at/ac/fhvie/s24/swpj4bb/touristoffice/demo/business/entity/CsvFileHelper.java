@@ -62,6 +62,9 @@ public class CsvFileHelper {
                     throw new CsvValidator("Das Monat muss zwischen 1 und 12 liegen in Zeile: " + lineNumber);
                 }
 
+                // aktuelles datum...
+                // fehlermeldung wenn ordner nicht existiert
+
                 Occupancy occupancy = new Occupancy();
                 occupancy.setHotel(hotel);
                 occupancy.setRooms(rooms);
