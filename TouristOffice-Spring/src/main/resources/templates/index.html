@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml" xmlns:sec="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -264,10 +264,10 @@
 
                 //Codebegin_Lang_04.05.2024_19.05.2024_AddHotel Button Pop Up Window
 
+                //Database
+
                 $(document).ready(function() {
                     console.log('Document ready');
-
-                    let hotelDetailsArray = [];
 
                     $('#btnAddHotel').on('click', function() {
                         console.log('Add Hotel button clicked');
@@ -294,155 +294,17 @@
                         event.preventDefault();
                         console.log('Form submitted');
 
-                        // Validierung
-                        let isValid = true;
-
-                        // Hotel Name Validierung
-                        let hotelName = $('#addHotelName').val();
-                        // if (!hotelName) {
-                        //     isValid = false;
-                        //     $('#addHotelName').addClass('is-invalid');
-                        //     $('#addHotelName').attr('title', 'Hotel name is required.');
-                        // } else {
-                        //     $('#addHotelName').removeClass('is-invalid');
-                        //     $('#addHotelName').removeAttr('title');
-                        // }
-
-                        // Address Validierung (Buchstaben, Zahlen und Sonderzeichen erlaubt)
-                        let address = $('#addHotelAddress').val();
-                        // if (!address) {
-                        //     isValid = false;
-                        //     $('#addHotelAddress').addClass('is-invalid');
-                        //     $('#addHotelAddress').attr('title', 'Address is required.');
-                        // } else {
-                        //     $('#addHotelAddress').removeClass('is-invalid');
-                        //     $('#addHotelAddress').removeAttr('title');
-                        // }
-
-                        // ZIP Validierung (nur Zahlen)
-                        let zip = $('#addHotelZip').val();
-                        // if (!zip) {
-                        //     isValid = false;
-                        //     $('#addHotelZip').addClass('is-invalid');
-                        //     $('#addHotelZip').attr('title', 'ZIP code is required.');
-                        // } else if (!/^\d+$/.test(zip)) {
-                        //     isValid = false;
-                        //     $('#addHotelZip').addClass('is-invalid');
-                        //     $('#addHotelZip').attr('title', 'ZIP code must contain only numbers.');
-                        // } else {
-                        //     $('#addHotelZip').removeClass('is-invalid');
-                        //     $('#addHotelZip').removeAttr('title');
-                        // }
-
-                        // City Validierung (nur Buchstaben)
-                        let city = $('#addHotelCity').val();
-                        // if (!city) {
-                        //     isValid = false;
-                        //     $('#addHotelCity').addClass('is-invalid');
-                        //     $('#addHotelCity').attr('title', 'City is required.');
-                        // } else if (!/^[a-zA-Z\s]+$/.test(city)) {
-                        //     isValid = false;
-                        //     $('#addHotelCity').addClass('is-invalid');
-                        //     $('#addHotelCity').attr('title', 'City must contain only letters.');
-                        // } else {
-                        //     $('#addHotelCity').removeClass('is-invalid');
-                        //     $('#addHotelCity').removeAttr('title');
-                        // }
-
-                        // Owner Validierung (nur Buchstaben)
-                        let owner = $('#addHotelOwner').val();
-                        // if (!owner) {
-                        //     isValid = false;
-                        //     $('#addHotelOwner').addClass('is-invalid');
-                        //     $('#addHotelOwner').attr('title', 'Owner is required.');
-                        // } else if (!/^[a-zA-Z\s]+$/.test(owner)) {
-                        //     isValid = false;
-                        //     $('#addHotelOwner').addClass('is-invalid');
-                        //     $('#addHotelOwner').attr('title', 'Owner must contain only letters.');
-                        // } else {
-                        //     $('#addHotelOwner').removeClass('is-invalid');
-                        //     $('#addHotelOwner').removeAttr('title');
-                        // }
-
-                        // Contact Validierung (nur Buchstaben)
-                        let contact = $('#addHotelContact').val();
-                        // if (!contact) {
-                        //     isValid = false;
-                        //     $('#addHotelContact').addClass('is-invalid');
-                        //     $('#addHotelContact').attr('title', 'Contact is required.');
-                        // } else if (!/^[a-zA-Z\s]+$/.test(contact)) {
-                        //     isValid = false;
-                        //     $('#addHotelContact').addClass('is-invalid');
-                        //     $('#addHotelContact').attr('title', 'Contact must contain only letters.');
-                        // } else {
-                        //     $('#addHotelContact').removeClass('is-invalid');
-                        //     $('#addHotelContact').removeAttr('title');
-                        // }
-
-                        // Phone Validierung (keine Buchstaben)
-                        let phone = $('#addHotelPhone').val();
-                        // if (!phone) {
-                        //     isValid = false;
-                        //     $('#addHotelPhone').addClass('is-invalid');
-                        //     $('#addHotelPhone').attr('title', 'Phone number is required.');
-                        // } else if (!/^[\d\s\+\-()]+$/.test(phone)) {
-                        //     isValid = false;
-                        //     $('#addHotelPhone').addClass('is-invalid');
-                        //     $('#addHotelPhone').attr('title', 'Phone number must contain only numbers and special characters.');
-                        // } else {
-                        //     $('#addHotelPhone').removeClass('is-invalid');
-                        //     $('#addHotelPhone').removeAttr('title');
-                        // }
-
-                        // E-Mail Validierung (muss "@" enthalten)
-                        let email = $('#addHotelEmail').val();
-                        // if (!email) {
-                        //     isValid = false;
-                        //     $('#addHotelEmail').addClass('is-invalid');
-                        //     $('#addHotelEmail').attr('title', 'E-mail is required.');
-                        // } else if (!/@/.test(email)) {
-                        //     isValid = false;
-                        //     $('#addHotelEmail').addClass('is-invalid');
-                        //     $('#addHotelEmail').attr('title', 'E-mail must contain "@".');
-                        // } else {
-                        //     $('#addHotelEmail').removeClass('is-invalid');
-                        //     $('#addHotelEmail').removeAttr('title');
-                        // }
-
-                        // URL Validierung (alle Zeichen erlaubt)
-                        let url = $('#addHotelUrl').val();
-                        // if (!url) {
-                        //     isValid = false;
-                        //     $('#addHotelUrl').addClass('is-invalid');
-                        //     $('#addHotelUrl').attr('title', 'URL is required.');
-                        // } else {
-                        //     $('#addHotelUrl').removeClass('is-invalid');
-                        //     $('#addHotelUrl').removeAttr('title');
-                        // }
-
-                        // Category Validierung (muss ausgewählt sein)
-                        let category = $('#addHotelCategory').val();
-                        // if (!category || !['1', '2', '3', '4', '5'].includes(category)) {
-                        //     isValid = false;
-                        //     $('#addHotelCategory').addClass('is-invalid');
-                        //     $('#addHotelCategory').attr('title', 'Category is required.');
-                        // } else {
-                        //     $('#addHotelCategory').removeClass('is-invalid');
-                        //     $('#addHotelCategory').removeAttr('title');
-                        // }
-
-                        // if (isValid) {
                         const hotelDetails = {
-                            hotelName,
-                            address,
-                            zip,
-                            city,
-                            owner,
-                            contact,
-                            phone,
-                            email,
-                            url,
-                            category,
+                            name: $('#addHotelName').val(),
+                            address: $('#addHotelAddress').val(),
+                            cityCode: $('#addHotelZip').val(),
+                            city: $('#addHotelCity').val(),
+                            owner: $('#addHotelOwner').val(),
+                            contact: $('#addHotelContact').val(),
+                            phone: $('#addHotelPhone').val(),
+                            email: $('#addHotelEmail').val(),
+                            url: $('#addHotelUrl').val(),
+                            category: $('#addHotelCategory').val(),
                             familyFriendly: $('#addHotelFamilyFriendly').is(':checked'),
                             dogFriendly: $('#addHotelDogFriendly').is(':checked'),
                             spa: $('#addHotelSpa').is(':checked'),
@@ -450,67 +312,33 @@
                             subscribed: $('#addHotelSubscribed').is(':checked')
                         };
 
-                        hotelDetailsArray.push(hotelDetails);
-
-                        displayHotelDetails(hotelDetails);
-                        $('#addHotelModal').hide();
-                        $('#hotelDetailsModal').show();
-                        $('#addHotelForm')[0].reset(); // Setzt alle Felder im Formular zurück
-                        resetValidation(); // Setzt die Validierungsfehler zurück
-                        // } else {
-                        //     alert('Please correct the highlighted fields.');
-                        // }
+                        fetch('/addhotel', {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json'
+                            },
+                            body: JSON.stringify(hotelDetails)
+                        })
+                            .then(response => {
+                                if (response.ok) {
+                                    alert('Hotel successfully added to the database!');
+                                    $('#addHotelModal').hide();
+                                    $('#addHotelForm')[0].reset();
+                                } else {
+                                    alert('Failed to add hotel to the database.');
+                                }
+                            })
+                            .catch(error => {
+                                console.error('Error:', error);
+                                alert('Error adding hotel to the database.');
+                            });
                     });
 
                     function resetValidation() {
                         $('.is-invalid').removeClass('is-invalid');
                         $('[title]').removeAttr('title');
                     }
-
-                    function displayHotelDetails(details) {
-                        const categoryStars = '★'.repeat(details.category);
-                        const familyFriendly = details.familyFriendly ? '✔' : '✖';
-                        const dogFriendly = details.dogFriendly ? '✔' : '✖';
-                        const spa = details.spa ? '✔' : '✖';
-                        const fitness = details.fitness ? '✔' : '✖';
-                        const subscribed = details.subscribed ? '✔' : '✖';
-
-                        const detailsHtml = `
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h2 class="modal-title">Hotel Details:</h2>
-                </div>
-                <div class="modal-body">
-                    <p><strong>Hotel Name:</strong> ${details.hotelName}</p>
-                    <p><strong>Address:</strong> ${details.address}</p>
-                    <p><strong>ZIP:</strong> ${details.zip}</p>
-                    <p><strong>City:</strong> ${details.city}</p>
-                    <p><strong>Owner:</strong> ${details.owner}</p>
-                    <p><strong>Contact:</strong> ${details.contact}</p>
-                    <p><strong>Phone:</strong> ${details.phone}</p>
-                    <p><strong>E-mail address:</strong> ${details.email}</p>
-                    <p><strong>URL:</strong> ${details.url}</p>
-                    <p><strong>Category:</strong> ${categoryStars}</p>
-                    <p><strong>Family friendly:</strong> ${familyFriendly}</p>
-                    <p><strong>Dog friendly:</strong> ${dogFriendly}</p>
-                    <p><strong>Spa:</strong> ${spa}</p>
-                    <p><strong>Fitness:</strong> ${fitness}</p>
-                    <p><strong>Subscribed:</strong> ${subscribed}</p>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" id="closeDetailsBtn">Close</button>
-                </div>
-            </div>
-        `;
-
-                        $('#hotelDetailsModal .modal-dialog').html(detailsHtml);
-
-                        $('#closeDetailsBtn').on('click', function() {
-                            $('#hotelDetailsModal').hide();
-                        });
-                    }
                 });
-
 
                 //Codeend_Lang_04.05.2024_19.05.2024_AddHotel Button Pop Up Window
 
@@ -828,7 +656,7 @@
             <a id="btnHelp" class="btn btn-secondary" style="width: 80px; height: 42px;color:black; background-color: #dee2e6; font-weight: bold; border: 2px solid #004d40;">Help</a>
 
             <!-- Modal -->
-            <div id="helpModal" class="modal">
+            <div th:if="${isAdmin}" id="helpModal" class="modal">
                 <div class="modal-content help-modal-content">
                     <h2 id="helpTitle">Help Information</h2>
                     <p id="helpText">Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat nulla facilisis at vero et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit augue duis dolore te feugait nulla facilisi. Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat nulla facilisis at vero et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit augue duis dolore te feugait nulla facilisi. Nam liber tempor cum soluta nobis eleifend option congue nihil imperdiet doming id quod mazim placerat facer possim assum.</p>
@@ -838,7 +666,7 @@
 
             <!-- Codeend_Req#8_Lang_04.05.2024 -->
 
-            <a class="btn btn-secondary" href="#logout" style="width: 80px; height: 42px;color:black; background-color: #dee2e6; font-weight: bold; border: 2px solid #004d40;">Logout</a>
+            <a class="btn btn-secondary" href="/logout" style="width: 80px; height: 42px;color:black; background-color: #dee2e6; font-weight: bold; border: 2px solid #004d40;">Logout</a>
         </div>
         <div class="menu-under-flags">
             <!-- Zweite Navigationsleiste für Menülinks -->
@@ -859,46 +687,45 @@
                                 </div>
                                 <div class="modal-body">
                                     <form id="addHotelForm">
-                                        <!-- Änderungen: Das Formular bleibt größtenteils unverändert -->
                                         <div class="form-group">
                                             <label for="addHotelName">Hotel Name:</label>
-                                            <input type="text" id="addHotelName" name="addHotelName" class="form-control">
+                                            <input type="text" id="addHotelName" name="name" class="form-control" required>
                                         </div>
                                         <div class="form-group">
                                             <label for="addHotelAddress">Address:</label>
-                                            <input type="text" id="addHotelAddress" name="addHotelAddress" class="form-control">
+                                            <input type="text" id="addHotelAddress" name="address" class="form-control" required>
                                         </div>
                                         <div class="form-group">
                                             <label for="addHotelZip">ZIP:</label>
-                                            <input type="text" id="addHotelZip" name="addHotelZip" class="form-control">
+                                            <input type="text" id="addHotelZip" name="cityCode" class="form-control" required>
                                         </div>
                                         <div class="form-group">
                                             <label for="addHotelCity">City:</label>
-                                            <input type="text" id="addHotelCity" name="addHotelCity" class="form-control">
+                                            <input type="text" id="addHotelCity" name="city" class="form-control" required>
                                         </div>
                                         <div class="form-group">
                                             <label for="addHotelOwner">Owner:</label>
-                                            <input type="text" id="addHotelOwner" name="addHotelOwner" class="form-control">
+                                            <input type="text" id="addHotelOwner" name="owner" class="form-control" required>
                                         </div>
                                         <div class="form-group">
                                             <label for="addHotelContact">Contact:</label>
-                                            <input type="text" id="addHotelContact" name="addHotelContact" class="form-control">
+                                            <input type="text" id="addHotelContact" name="contact" class="form-control" required>
                                         </div>
                                         <div class="form-group">
                                             <label for="addHotelPhone">Phone:</label>
-                                            <input type="text" id="addHotelPhone" name="addHotelPhone" class="form-control">
+                                            <input type="text" id="addHotelPhone" name="phone" class="form-control" required>
                                         </div>
                                         <div class="form-group">
                                             <label for="addHotelEmail">E-mail address:</label>
-                                            <input type="email" id="addHotelEmail" name="addHotelEmail" class="form-control">
+                                            <input type="email" id="addHotelEmail" name="email" class="form-control" required>
                                         </div>
                                         <div class="form-group">
                                             <label for="addHotelUrl">URL:</label>
-                                            <input type="text" id="addHotelUrl" name="addHotelUrl" class="form-control">
+                                            <input type="text" id="addHotelUrl" name="url" class="form-control">
                                         </div>
                                         <div class="form-group category">
                                             <label for="addHotelCategory">Category:</label>
-                                            <select id="addHotelCategory" name="addHotelCategory" class="form-control select">
+                                            <select id="addHotelCategory" name="category" class="form-control select" required>
                                                 <option value="" selected disabled>Select a category</option>
                                                 <option value="1">1</option>
                                                 <option value="2">2</option>
@@ -909,26 +736,26 @@
                                         </div>
                                         <div class="form-group">
                                             <label for="addHotelFamilyFriendly">Family friendly:</label>
-                                            <input type="checkbox" id="addHotelFamilyFriendly" name="addHotelFamilyFriendly">
+                                            <input type="checkbox" id="addHotelFamilyFriendly" name="familyFriendly">
                                         </div>
                                         <div class="form-group">
                                             <label for="addHotelDogFriendly">Dog friendly:</label>
-                                            <input type="checkbox" id="addHotelDogFriendly" name="addHotelDogFriendly">
+                                            <input type="checkbox" id="addHotelDogFriendly" name="dogFriendly">
                                         </div>
                                         <div class="form-group">
                                             <label for="addHotelSpa">Spa:</label>
-                                            <input type="checkbox" id="addHotelSpa" name="addHotelSpa">
+                                            <input type="checkbox" id="addHotelSpa" name="spa">
                                         </div>
                                         <div class="form-group">
                                             <label for="addHotelFitness">Fitness:</label>
-                                            <input type="checkbox" id="addHotelFitness" name="addHotelFitness">
+                                            <input type="checkbox" id="addHotelFitness" name="fitness">
                                         </div>
                                         <div class="form-group">
                                             <label for="addHotelSubscribed">Subscribed:</label>
-                                            <input type="checkbox" id="addHotelSubscribed" name="addHotelSubscribed">
+                                            <input type="checkbox" id="addHotelSubscribed" name="subscribed">
                                         </div>
                                         <div class="modal-footer">
-                                            <button type="submit" class="btn btn-primary">Add</button>
+                                            <button type="submit" class="btn btn-primary">Add Hotel</button>
                                             <button type="button" class="btn btn-secondary" id="addHotelCloseBtn">Cancel</button>
                                         </div>
                                     </form>
@@ -937,21 +764,6 @@
                         </div>
                     </div>
 
-                    <!-- Hotel Details Modal -->
-                    <!-- Änderung: Hinzufügen des Modals für Hotel-Details -->
-                    <div id="hotelDetailsModal" class="modal" style="display: none;">
-                        <div class="modal-dialog">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <h2 class="modal-title">Hotel Details:</h2>
-                                </div>
-                                <div class="modal-body" id="hotelDetailsContent"></div>
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary" id="closeDetailsBtn">Close</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
 
                     <!--Codeend_Lang_29.04.2024_04.05.2024_added_addHotel_Button-->
 
@@ -1118,10 +930,12 @@
                 <!-- Codeend_Dominik_Lang_06.04.2024_added attributes and icons-->
 
                 <!-- Codebegin_Dominik_Lang_07.04.2024_added buttons and icons to html table-->
-                <td style="text-align: center; padding: 0;">
+                <td style="text-align: center; padding: 0;" >
                     <!-- TO DO: style to css-->
-                    <button class="subscription-button" style="width: 100%; height: 100%; padding: 0; border: 2px solid black; background: #cccccc; display: flex; justify-content: center; align-items: center;"
-                            th:data-hotel-id="${hotelEntry.key.id}">
+                    <button class="subscription-button"
+                            style="width: 100%; height: 100%; padding: 0; border: 2px solid black; background: #cccccc; display: flex; justify-content: center; align-items: center;"
+                            th:data-hotel-id="${hotelEntry.key.id}"
+                            th:if="${isAdminOrEditor}">
                         <img th:if="${hotelEntry.key.subscribed}" src="/images/subminusPNG.png" alt="subminus" style="width: 20px; height: 20px;">
                         <img th:unless="${hotelEntry.key.subscribed}" src="/images/subplusPNG.png" alt="subplus" style="width: 20px; height: 20px;">
                     </button>
@@ -1150,10 +964,12 @@
 
                     <!-- Codebegin_Dominik_Lang_04.05.2024_added updateHotel-button and icons to html table-->
                 <td style="text-align: center; padding: 0;">
-                    <!-- TO DO: style to css-->
-                    <button class="update-button" style="width: 100%; height: 100%; padding: 0; border: 2px solid black; background: #cccccc; display: flex; justify-content: center; align-items: center;">
-                        <img src="/images/update_PNG.png" alt="update" style="width: 20px; height: 20px;">
-                    </button>
+                    <!-- TO DO: style to css -->
+                    <a th:href="@{/updatehotel/{id}(id=${hotelEntry.key.id})}" style="display: block; width: 100%; height: 100%; padding: 0;">
+                        <button class="update-button" style="width: 100%; height: 100%; padding: 0; border: 2px solid black; background: #cccccc; display: flex; justify-content: center; align-items: center;">
+                            <img src="/images/update_PNG.png" alt="update" style="width: 20px; height: 20px;">
+                        </button>
+                    </a>
                 </td>
                 <!-- Codeend_Dominik_Lang_04.05.2024_added updateHotel-button and icons to html table-->
 
@@ -1161,7 +977,7 @@
                 <td style="text-align: center; padding: 0;">
                     <!--Code Anfang #3_Nikola_02.05 Occupancy Form -->
                     <button class="btn" style="width: 100%; height: 100%; padding: 0; border: 2px solid black; background: #cccccc; display: flex; justify-content: center; align-items: center;"
-                            th:data-id="${hotelEntry.key.id}" th:data-name="${hotelEntry.key.name}" th:data-zip="${hotelEntry.key.cityCode}"
+                            th:data-id="${hotelEntry.key.id}" th:data-name="${hotelEntry.key.name}" th:data-zip="${hotelEntry.key.cityCode}" th:if="${isAdminOrEditor}"
                             onclick="addOccupancy(this)">
                         <img src="/images/addOccpPNG.png" alt="addOccp" style="width: 20px; height: 20px;">
                     </button>
@@ -1169,7 +985,7 @@
                 </td>
 
                 <td style="text-align: center; padding: 0;">
-                    <button class="btn" style="width: 100%; height: 100%; padding: 0; border: 2px solid black; background: #cccccc; display: flex; justify-content: center; align-items: center;">
+                    <button class="btn" style="width: 100%; height: 100%; padding: 0; border: 2px solid black; background: #cccccc; display: flex; justify-content: center; align-items: center;" th:if="${isAdminOrEditor}">
                         <img src="/images/deletePNG.png" alt="delete" style="width: 20px; height: 20px;">
                     </button>
                 </td>
