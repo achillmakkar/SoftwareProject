@@ -43,13 +43,15 @@ public class DataService {
     // Pfad aus der Konfigurationsdatei lesen
 
     private final Path csvDirectoryPath = Paths.get(System.getProperty("user.home"), "csvimport");
-    private final Path correctFilesPath = Paths.get(System.getProperty("user.home"), "correct_files");
-    private final Path problemFilesPath = Paths.get(System.getProperty("user.home"), "problem_files");
+    private final Path correctFilesPath = csvDirectoryPath.resolve("correct_files");
+    private final Path problemFilesPath = csvDirectoryPath.resolve("problem_files");
+
 
 
     @Autowired
     public DataService(final OccupancyRepository occupancyRepository) {
         this.occupancyRepository = occupancyRepository;
+        createDirectoriesIfNeeded(csvDirectoryPath);
         createDirectoriesIfNeeded(correctFilesPath);
         createDirectoriesIfNeeded(problemFilesPath);
     }
@@ -100,6 +102,11 @@ public class DataService {
     }
 
     public boolean importCsvFilesFromDirectory(String user) {
+        if (!Files.exists(csvDirectoryPath)) {
+            System.err.println("Das Verzeichnis 'csvimport' existiert nicht.");
+            return false;
+        }
+
         AtomicInteger okCount = new AtomicInteger(0);
         AtomicInteger failCount = new AtomicInteger(0);
 

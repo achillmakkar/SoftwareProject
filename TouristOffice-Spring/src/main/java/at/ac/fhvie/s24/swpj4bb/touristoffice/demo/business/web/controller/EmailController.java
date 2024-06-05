@@ -14,7 +14,7 @@ public class EmailController {
     @GetMapping("/sendSubscriptionMail")
     public String sendSubscriptionMail() {
         emailService.sendMessageWithAttachment("hotelstatistics01@gmail.com", "Hotel Subscription",
-                "Here is your requested PDF file.", "reports/occupancy.pdf");
+                "Here is your requested PDF file.", "reports/hotels.pdf");
         return "redirect:/index";
     }
 

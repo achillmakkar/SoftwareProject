@@ -9,6 +9,7 @@ import com.opencsv.CSVReaderBuilder;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.time.Year;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -28,6 +29,8 @@ public class CsvFileHelper {
             String[] line;
             int lineNumber = 0;
             int currentYear = Year.now().getValue();
+            LocalDate currentDate = LocalDate.now();
+            int currentMonth = currentDate.getMonthValue();
             while ((line = reader.readNext()) != null) {
                 lineNumber++;
                 if (lineNumber == 1) {
@@ -55,8 +58,8 @@ public class CsvFileHelper {
                 if (usedBeds > beds) {
                     throw new CsvValidator("Used Beds dürfen nicht größer als Beds sein in Zeile: " + lineNumber);
                 }
-                if (year > currentYear) {
-                    throw new CsvValidator("Das Jahr darf nicht größer als das aktuelle Jahr sein in Zeile: " + lineNumber);
+                if (year > currentYear || (year == currentYear && month > currentMonth)) {
+                    throw new CsvValidator("Das Datum darf nicht in der Zukunft liegen in Zeile: " + lineNumber);
                 }
                 if (month < 1 || month > 12) {
                     throw new CsvValidator("Das Monat muss zwischen 1 und 12 liegen in Zeile: " + lineNumber);
