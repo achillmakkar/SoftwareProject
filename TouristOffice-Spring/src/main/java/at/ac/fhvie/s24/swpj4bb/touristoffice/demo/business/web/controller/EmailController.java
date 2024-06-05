@@ -18,11 +18,12 @@ public class EmailController {
         return "redirect:/index";
     }
 
+    /*
     @GetMapping("/sendDATFile")
     public String sendDATFile() {
         // TODO: Change last parameter to DAT file path
         emailService.sendMessageWithAttachment("hotelstatistics01@gmail.com", "DAT File",
                 "Here is your requested DAT file.", "CHANGE ME");
         return "redirect:/index";
-    }
+    }*/
 }

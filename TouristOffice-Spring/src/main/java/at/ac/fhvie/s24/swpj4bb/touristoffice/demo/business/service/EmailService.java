@@ -6,41 +6,38 @@ import javax.activation.FileDataSource;
 import javax.mail.*;
 import javax.mail.internet.*;
 
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.core.io.Resource;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
 import java.util.Properties;
 import java.net.URL;
-
-
 @Service
 public class EmailService {
 
-    Authenticator authenticator;
-    Properties props;
+    private final Authenticator authenticator;
+    private final Properties props = new Properties();
 
-    public EmailService() {
-        props = new Properties();
-        URL smtpUrl = ClassLoader.getSystemResource("smtp.properties");
-
-        try  {
-            props.load(smtpUrl.openStream());
-        } catch (IOException fie) {
-            fie.printStackTrace();
+    // CodeAnfang_Achill_FixesForJarFile_SMTP_was_not_working_05.06.2024
+    public EmailService(@Value("classpath:smtp.properties") Resource smtpPropertiesResource,
+                        @Value("classpath:smtpuser.properties") Resource smtpUserPropertiesResource) {
+        try {
+            props.load(smtpPropertiesResource.getInputStream());
+        } catch (IOException e) {
+            e.printStackTrace();
+            throw new RuntimeException("Failed to load SMTP properties", e);
         }
 
         authenticator = new Authenticator() {
             protected PasswordAuthentication getPasswordAuthentication() {
                 Properties smtpUserProps = new Properties();
-                URL smtpUserURL = ClassLoader.getSystemResource("smtpuser.properties");
-
-                try  {
-                    smtpUserProps.load(smtpUserURL.openStream());
-                } catch (IOException fie) {
-                    fie.printStackTrace();
+                try {
+                    smtpUserProps.load(smtpUserPropertiesResource.getInputStream());
+                } catch (IOException e) {
+                    e.printStackTrace();
+                    throw new RuntimeException("Failed to load SMTP user properties", e);
                 }
-
-                System.out.println(props.getProperty("mail.smtp.host"));
 
                 return new PasswordAuthentication(smtpUserProps.getProperty("username"),
                         smtpUserProps.getProperty("password"));
@@ -49,7 +46,7 @@ public class EmailService {
     }
 
     public void sendSimpleMessage(String to, String subject, String text) {
-
+        // Implementierung
     }
 
     public void sendMessageWithAttachment(String to, String subject, String text, String pathToAttachment) {
@@ -57,22 +54,16 @@ public class EmailService {
         Session session = Session.getInstance(props, authenticator);
         try {
             Message message = new MimeMessage(session);
-
             message.setFrom(new InternetAddress("hotelstatistics01@gmail.com"));
-
-            message.setRecipients(Message.RecipientType.TO,
-                    InternetAddress.parse(to));
-
+            message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(to));
             message.setSubject(subject);
 
             BodyPart messageBodyPart = new MimeBodyPart();
-
             messageBodyPart.setText(text);
 
             Multipart multipart = new MimeMultipart();
-            // Text message
             multipart.addBodyPart(messageBodyPart);
-            // Attachment
+
             messageBodyPart = new MimeBodyPart();
             DataSource source = new FileDataSource(pathToAttachment);
             messageBodyPart.setDataHandler(new DataHandler(source));
@@ -80,13 +71,11 @@ public class EmailService {
             multipart.addBodyPart(messageBodyPart);
 
             message.setContent(multipart);
-
             Transport.send(message);
             System.out.println("Email Message Sent Successfully");
         } catch (MessagingException e) {
             throw new RuntimeException(e);
         }
     }
-
 }
 
