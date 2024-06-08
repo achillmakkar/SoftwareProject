@@ -304,10 +304,10 @@
                             owner: $('#addHotelOwner').val(),
                             contact: $('#addHotelContact').val(),
                             phone: $('#addHotelPhone').val(),
-                            email: $('#addHotelEmail').val(),
+                            emailAddress: $('#addHotelEmail').val(),
                             url: $('#addHotelUrl').val(),
-                            rooms: $('#addHotelRooms').val(),
-                            beds: $('#addHotelBeds').val(),
+                            noRooms: $('#addHotelRooms').val(),
+                            noBeds: $('#addHotelBeds').val(),
                             category: $('#addHotelCategory').val(),
                             familyFriendly: $('#addHotelFamilyFriendly').is(':checked'),
                             dogFriendly: $('#addHotelDogFriendly').is(':checked'),
@@ -408,11 +408,11 @@
                         }
 
                         // E-Mail Validierung
-                        if (!hotelDetails.email) {
+                        if (!hotelDetails.emailAddress) {
                             isValid = false;
                             $('#addHotelEmail').addClass('is-invalid');
                             $('#addHotelEmail').attr('title', 'E-mail is required.');
-                        } else if (!/@/.test(hotelDetails.email)) {
+                        } else if (!/@/.test(hotelDetails.emailAddress)) {
                             isValid = false;
                             $('#addHotelEmail').addClass('is-invalid');
                             $('#addHotelEmail').attr('title', 'E-mail must contain "@".');
@@ -432,11 +432,11 @@
                         }
 
                         // Rooms Validierung
-                        if (!hotelDetails.rooms) {
+                        if (!hotelDetails.noRooms) {
                             isValid = false;
                             $('#addHotelRooms').addClass('is-invalid');
                             $('#addHotelRooms').attr('title', 'Number of rooms is required.');
-                        } else if (!/^\d+$/.test(hotelDetails.rooms)) {
+                        } else if (!/^\d+$/.test(hotelDetails.noRooms)) {
                             isValid = false;
                             $('#addHotelRooms').addClass('is-invalid');
                             $('#addHotelRooms').attr('title', 'Rooms must contain only numbers.');
@@ -446,11 +446,11 @@
                         }
 
                         // Beds Validierung
-                        if (!hotelDetails.beds) {
+                        if (!hotelDetails.noBeds) {
                             isValid = false;
                             $('#addHotelBeds').addClass('is-invalid');
                             $('#addHotelBeds').attr('title', 'Number of beds is required.');
-                        } else if (!/^\d+$/.test(hotelDetails.beds)) {
+                        } else if (!/^\d+$/.test(hotelDetails.noBeds)) {
                             isValid = false;
                             $('#addHotelBeds').addClass('is-invalid');
                             $('#addHotelBeds').attr('title', 'Beds must contain only numbers.');
