@@ -342,10 +342,10 @@
                             isValid = false;
                             $('#addHotelZip').addClass('is-invalid');
                             $('#addHotelZip').attr('title', 'ZIP code is required.');
-                        } else if (!/^\d+$/.test(hotelDetails.cityCode)) {
+                        } else if (parseInt(hotelDetails.cityCode) < 1010 || parseInt(hotelDetails.cityCode) > 9992) {
                             isValid = false;
                             $('#addHotelZip').addClass('is-invalid');
-                            $('#addHotelZip').attr('title', 'ZIP code must contain only numbers.');
+                            $('#addHotelZip').attr('title', 'ZIP code must be between 1010 and 9992.');
                         } else {
                             $('#addHotelZip').removeClass('is-invalid');
                             $('#addHotelZip').removeAttr('title');
@@ -477,9 +477,13 @@
                                 },
                                 body: JSON.stringify(hotelDetails)
                             })
-                                .then(response => {
-                                    if (response.ok) {
-                                        alert('Hotel successfully added to the database!');
+                                .then(response => response.json()) // Annahme: der Server gibt die Hotel-ID zurück
+                                .then(data => {
+                                    if (data.success) {
+                                        let hotelId = data.hotelId; // Ersetze durch das tatsächliche Feld, das die ID enthält
+                                        if (confirm('Hotel successfully added to the database!')) {
+                                            showHotelInfo({id: hotelId});
+                                        }
                                         $('#addHotelModal').hide();
                                         $('#addHotelForm')[0].reset();
                                     } else {
@@ -492,6 +496,40 @@
                                 });
                         }
                     });
+
+                    function showHotelInfo(hotel) {
+                        // Hier rufst du die Daten des Hotels ab und zeigst sie im Modal an
+                        fetch(`/hotelinfo/${hotel.id}`)
+                            .then(response => response.json())
+                            .then(data => {
+                                console.log(data); // Debugging: Check the returned data
+
+                                // Befüllt das Modal mit den Daten des Hotels
+                                $('#hotelInfoContent').html(`
+                                    <strong>Hotel ID:</strong> ${data.id}<br>
+                                    <strong>Hotel Name:</strong> ${data.name}<br>
+                                    <strong>Address:</strong> ${data.address}<br>
+                                    <strong>ZIP:</strong> ${data.cityCode}<br>
+                                    <strong>City:</strong> ${data.city}<br>
+                                    <strong>Owner:</strong> ${data.owner}<br>
+                                    <strong>Contact:</strong> ${data.contact}<br>
+                                    <strong>Phone:</strong> ${data.phone}<br>
+                                    <strong>E-Mail Address:</strong> ${data.emailAddress}<br>
+                                    <strong>URL:</strong> <a href="${data.url}" target="_blank">${data.url}</a><br><br>
+                                    <strong>Category:</strong> ${data.category}<br>
+                                    <strong>family friendly:</strong> ${data.familyFriendly ? '<img src="/images/okgreenPNG.png" alt="okgreen" style="width: 20px; height: 20px;">' : '<img src="/images/noredPNG.png" alt="nored" style="width: 20px; height: 20px;">'}<br>
+                                    <strong>dog friendly:</strong> ${data.dogFriendly ? '<img src="/images/okgreenPNG.png" alt="okgreen" style="width: 20px; height: 20px;">' : '<img src="/images/noredPNG.png" alt="nored" style="width: 20px; height: 20px;">'}<br>
+                                    <strong>spa:</strong> ${data.spa ? '<img src="/images/okgreenPNG.png" alt="okgreen" style="width: 20px; height: 20px;">' : '<img src="/images/noredPNG.png" alt="nored" style="width: 20px; height: 20px;">'}<br>
+                                    <strong>fitness:</strong> ${data.fitness ? '<img src="/images/okgreenPNG.png" alt="okgreen" style="width: 20px; height: 20px;">' : '<img src="/images/noredPNG.png" alt="nored" style="width: 20px; height: 20px;">'}<br>
+                                    <strong>subscribed:</strong> ${data.subscribed ? '<img src="/images/okgreenPNG.png" alt="okgreen" style="width: 20px; height: 20px;">' : '<img src="/images/noredPNG.png" alt="nored" style="width: 20px; height: 20px;">'}<br>
+                                `);
+                                $('#hotelInfoModal').show();
+                            })
+                            .catch(error => {
+                                console.error('Error fetching hotel info:', error);
+                                alert('Error fetching hotel info.');
+                            });
+                    }
 
                     function resetValidation() {
                         $('.is-invalid').removeClass('is-invalid');

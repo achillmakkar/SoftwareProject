@@ -15,7 +15,9 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Controller
 public class HotelController {
@@ -54,7 +56,19 @@ public class HotelController {
   }
   //Codeend_15.04.2024/25.04.2024_Lang_Sub_button-------------------------------------------------------------------------------
 
-  //Codebegin_23.05.2024_LANG_add_hotel
+  //Codebegin_23.05.2024_08.06.2024_LANG_add_hotel
+
+  // Füge diese Methode hinzu, um die Hotelinformationen basierend auf der Hotel-ID abzurufen
+  @GetMapping("/hotelinfo/{id}")
+  @ResponseBody
+  public ResponseEntity<Hotel> getHotelInfo(@PathVariable int id) {
+    Hotel hotel = hotelService.findById(id);
+    if (hotel != null) {
+      return ResponseEntity.ok(hotel);
+    } else {
+      return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+    }
+  }
 
   @GetMapping("/addhotel")
   public String addHotelForm(Model model) {
@@ -63,13 +77,15 @@ public class HotelController {
   }
 
   @PostMapping("/addhotel")
-  public ResponseEntity<String> addHotel(@RequestBody Hotel hotel) {
+  public ResponseEntity<Object> addHotel(@RequestBody Hotel hotel) {
     hotelService.addHotel(hotel);
-    return ResponseEntity.status(HttpStatus.CREATED).body("Hotel erfolgreich hinzugefügt!");
+    Map<String, Object> response = new HashMap<>();
+    response.put("success", true);
+    response.put("hotelId", hotel.getId()); // Add this line to include the hotel ID in the response
+    return ResponseEntity.status(HttpStatus.CREATED).body(response);
   }
 
-
-  //Codeend_23.05.2024_LANG_add_hotel
+  //Codeend_23.05.2024_08.06.2024_LANG_add_hotel
 
   @GetMapping("/updatehotel/{id}")
   public String showUpdateHotelForm(@PathVariable("id") int id, Model model) {
