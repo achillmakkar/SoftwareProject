@@ -1,0 +1,144 @@
+<!DOCTYPE HTML>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>add hotel data</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" th:href="@{/css/occupancyFormStyle.css}" />
+    <style>
+        /* Codeanfang_Anes_durchgehend */
+
+        body{
+            font-family: Arial, sans-serif;
+            background: #66ccff;
+            padding: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+        }
+        form {
+            background: #f7f7f7;
+            padding: 20px;
+            border-radius: 5px;
+            border: 1px solid #000;
+            width: auto;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        .form-group {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        label, input {
+            flex-basis: 48%;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+        input[type=text],
+        input[type=number] {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: bold;
+            width: 100%;
+            box-sizing: border-box;
+        }
+        button[type=submit] {
+            background-color: #ffcc00;
+        }
+
+        button[type=button] {
+            background-color: #ccc;
+            margin-top: 10px;
+        }
+        button{
+            cursor: pointer;
+        }
+        .c-red{
+            color: red;
+        }
+        .text-center{
+            text-align: center;
+        }
+        .float-right{
+            float: right;
+        }
+    </style>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const hotelId = urlParams.get('hotelId');
+            const hotelName = urlParams.get('hotelName');
+            const hotelZip = urlParams.get('hotelZip')
+
+            document.getElementById('hotel.id').value = hotelId || '';
+            document.getElementById('hotel.name').value = hotelName || '';
+            document.getElementById('hotel.zip').value = hotelZip || '';
+
+            const form = document.getElementById('deleteHotelForm');
+            form.addEventListener('submit', function(event) {
+                event.preventDefault();
+            const submitBtn = document.getElementById("submitBtn");
+            submitBtn.innerHTML = "PLEASE WAIT!";
+                fetch(`/deleteHotel/${hotelId}`, {
+                    method: 'DELETE'
+                })
+                    .then(response => {
+                        if (response.ok) {
+                            console.log('Hotel deleted successfully.');
+                            window.location.href = '/index';
+                        } else {
+                            console.error('Error deleting hotel:', response.statusText);
+                            alert('Error deleting hotel.');
+                            submitBtn.innerHTML = "DELETE";
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Error deleting hotel:', error);
+                        alert('Error deleting hotel.');
+                        submitBtn.innerHTML = "DELETE";
+                    });
+            });
+        });
+    </script>
+</head>
+
+<body>
+
+<div  th:if="${error != null }" th:text="${error}">
+    <p th:text= "'Error: ' + ${error}" />
+</div>
+
+<form id="deleteHotelForm" th:action="@{/deleteHotel/}" th:object="${hotel}" method="delete">
+
+    <h2 class="c-red text-center">delete hotel</h2>
+    <p>
+        Are you sure you want to <span class="c-red">DELETE</span> this hotel and its linked transaction/occupancy data?
+    </p>
+    <div class="form-group">
+        <label for="hotel.id">Hotel ID:</label>
+        <input readonly type="text" id="hotel.id" name="hotel.id" min="0" required pattern="\d*">
+    </div>
+    <div class="form-group">
+        <label for="hotel.name">Hotel Name:</label>
+        <input readonly type="text" id="hotel.name" name="hotel.name"  required pattern="[A-Za-z0-9 ]+">
+    </div>
+    <div class="form-group">
+        <label for="hotel.zip">ZIP:</label>
+        <input readonly type="number" id="hotel.zip" name="hotel.zip"  required pattern="\d*">
+    </div>
+    <p>
+        <button id="submitBtn" type="submit">DELETE</button>
+        <button class="float-right" type="button" onclick="window.location.href='/index';">CANCEL</button>
+
+    </p>
+
+</form>
+</body>
+</html>

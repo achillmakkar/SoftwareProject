@@ -44,6 +44,16 @@
 
             window.location.href = formUrl;
         }
+        function deleteHotel(element) {
+            // Daten auslesen
+            const hotelId = element.getAttribute('data-id');
+            const hotelName = element.getAttribute('data-name');
+            const hotelZip = element.getAttribute('data-zip');
+
+            const formUrl = `/deletehotel?hotelId=${hotelId}&hotelName=${encodeURIComponent(hotelName)}&hotelZip=${hotelZip}`;
+
+            window.location.href = formUrl;
+        }
         //Code Ende #3_Nikola_02.05 Occupancy Form
 
         // Achill
@@ -1190,7 +1200,7 @@
                 </td>
 
                 <td style="text-align: center; padding: 0;">
-                    <button class="btn" style="width: 100%; height: 100%; padding: 0; border: 2px solid black; background: #cccccc; display: flex; justify-content: center; align-items: center;" th:if="${isAdminOrEditor}">
+                    <button class="btn" style="width: 100%; height: 100%; padding: 0; border: 2px solid black; background: #cccccc; display: flex; justify-content: center; align-items: center;" th:if="${isAdminOrEditor}" th:data-id="${hotelEntry.key.id}" th:data-name="${hotelEntry.key.name}" th:data-zip="${hotelEntry.key.cityCode}" onclick="deleteHotel(this)">
                         <img src="/images/deletePNG.png" alt="delete" style="width: 20px; height: 20px;">
                     </button>
                 </td>

@@ -2,6 +2,7 @@ package at.ac.fhvie.s24.swpj4bb.touristoffice.demo.business.web.controller;
 
 import at.ac.fhvie.s24.swpj4bb.touristoffice.demo.business.constants.Category;
 import at.ac.fhvie.s24.swpj4bb.touristoffice.demo.business.entity.Hotel;
+import at.ac.fhvie.s24.swpj4bb.touristoffice.demo.business.entity.Occupancy;
 import at.ac.fhvie.s24.swpj4bb.touristoffice.demo.business.service.HotelService;
 import at.ac.fhvie.s24.swpj4bb.touristoffice.demo.business.service.ReportService;
 import at.ac.fhvie.s24.swpj4bb.touristoffice.demo.business.service.SubscriptionService;
@@ -69,7 +70,11 @@ public class HotelController {
       return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
     }
   }
-
+  @GetMapping("/deletehotel")
+  public String deleteHotel(Model model) {              // Initialiserung des Formulars - "occupancy" Objekt wird erstellt und an Model gebunden
+    model.addAttribute("hotel", new Hotel());   // Model stellt bildlich dar (Datentransfer zw Controller und View)
+    return "deletehotel";                                    // Occupancy Objekt wird an 'model' gebunden - Userdaten werden gespeichert
+  }
   @GetMapping("/addhotel")
   public String addHotelForm(Model model) {
     model.addAttribute("hotel", new Hotel());
@@ -187,5 +192,15 @@ public class HotelController {
     }
   }
   // Codeende_Achill_01.04.2024-StatisticsAsPDF -->
-
+  @DeleteMapping("/deleteHotel/{id}")
+  public ResponseEntity<String> deleteHotel(@PathVariable int id) {
+    try {
+      hotelService.deleteHotelById(id);
+      return ResponseEntity.ok("Hotel successfully deleted!");
+    }
+    catch (Exception e) {
+      return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+              .body("There was an error deleting the hotel.");
+    }
+  }
 }

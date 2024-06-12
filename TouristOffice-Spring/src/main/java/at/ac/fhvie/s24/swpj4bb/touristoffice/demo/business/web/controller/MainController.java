@@ -89,7 +89,10 @@ public class MainController {
         List<Occupancy> occupancy = occupancyService.getOccupancyDataForHotelAndYear(hotel, year);
         yearlyData.put(year, occupancy);
       }
-      hotelOccupancyMap.put(hotel, yearlyData);
+      //wenn Hotel nicht deleted, boolean negieren Ane
+      if(!hotel.isDeleted()) {
+        hotelOccupancyMap.put(hotel, yearlyData);
+      }
       List<Occupancy> last12Months = occupancyService.getLast12MonthsForHotel(hotel);
       last12MonthsMap.put(hotel, last12Months);
     }
