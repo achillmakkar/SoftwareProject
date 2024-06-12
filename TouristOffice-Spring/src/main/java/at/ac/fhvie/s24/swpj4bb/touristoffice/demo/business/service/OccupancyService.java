@@ -13,9 +13,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import at.ac.fhvie.s24.swpj4bb.touristoffice.demo.business.entity.OccupancyHistogramData;
 import java.time.YearMonth;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
 
@@ -67,7 +65,9 @@ public class OccupancyService
     //Code Sulim 19.04. for Occupancy years
 
     public List<Integer> findDistinctYears() {
-        return occupancyRepository.findDistinctYears();
+        List<Integer> years = occupancyRepository.findDistinctYears();
+        Collections.sort(years); // Sortiere die Jahre in aufsteigender Reihenfolge
+        return years;
     }
 
     //code Sulim 16.05. -> 12 last entries
