@@ -726,15 +726,17 @@
             }
         });
 
-        // tuchan code
+        // backup code button
 
 
-        function toggleRow(hotelId) {
-            var detailRow = document.getElementById('details-' + hotelId);
-            if (detailRow) {
-                detailRow.classList.toggle('hidden');
-            }
+        function backupDatabase() {
+            fetch('/backup')
+                .then(response => response.text())
+                .then(data => alert(data))
+                .catch(error => console.error('Fehler:', error));
         }
+
+
 
 
         <!-- Codeende_Achill_24.03.2024/27.08.2024/28.08.2024/01.04.2024/03.04.2024/19.04.2024/20.04.2024_Page-Navigation,SwitchZIPAscDesc,HotelDataInfo, ImportCsvData -->
@@ -1024,7 +1026,7 @@
 
 
                     <a href="/sendSubscriptionMail" class="btn btn-secondary" style="color:black; background-color: yellow; font-weight: bold; border: 2px solid black">Send Subscription Mail</a>
-                    <a class="btn btn-secondary" href="#backup" style="color:black; background-color: yellow; font-weight: bold; border: 2px solid black">Create and Send Backup</a>
+                    <a class="btn btn-secondary" href="#" onclick="backupDatabase()" style="color:black; background-color: yellow; font-weight: bold; border: 2px solid black">Create and Send Backup</a>
                 </div>
             </div>
         </div>
