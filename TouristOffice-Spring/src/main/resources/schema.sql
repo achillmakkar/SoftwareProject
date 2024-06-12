@@ -32,8 +32,10 @@ CREATE TABLE hotel
 
 --Codestart_Dominik_30.03.2024_Added attributes e-mail_address and subscribed
   email_address      TEXT     DEFAULT 'hotelexample01@gmail.com',
-  subscribed         BOOLEAN  DEFAULT FALSE
+  subscribed         BOOLEAN  DEFAULT FALSE,
 --Codeend_Dominik_30.03.2024_Added attributes e-mail_address and subscribed
+  deleted BOOLEAN DEFAULT FALSE
+
 
 );
 
