@@ -1,11 +1,12 @@
 package at.ac.fhvie.s24.swpj4bb.touristoffice.demo.business.web.controller;
 import at.ac.fhvie.s24.swpj4bb.touristoffice.demo.business.service.EmailService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RestController;
 
+// CodeAnfang Nikola Button for Monthly Subscription 25.05.2024
 
-@Controller
+@RestController
 public class EmailController {
 
     @Autowired
@@ -13,17 +14,17 @@ public class EmailController {
 
     @GetMapping("/sendSubscriptionMail")
     public String sendSubscriptionMail() {
-        emailService.sendMessageWithAttachment("hotelstatistics01@gmail.com", "Hotel Subscription",
-                "Here is your requested PDF file.", "reports/hotels.pdf");
-        return "redirect:/index";
+        return emailService.sendMessageWithAttachment("nikola.marunic@icloud.com", "Hotel Subscription",
+                "Here is your requested PDF file.", "reports/hotels.pdf", "occupancy.pdf");
     }
 
-    /*
-    @GetMapping("/sendDATFile")
-    public String sendDATFile() {
-        // TODO: Change last parameter to DAT file path
-        emailService.sendMessageWithAttachment("hotelstatistics01@gmail.com", "DAT File",
-                "Here is your requested DAT file.", "CHANGE ME");
-        return "redirect:/index";
-    }*/
+    @GetMapping("/sendHotelBackupFilePerEmail")
+    public String sendHotelBackupFilePerEmail() {
+        String backupPath = System.getProperty("user.home") + "/backup/hotels_backup.zip";
+        return emailService.sendMessageWithAttachment("nikola.marunic@icloud.com", "Hotel Backup",
+                "Here is your requested hotel backup file.", backupPath, "hotel_backup.zip");
+    }
+// CodeEnde Nikola Button for Monthly Subscription 25.05.2024
 }
+
+

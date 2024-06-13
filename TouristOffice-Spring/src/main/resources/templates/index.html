@@ -42,8 +42,10 @@
             const hotelId = element.getAttribute('data-id');
             const hotelName = element.getAttribute('data-name');
             const hotelZip = element.getAttribute('data-zip');
+            const maxRooms = element.getAttribute('data-maxRooms');
+            const maxBeds = element.getAttribute('data-maxBeds');
 
-            const formUrl = `/occupancyform?hotelId=${hotelId}&hotelName=${encodeURIComponent(hotelName)}&hotelZip=${hotelZip}`;
+            const formUrl = `/occupancyform?hotelId=${hotelId}&hotelName=${encodeURIComponent(hotelName)}&hotelZip=${hotelZip}&maxRooms=${maxRooms}&maxBeds=${maxBeds}`;
 
             window.location.href = formUrl;
         }
@@ -735,7 +737,15 @@
         function backupDatabase() {
             fetch('/backup')
                 .then(response => response.text())
-                .then(data => alert(data))
+                .then(data => {
+                    alert(data);
+                    <!-- Codeanfang Nikola_13.06.2024_SendHotelBackupFile -->
+                    fetch('/sendHotelBackupFilePerEmail')
+                        .then(response => response.text())
+                        .then(data => alert(data))
+                        .catch(error => console.error('Fehler: ', error));
+                    <!-- Codeende Nikola_13.06.2024_SendHotelBackupFile -->
+                })
                 .catch(error => console.error('Fehler:', error));
         }
 
@@ -743,6 +753,18 @@
 
 
         <!-- Codeende_Achill_24.03.2024/27.08.2024/28.08.2024/01.04.2024/03.04.2024/19.04.2024/20.04.2024_Page-Navigation,SwitchZIPAscDesc,HotelDataInfo, ImportCsvData -->
+
+        <!-- Codeanfang Nikola_13.06.2024_PopupForEmailNotification -->
+
+        function sendEmailReport() {
+            fetch('/sendSubscriptionMail')
+                .then(response => response.text())
+                .then(data => alert(data))
+                .catch(error => console.error('Fehler: ', error));
+        }
+
+        <!-- Codeende Nikola_13.06.2024_PopupForEmailNotification -->
+
     </script>
     <style>
         body {
@@ -1027,8 +1049,12 @@
 
                     <!--Codeende_Lang_27.04.2024_Histogram_Button-->
 
+                    <!-- Codeanfang Nikola_13.06.2024_PopupForEmailNotification -->
 
-                    <a href="/sendSubscriptionMail" class="btn btn-secondary" style="color:black; background-color: yellow; font-weight: bold; border: 2px solid black">Send Subscription Mail</a>
+                    <a class="btn btn-secondary" onclick="sendEmailReport()" style="color:black; background-color: yellow; font-weight: bold; border: 2px solid black">Send Subscription Mail</a>
+
+                    <!-- Codeende Nikola_13.06.2024_PopupForEmailNotification -->
+
                     <a class="btn btn-secondary" href="#" onclick="backupDatabase()" style="color:black; background-color: yellow; font-weight: bold; border: 2px solid black">Create and Send Backup</a>
                 </div>
             </div>
@@ -1197,7 +1223,9 @@
                 <td style="text-align: center; padding: 0;">
                     <!--Code Anfang #3_Nikola_02.05 Occupancy Form -->
                     <button class="btn" style="width: 100%; height: 100%; padding: 0; border: 2px solid black; background: #cccccc; display: flex; justify-content: center; align-items: center;"
-                            th:data-id="${hotelEntry.key.id}" th:data-name="${hotelEntry.key.name}" th:data-zip="${hotelEntry.key.cityCode}" th:if="${isAdminOrEditor}"
+                            th:data-id="${hotelEntry.key.id}" th:data-name="${hotelEntry.key.name}"
+                            th:data-zip="${hotelEntry.key.cityCode}" th:data-maxRooms="${hotelEntry.key.noRooms}"
+                            th:data-maxBeds="${hotelEntry.key.noBeds}" th:if="${isAdminOrEditor}"
                             onclick="addOccupancy(this)">
                         <img src="/images/addOccpPNG.png" alt="addOccp" style="width: 20px; height: 20px;">
                     </button>

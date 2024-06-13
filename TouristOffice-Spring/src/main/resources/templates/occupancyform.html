@@ -70,11 +70,19 @@
             const hotelId = urlParams.get('hotelId');
             const hotelName = urlParams.get('hotelName');
             const hotelZip = urlParams.get('hotelZip');
+            const maxRooms = urlParams.get('maxRooms');
+            const maxBeds = urlParams.get('maxBeds');
 
             // Setze die Werte in die Formularfelder
             document.getElementById('hotel.id').value = hotelId || '';
             document.getElementById('hotel.name').value = hotelName || '';
             document.getElementById('hotel.cityCode').value = hotelZip || '';
+            document.getElementById('rooms').value = maxRooms || '';
+            document.getElementById('beds').value = maxBeds || '';
+
+            // Setze die Werte für das aktuelle Jahr und aktuellen Monat in das Formularfeld ein
+            document.getElementById('year').value = new Date().getFullYear();
+            document.getElementById('month').value = new Date().getMonth();
 
             function validateInput(maxInput, bookedInput) {
                 bookedInput.addEventListener('input', function() {
@@ -83,7 +91,7 @@
 
                     if (booked > max) {
                         bookedInput.value = max;
-                        alert("You cannot book more than are available.");
+                        alert("You cannot book more rooms/beds than there are available.");
                     }
                 });
             }
@@ -108,27 +116,27 @@
     <h2>add occupancy data: </h2>
     <div class="form-group">
         <label for="hotel.id">Hotel ID:</label>
-        <input type="text" id="hotel.id" name="hotel.id" min="0" required pattern="\d*">
+        <input type="text" id="hotel.id" name="hotel.id" min="0" required pattern="\d*" readonly>
     </div>
     <div class="form-group">
         <label for="hotel.name">Hotel Name:</label>
-        <input type="text" id="hotel.name" name="hotel.name"  required pattern="[A-Za-z0-9 ]+">
+        <input type="text" id="hotel.name" name="hotel.name"  required pattern="[A-Za-z0-9 ]+" readonly>
     </div>
     <div class="form-group">
         <label for="hotel.cityCode">ZIP:</label>
-        <input type="text" id="hotel.cityCode" name="hotel.cityCode" min="0" required pattern="\d{4}">
+        <input type="text" id="hotel.cityCode" name="hotel.cityCode" min="0" required pattern="\d{4}" readonly>
     </div>
     <div class="form-group">
         <label for="year">Year:</label>
-        <input type="number" id="year" name="year" pattern="\d{4}" minlength="4" maxlength="4" required>
+        <input type="number" id="year" name="year" min="2020" max="2025" minlength="4" maxlength="4" required>
     </div>
     <div class="form-group">
         <label for="month">Month:</label>
-        <input type="number" id="month" name="month" min="1" max="12" required pattern="[1-9]|1[0-2]">
+        <input type="number" id="month" name="month" min="1" max="12" pattern="[1-9]|1[0-2]" required>
     </div>
     <div class="form-group">
         <label for="rooms">Max Rooms:</label>
-        <input type="number" id="rooms" name="rooms" min="0" required>
+        <input type="number" id="rooms" name="rooms" min="0" required readonly>
     </div>
     <div class="form-group">
         <label for="usedrooms">Booked Rooms:</label>
@@ -136,7 +144,7 @@
     </div>
     <div class="form-group">
         <label for="beds">Max Beds:</label>
-        <input type="number" id="beds" name="beds" min="0" required>
+        <input type="number" id="beds" name="beds" min="0" required readonly>
     </div>
     <div class="form-group">
         <label for="usedbeds">Booked Beds:</label>

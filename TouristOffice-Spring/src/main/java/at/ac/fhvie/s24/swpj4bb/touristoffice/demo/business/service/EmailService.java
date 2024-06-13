@@ -13,6 +13,8 @@ import org.springframework.stereotype.Service;
 import java.io.IOException;
 import java.util.Properties;
 import java.net.URL;
+
+// CodeAnfang Nikola Button for Monthly Subscription 25.05.2024
 @Service
 public class EmailService {
 
@@ -29,6 +31,7 @@ public class EmailService {
             throw new RuntimeException("Failed to load SMTP properties", e);
         }
 
+
         authenticator = new Authenticator() {
             protected PasswordAuthentication getPasswordAuthentication() {
                 Properties smtpUserProps = new Properties();
@@ -44,12 +47,13 @@ public class EmailService {
             }
         };
     }
+    // CodeEnde_Achill_FixesForJarFile_SMTP_was_not_working_05.06.2024
 
     public void sendSimpleMessage(String to, String subject, String text) {
-        // Implementierung
+
     }
 
-    public void sendMessageWithAttachment(String to, String subject, String text, String pathToAttachment) {
+    public String sendMessageWithAttachment(String to, String subject, String text, String pathToAttachment, String filename) {
         System.out.println(props.getProperty("mail.smtp.host"));
         Session session = Session.getInstance(props, authenticator);
         try {
@@ -67,15 +71,17 @@ public class EmailService {
             messageBodyPart = new MimeBodyPart();
             DataSource source = new FileDataSource(pathToAttachment);
             messageBodyPart.setDataHandler(new DataHandler(source));
-            messageBodyPart.setFileName("occupancy.pdf");
+            messageBodyPart.setFileName(filename);
             multipart.addBodyPart(messageBodyPart);
 
             message.setContent(multipart);
             Transport.send(message);
             System.out.println("Email Message Sent Successfully");
+            return "E-Mail wurde erfolgreich gesendet";
         } catch (MessagingException e) {
-            throw new RuntimeException(e);
+            return "Fehler: " + e.getMessage();
         }
     }
 }
 
+// CodeEnde Nikola Button for Monthly Subscription 25.05.2024
