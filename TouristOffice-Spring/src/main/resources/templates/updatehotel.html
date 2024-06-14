@@ -1,20 +1,167 @@
-<!DOCTYPE html>
-<html lang="en">
+<!DOCTYPE HTML>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Update Hotel</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" th:href="@{/css/occupancyFormStyle.css}" />
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #66ccff;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+        }
+        form {
+            background: #f7f7f7;
+            padding: 20px;
+            border-radius: 5px;
+            border: 1px solid #000;
+            width: 400px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .form-group {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+            width: 100%;
+        }
+        label, input, select {
+            flex-basis: 48%;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+        input[type=text],
+        input[type=number],
+        input[type=email],
+        input[type=url],
+        select {
+            padding: 10px 10px;
+            border: none;
+            border-radius: 4px;
+            font-weight: bold;
+            width: 100%;
+            box-sizing: border-box;
+        }
+        input[type=checkbox] {
+            margin-right: 10px;
+        }
+        button[type=submit],
+        button[type=button] {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: bold;
+            width: 48%;
+        }
+        button[type=submit] {
+            background-color: #ffcc00;
+        }
+        button[type=button] {
+            background-color: #ccc;
+            margin-top: 10px;
+        }
+        h2 {
+            text-align: center;
+            margin-bottom: 20px;
+            width: 100%;
+        }
+        .button-group {
+            display: flex;
+            justify-content: space-between;
+            width: 100%;
+        }
+    </style>
 </head>
 <body>
-<h1>Update Hotel</h1>
-<form th:action="@{/updatehotel/{id}(id=${hotel.id})}" th:object="${hotel}" method="post">
-    <label for="name">Name:</label>
-    <input type="text" id="name" th:field="*{name}" />
-    <br/>
-    <label for="address">Address:</label>
-    <input type="text" id="address" th:field="*{address}" />
-    <br/>
-    <button type="submit">Update Hotel</button>
-</form>
+<div th:if="${error != null }" th:text="${error}">
+    <p th:text= "'Error: ' + ${error}" />
+</div>
 
+<form th:action="@{/updatehotel}" th:object="${hotel}" method="post">
+    <h2>Update Hotel</h2>
+    <input type="hidden" th:field="*{id}" />
+    <div class="form-group">
+        <label for="hotel.name">Hotel Name:</label>
+        <input type="text" id="hotel.name" th:field="*{name}" />
+    </div>
+    <div class="form-group">
+        <label for="hotel.address">Address:</label>
+        <input type="text" id="hotel.address" th:field="*{address}" />
+    </div>
+    <div class="form-group">
+        <label for="hotel.zip">ZIP:</label>
+        <input type="text" id="hotel.zip" th:field="*{cityCode}" pattern="\d{4,5}" />
+    </div>
+    <div class="form-group">
+        <label for="hotel.city">City:</label>
+        <input type="text" id="hotel.city" th:field="*{city}" />
+    </div>
+    <div class="form-group">
+        <label for="hotel.owner">Owner:</label>
+        <input type="text" id="hotel.owner" th:field="*{owner}" />
+    </div>
+    <div class="form-group">
+        <label for="hotel.contact">Contact:</label>
+        <input type="text" id="hotel.contact" th:field="*{contact}" />
+    </div>
+    <div class="form-group">
+        <label for="hotel.phone">Phone:</label>
+        <input type="text" id="hotel.phone" th:field="*{phone}" />
+    </div>
+    <div class="form-group">
+        <label for="hotel.email">E-mail address:</label>
+        <input type="email" id="hotel.email" th:field="*{emailAddress}" />
+    </div>
+    <div class="form-group">
+        <label for="hotel.url">URL:</label>
+        <input type="url" id="hotel.url" th:field="*{url}" />
+    </div>
+    <div class="form-group">
+        <label for="hotel.category">Category:</label>
+        <select id="hotel.category" th:field="*{category}" >
+            <option value="ONE">1</option>
+            <option value="TWO">2</option>
+            <option value="THREE">3</option>
+            <option value="FOUR">4</option>
+            <option value="FIVE">5</option>
+        </select>
+    </div>
+    <div class="form-group">
+        <label for="hotel.family_friendly">Family Friendly:</label>
+        <input type="checkbox" id="hotel.family_friendly" th:field="*{familyFriendly}" />
+    </div>
+    <div class="form-group">
+        <label for="hotel.dog_friendly">Dog Friendly:</label>
+        <input type="checkbox" id="hotel.dog_friendly" th:field="*{dogFriendly}" />
+    </div>
+    <div class="form-group">
+        <label for="hotel.spa">Spa:</label>
+        <input type="checkbox" id="hotel.spa" th:field="*{spa}" />
+    </div>
+    <div class="form-group">
+        <label for="hotel.fitness">Fitness:</label>
+        <input type="checkbox" id="hotel.fitness" th:field="*{fitness}" />
+    </div>
+    <div class="form-group">
+        <label for="hotel.subscribed">Subscribed:</label>
+        <input type="checkbox" id="hotel.subscribed" th:field="*{subscribed}" />
+    </div>
+    <div class="button-group">
+        <button type="submit">Update</button>
+        <button type="button" onclick="window.location.href='/index';">Cancel</button>
+    </div>
+</form>
 </body>
 </html>

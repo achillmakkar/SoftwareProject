@@ -71,13 +71,6 @@ public class HotelController {
 
   //Codeend_23.05.2024_LANG_add_hotel
 
-  @GetMapping("/updatehotel/{id}")
-  public String showUpdateHotelForm(@PathVariable("id") int id, Model model) {
-    Hotel hotel = hotelService.findById(id);
-    model.addAttribute("hotel", hotel);
-    return "updatehotel";
-  }
-
   // Here the form is called and the template is provided with an empty Hotel Instance
   @GetMapping("/hotelform")
   public String fooForm(final Model model) {
@@ -172,4 +165,39 @@ public class HotelController {
   }
   // Codeende_Achill_01.04.2024-StatisticsAsPDF -->
 
+  @GetMapping("/updatehotel/{id}")
+  public String showUpdateHotelForm(@PathVariable("id") int id, Model model) {
+    Hotel hotel = hotelService.findById(id);
+    model.addAttribute("hotel", hotel);
+    return "updatehotel";
+  }
+
+  @PostMapping("/updatehotel")
+  public String updateHotel(@ModelAttribute Hotel hotel, RedirectAttributes redirectAttributes) {
+    Hotel existingHotel = hotelService.findById(hotel.getId());
+    if (existingHotel != null) {
+      existingHotel.setName(hotel.getName());
+      existingHotel.setAddress(hotel.getAddress());
+      existingHotel.setCityCode(hotel.getCityCode());
+      existingHotel.setCity(hotel.getCity());
+      existingHotel.setOwner(hotel.getOwner());
+      existingHotel.setContact(hotel.getContact());
+      existingHotel.setPhone(hotel.getPhone());
+      existingHotel.setEmailAddress(hotel.getEmailAddress());
+      existingHotel.setUrl(hotel.getUrl());
+      existingHotel.setCategory(hotel.getCategory());
+      existingHotel.setFamilyFriendly(hotel.isFamilyFriendly());
+      existingHotel.setDogFriendly(hotel.isDogFriendly());
+      existingHotel.setSpa(hotel.isSpa());
+      existingHotel.setFitness(hotel.isFitness());
+      existingHotel.setSubscribed(hotel.isSubscribed());
+
+      hotelService.update(existingHotel);
+      redirectAttributes.addFlashAttribute("message", "Hotel updated successfully!");
+    } else {
+      redirectAttributes.addFlashAttribute("error", "Hotel not found!");
+    }
+
+    return "redirect:/index";
+  }
 }

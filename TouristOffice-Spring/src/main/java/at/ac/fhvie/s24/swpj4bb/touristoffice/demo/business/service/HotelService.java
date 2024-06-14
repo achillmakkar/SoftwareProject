@@ -8,12 +8,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.io.*;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 
 /**
  * Service forhandling the hotel data
@@ -106,18 +108,14 @@ public class HotelService {
     hotelRepository.save(hotel);
   }
 
+  @Transactional
   public void update(final Hotel alteredHotel) {
-
-    // Data of the original one has to be altered with the new ones.
     Hotel oldHotel = findById(alteredHotel.getId());
-    oldHotel.updateWith(alteredHotel);
-    // update is the same as save! as long as the id is the same!!!!!!!!
-    hotelRepository.save(oldHotel);
-
-    // Export the database as SQL file
-    exportDatabase();
-
-
+    if (oldHotel != null) {
+      oldHotel.updateWith(alteredHotel);
+      hotelRepository.save(oldHotel);
+      exportDatabase();
+    }
   }
 
   /**
