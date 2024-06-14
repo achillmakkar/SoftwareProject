@@ -24,14 +24,15 @@ import java.util.List;
 public interface HotelRepository  extends PagingAndSortingRepository<Hotel, Integer> {
   List<Hotel> findAllByOrderByIdAsc();
 
-  @Query(value = "SELECT o FROM Hotel o ORDER BY id")
+  @Query(value = "SELECT o FROM Hotel o ORDER BY id ASC")
   Page<Hotel> findAll(Pageable pageable);
 
   List<Hotel> findByName(String lastName);
 
-  List<Hotel> findAllById(int id, Pageable pageable);
-
   // Codeanfang_Achill_12.05.2024_ZIP_Name_HotelSortieren
+  @Query("SELECT h FROM Hotel h WHERE h.id = :id ORDER BY h.id ASC")
+  Page<Hotel> findAllById(int id, Pageable pageable);
+
   @Query("SELECT h FROM Hotel h ORDER BY zip ASC, name ASC")
   Page<Hotel> findAllByOrderByZipAscNameAsc(Pageable pageable);
   // Codeende_Achill_12.05.2024_ZIP_Name_HotelSortieren

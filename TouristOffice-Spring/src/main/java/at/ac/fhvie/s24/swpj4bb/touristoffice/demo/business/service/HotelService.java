@@ -53,7 +53,12 @@ public class HotelService {
     // Maybe isPresent() should here be used for safety reasons
     return hotelRepository.findById(id).get();
   }
+ public void deleteHotelById(final int id) {
+    Hotel h = findById(id);
+    h.setDeleted(true);
+    update(h);
 
+ }
   public List<Hotel> findAllOrderedById() {
     // Return the hotels currently loaded
     return hotelRepository.findAllByOrderByIdAsc();

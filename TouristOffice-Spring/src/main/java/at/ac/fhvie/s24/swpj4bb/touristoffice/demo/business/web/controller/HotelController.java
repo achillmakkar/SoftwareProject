@@ -2,6 +2,7 @@ package at.ac.fhvie.s24.swpj4bb.touristoffice.demo.business.web.controller;
 
 import at.ac.fhvie.s24.swpj4bb.touristoffice.demo.business.constants.Category;
 import at.ac.fhvie.s24.swpj4bb.touristoffice.demo.business.entity.Hotel;
+import at.ac.fhvie.s24.swpj4bb.touristoffice.demo.business.entity.Occupancy;
 import at.ac.fhvie.s24.swpj4bb.touristoffice.demo.business.service.HotelService;
 import at.ac.fhvie.s24.swpj4bb.touristoffice.demo.business.service.ReportService;
 import at.ac.fhvie.s24.swpj4bb.touristoffice.demo.business.service.SubscriptionService;
@@ -15,7 +16,9 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Controller
 public class HotelController {
@@ -54,8 +57,24 @@ public class HotelController {
   }
   //Codeend_15.04.2024/25.04.2024_Lang_Sub_button-------------------------------------------------------------------------------
 
-  //Codebegin_23.05.2024_LANG_add_hotel
+  //Codebegin_23.05.2024_08.06.2024_LANG_add_hotel
 
+  // Füge diese Methode hinzu, um die Hotelinformationen basierend auf der Hotel-ID abzurufen
+  @GetMapping("/hotelinfo/{id}")
+  @ResponseBody
+  public ResponseEntity<Hotel> getHotelInfo(@PathVariable int id) {
+    Hotel hotel = hotelService.findById(id);
+    if (hotel != null) {
+      return ResponseEntity.ok(hotel);
+    } else {
+      return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+    }
+  }
+  @GetMapping("/deletehotel")
+  public String deleteHotel(Model model) {              // Initialiserung des Formulars - "occupancy" Objekt wird erstellt und an Model gebunden
+    model.addAttribute("hotel", new Hotel());   // Model stellt bildlich dar (Datentransfer zw Controller und View)
+    return "deletehotel";                                    // Occupancy Objekt wird an 'model' gebunden - Userdaten werden gespeichert
+  }
   @GetMapping("/addhotel")
   public String addHotelForm(Model model) {
     model.addAttribute("hotel", new Hotel());
@@ -63,13 +82,22 @@ public class HotelController {
   }
 
   @PostMapping("/addhotel")
-  public ResponseEntity<String> addHotel(@RequestBody Hotel hotel) {
+  public ResponseEntity<Object> addHotel(@RequestBody Hotel hotel) {
     hotelService.addHotel(hotel);
-    return ResponseEntity.status(HttpStatus.CREATED).body("Hotel erfolgreich hinzugefügt!");
+    Map<String, Object> response = new HashMap<>();
+    response.put("success", true);
+    response.put("hotelId", hotel.getId()); // Add this line to include the hotel ID in the response
+    return ResponseEntity.status(HttpStatus.CREATED).body(response);
   }
 
+  //Codeend_23.05.2024_08.06.2024_LANG_add_hotel
 
-  //Codeend_23.05.2024_LANG_add_hotel
+  @GetMapping("/updatehotel/{id}")
+  public String showUpdateHotelForm(@PathVariable("id") int id, Model model) {
+    Hotel hotel = hotelService.findById(id);
+    model.addAttribute("hotel", hotel);
+    return "updatehotel";
+  }
 
   // Here the form is called and the template is provided with an empty Hotel Instance
   @GetMapping("/hotelform")
@@ -164,40 +192,15 @@ public class HotelController {
     }
   }
   // Codeende_Achill_01.04.2024-StatisticsAsPDF -->
-
-  @GetMapping("/updatehotel/{id}")
-  public String showUpdateHotelForm(@PathVariable("id") int id, Model model) {
-    Hotel hotel = hotelService.findById(id);
-    model.addAttribute("hotel", hotel);
-    return "updatehotel";
-  }
-
-  @PostMapping("/updatehotel")
-  public String updateHotel(@ModelAttribute Hotel hotel, RedirectAttributes redirectAttributes) {
-    Hotel existingHotel = hotelService.findById(hotel.getId());
-    if (existingHotel != null) {
-      existingHotel.setName(hotel.getName());
-      existingHotel.setAddress(hotel.getAddress());
-      existingHotel.setCityCode(hotel.getCityCode());
-      existingHotel.setCity(hotel.getCity());
-      existingHotel.setOwner(hotel.getOwner());
-      existingHotel.setContact(hotel.getContact());
-      existingHotel.setPhone(hotel.getPhone());
-      existingHotel.setEmailAddress(hotel.getEmailAddress());
-      existingHotel.setUrl(hotel.getUrl());
-      existingHotel.setCategory(hotel.getCategory());
-      existingHotel.setFamilyFriendly(hotel.isFamilyFriendly());
-      existingHotel.setDogFriendly(hotel.isDogFriendly());
-      existingHotel.setSpa(hotel.isSpa());
-      existingHotel.setFitness(hotel.isFitness());
-      existingHotel.setSubscribed(hotel.isSubscribed());
-
-      hotelService.update(existingHotel);
-      redirectAttributes.addFlashAttribute("message", "Hotel updated successfully!");
-    } else {
-      redirectAttributes.addFlashAttribute("error", "Hotel not found!");
+  @DeleteMapping("/deleteHotel/{id}")
+  public ResponseEntity<String> deleteHotel(@PathVariable int id) {
+    try {
+      hotelService.deleteHotelById(id);
+      return ResponseEntity.ok("Hotel successfully deleted!");
     }
-
-    return "redirect:/index";
+    catch (Exception e) {
+      return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+              .body("There was an error deleting the hotel.");
+    }
   }
 }

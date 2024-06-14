@@ -19,6 +19,9 @@
 
     <!-- Codeanfang_Achill_24.03.2024/27.08.2024/28.08.2024/01.04.2024/03.04.2024/16.05.2024/17.05.2024/18.05.2024_Page-Navigation,SwitchZIPAscDesc,HotelDataInfo -->
     <script>
+
+
+
         $(document).ready(function() {
             // Debugging: Überprüfen, ob eine Fehlermeldung vorhanden ist
             var errorMessage = $('.modal-body p').text().trim();
@@ -39,8 +42,20 @@
             const hotelId = element.getAttribute('data-id');
             const hotelName = element.getAttribute('data-name');
             const hotelZip = element.getAttribute('data-zip');
+            const maxRooms = element.getAttribute('data-maxRooms');
+            const maxBeds = element.getAttribute('data-maxBeds');
 
-            const formUrl = `/occupancyform?hotelId=${hotelId}&hotelName=${encodeURIComponent(hotelName)}&hotelZip=${hotelZip}`;
+            const formUrl = `/occupancyform?hotelId=${hotelId}&hotelName=${encodeURIComponent(hotelName)}&hotelZip=${hotelZip}&maxRooms=${maxRooms}&maxBeds=${maxBeds}`;
+
+            window.location.href = formUrl;
+        }
+        function deleteHotel(element) {
+            // Daten auslesen
+            const hotelId = element.getAttribute('data-id');
+            const hotelName = element.getAttribute('data-name');
+            const hotelZip = element.getAttribute('data-zip');
+
+            const formUrl = `/deletehotel?hotelId=${hotelId}&hotelName=${encodeURIComponent(hotelName)}&hotelZip=${hotelZip}`;
 
             window.location.href = formUrl;
         }
@@ -304,10 +319,10 @@
                             owner: $('#addHotelOwner').val(),
                             contact: $('#addHotelContact').val(),
                             phone: $('#addHotelPhone').val(),
-                            email: $('#addHotelEmail').val(),
+                            emailAddress: $('#addHotelEmail').val(),
                             url: $('#addHotelUrl').val(),
-                            rooms: $('#addHotelRooms').val(),
-                            beds: $('#addHotelBeds').val(),
+                            noRooms: $('#addHotelRooms').val(),
+                            noBeds: $('#addHotelBeds').val(),
                             category: $('#addHotelCategory').val(),
                             familyFriendly: $('#addHotelFamilyFriendly').is(':checked'),
                             dogFriendly: $('#addHotelDogFriendly').is(':checked'),
@@ -342,10 +357,10 @@
                             isValid = false;
                             $('#addHotelZip').addClass('is-invalid');
                             $('#addHotelZip').attr('title', 'ZIP code is required.');
-                        } else if (!/^\d+$/.test(hotelDetails.cityCode)) {
+                        } else if (parseInt(hotelDetails.cityCode) < 1010 || parseInt(hotelDetails.cityCode) > 9992) {
                             isValid = false;
                             $('#addHotelZip').addClass('is-invalid');
-                            $('#addHotelZip').attr('title', 'ZIP code must contain only numbers.');
+                            $('#addHotelZip').attr('title', 'ZIP code must be between 1010 and 9992.');
                         } else {
                             $('#addHotelZip').removeClass('is-invalid');
                             $('#addHotelZip').removeAttr('title');
@@ -408,11 +423,11 @@
                         }
 
                         // E-Mail Validierung
-                        if (!hotelDetails.email) {
+                        if (!hotelDetails.emailAddress) {
                             isValid = false;
                             $('#addHotelEmail').addClass('is-invalid');
                             $('#addHotelEmail').attr('title', 'E-mail is required.');
-                        } else if (!/@/.test(hotelDetails.email)) {
+                        } else if (!/@/.test(hotelDetails.emailAddress)) {
                             isValid = false;
                             $('#addHotelEmail').addClass('is-invalid');
                             $('#addHotelEmail').attr('title', 'E-mail must contain "@".');
@@ -432,11 +447,11 @@
                         }
 
                         // Rooms Validierung
-                        if (!hotelDetails.rooms) {
+                        if (!hotelDetails.noRooms) {
                             isValid = false;
                             $('#addHotelRooms').addClass('is-invalid');
                             $('#addHotelRooms').attr('title', 'Number of rooms is required.');
-                        } else if (!/^\d+$/.test(hotelDetails.rooms)) {
+                        } else if (!/^\d+$/.test(hotelDetails.noRooms)) {
                             isValid = false;
                             $('#addHotelRooms').addClass('is-invalid');
                             $('#addHotelRooms').attr('title', 'Rooms must contain only numbers.');
@@ -446,11 +461,11 @@
                         }
 
                         // Beds Validierung
-                        if (!hotelDetails.beds) {
+                        if (!hotelDetails.noBeds) {
                             isValid = false;
                             $('#addHotelBeds').addClass('is-invalid');
                             $('#addHotelBeds').attr('title', 'Number of beds is required.');
-                        } else if (!/^\d+$/.test(hotelDetails.beds)) {
+                        } else if (!/^\d+$/.test(hotelDetails.noBeds)) {
                             isValid = false;
                             $('#addHotelBeds').addClass('is-invalid');
                             $('#addHotelBeds').attr('title', 'Beds must contain only numbers.');
@@ -477,9 +492,13 @@
                                 },
                                 body: JSON.stringify(hotelDetails)
                             })
-                                .then(response => {
-                                    if (response.ok) {
-                                        alert('Hotel successfully added to the database!');
+                                .then(response => response.json()) // Annahme: der Server gibt die Hotel-ID zurück
+                                .then(data => {
+                                    if (data.success) {
+                                        let hotelId = data.hotelId; // Ersetze durch das tatsächliche Feld, das die ID enthält
+                                        if (confirm('Hotel successfully added to the database!')) {
+                                            showHotelInfo({id: hotelId});
+                                        }
                                         $('#addHotelModal').hide();
                                         $('#addHotelForm')[0].reset();
                                     } else {
@@ -492,6 +511,40 @@
                                 });
                         }
                     });
+
+                    function showHotelInfo(hotel) {
+                        // Hier rufst du die Daten des Hotels ab und zeigst sie im Modal an
+                        fetch(`/hotelinfo/${hotel.id}`)
+                            .then(response => response.json())
+                            .then(data => {
+                                console.log(data); // Debugging: Check the returned data
+
+                                // Befüllt das Modal mit den Daten des Hotels
+                                $('#hotelInfoContent').html(`
+                                    <strong>Hotel ID:</strong> ${data.id}<br>
+                                    <strong>Hotel Name:</strong> ${data.name}<br>
+                                    <strong>Address:</strong> ${data.address}<br>
+                                    <strong>ZIP:</strong> ${data.cityCode}<br>
+                                    <strong>City:</strong> ${data.city}<br>
+                                    <strong>Owner:</strong> ${data.owner}<br>
+                                    <strong>Contact:</strong> ${data.contact}<br>
+                                    <strong>Phone:</strong> ${data.phone}<br>
+                                    <strong>E-Mail Address:</strong> ${data.emailAddress}<br>
+                                    <strong>URL:</strong> <a href="${data.url}" target="_blank">${data.url}</a><br><br>
+                                    <strong>Category:</strong> ${data.category}<br>
+                                    <strong>family friendly:</strong> ${data.familyFriendly ? '<img src="/images/okgreenPNG.png" alt="okgreen" style="width: 20px; height: 20px;">' : '<img src="/images/noredPNG.png" alt="nored" style="width: 20px; height: 20px;">'}<br>
+                                    <strong>dog friendly:</strong> ${data.dogFriendly ? '<img src="/images/okgreenPNG.png" alt="okgreen" style="width: 20px; height: 20px;">' : '<img src="/images/noredPNG.png" alt="nored" style="width: 20px; height: 20px;">'}<br>
+                                    <strong>spa:</strong> ${data.spa ? '<img src="/images/okgreenPNG.png" alt="okgreen" style="width: 20px; height: 20px;">' : '<img src="/images/noredPNG.png" alt="nored" style="width: 20px; height: 20px;">'}<br>
+                                    <strong>fitness:</strong> ${data.fitness ? '<img src="/images/okgreenPNG.png" alt="okgreen" style="width: 20px; height: 20px;">' : '<img src="/images/noredPNG.png" alt="nored" style="width: 20px; height: 20px;">'}<br>
+                                    <strong>subscribed:</strong> ${data.subscribed ? '<img src="/images/okgreenPNG.png" alt="okgreen" style="width: 20px; height: 20px;">' : '<img src="/images/noredPNG.png" alt="nored" style="width: 20px; height: 20px;">'}<br>
+                                `);
+                                $('#hotelInfoModal').show();
+                            })
+                            .catch(error => {
+                                console.error('Error fetching hotel info:', error);
+                                alert('Error fetching hotel info.');
+                            });
+                    }
 
                     function resetValidation() {
                         $('.is-invalid').removeClass('is-invalid');
@@ -678,18 +731,40 @@
             }
         });
 
-        // tuchan code
+        // backup code button
 
 
-        function toggleRow(hotelId) {
-            var detailRow = document.getElementById('details-' + hotelId);
-            if (detailRow) {
-                detailRow.classList.toggle('hidden');
-            }
+        function backupDatabase() {
+            fetch('/backup')
+                .then(response => response.text())
+                .then(data => {
+                    alert(data);
+                    <!-- Codeanfang Nikola_13.06.2024_SendHotelBackupFile -->
+                    fetch('/sendHotelBackupFilePerEmail')
+                        .then(response => response.text())
+                        .then(data => alert(data))
+                        .catch(error => console.error('Fehler: ', error));
+                    <!-- Codeende Nikola_13.06.2024_SendHotelBackupFile -->
+                })
+                .catch(error => console.error('Fehler:', error));
         }
 
 
+
+
         <!-- Codeende_Achill_24.03.2024/27.08.2024/28.08.2024/01.04.2024/03.04.2024/19.04.2024/20.04.2024_Page-Navigation,SwitchZIPAscDesc,HotelDataInfo, ImportCsvData -->
+
+        <!-- Codeanfang Nikola_13.06.2024_PopupForEmailNotification -->
+
+        function sendEmailReport() {
+            fetch('/sendSubscriptionMail')
+                .then(response => response.text())
+                .then(data => alert(data))
+                .catch(error => console.error('Fehler: ', error));
+        }
+
+        <!-- Codeende Nikola_13.06.2024_PopupForEmailNotification -->
+
     </script>
     <style>
         body {
@@ -974,9 +1049,13 @@
 
                     <!--Codeende_Lang_27.04.2024_Histogram_Button-->
 
+                    <!-- Codeanfang Nikola_13.06.2024_PopupForEmailNotification -->
 
-                    <a href="/sendSubscriptionMail" class="btn btn-secondary" style="color:black; background-color: yellow; font-weight: bold; border: 2px solid black">Send Subscription Mail</a>
-                    <a class="btn btn-secondary" href="#backup" style="color:black; background-color: yellow; font-weight: bold; border: 2px solid black">Create and Send Backup</a>
+                    <a class="btn btn-secondary" onclick="sendEmailReport()" style="color:black; background-color: yellow; font-weight: bold; border: 2px solid black">Send Subscription Mail</a>
+
+                    <!-- Codeende Nikola_13.06.2024_PopupForEmailNotification -->
+
+                    <a class="btn btn-secondary" href="#" onclick="backupDatabase()" style="color:black; background-color: yellow; font-weight: bold; border: 2px solid black">Create and Send Backup</a>
                 </div>
             </div>
         </div>
@@ -1144,7 +1223,9 @@
                 <td style="text-align: center; padding: 0;">
                     <!--Code Anfang #3_Nikola_02.05 Occupancy Form -->
                     <button class="btn" style="width: 100%; height: 100%; padding: 0; border: 2px solid black; background: #cccccc; display: flex; justify-content: center; align-items: center;"
-                            th:data-id="${hotelEntry.key.id}" th:data-name="${hotelEntry.key.name}" th:data-zip="${hotelEntry.key.cityCode}" th:if="${isAdminOrEditor}"
+                            th:data-id="${hotelEntry.key.id}" th:data-name="${hotelEntry.key.name}"
+                            th:data-zip="${hotelEntry.key.cityCode}" th:data-maxRooms="${hotelEntry.key.noRooms}"
+                            th:data-maxBeds="${hotelEntry.key.noBeds}" th:if="${isAdminOrEditor}"
                             onclick="addOccupancy(this)">
                         <img src="/images/addOccpPNG.png" alt="addOccp" style="width: 20px; height: 20px;">
                     </button>
@@ -1152,7 +1233,7 @@
                 </td>
 
                 <td style="text-align: center; padding: 0;">
-                    <button class="btn" style="width: 100%; height: 100%; padding: 0; border: 2px solid black; background: #cccccc; display: flex; justify-content: center; align-items: center;" th:if="${isAdminOrEditor}">
+                    <button class="btn" style="width: 100%; height: 100%; padding: 0; border: 2px solid black; background: #cccccc; display: flex; justify-content: center; align-items: center;" th:if="${isAdminOrEditor}" th:data-id="${hotelEntry.key.id}" th:data-name="${hotelEntry.key.name}" th:data-zip="${hotelEntry.key.cityCode}" onclick="deleteHotel(this)">
                         <img src="/images/deletePNG.png" alt="delete" style="width: 20px; height: 20px;">
                     </button>
                 </td>
@@ -1174,8 +1255,8 @@
                             <tbody style="background-color: #9f9f9f;">
                             <!-- Hier die Tabelle "last 12 Entries" hinzufügen -->
                             <tr data-toggle="collapse" th:attr="data-target='#last12Months' + ${hotelIterStat.index}" class="accordion-toggle" style="cursor: pointer;">
-                                <td colspan="14" style="text-align: left; background-color: dimgrey;">
-                                    <h3 style="font-size: 1.0em; margin: 0; color: white;">Last 12 Months</h3> <!-- Verkleinertes h3 und weißer Text -->
+                                <td colspan="14" style="text-align: left; background-color: white;">
+                                    <h3 style="font-size: 1.0em; margin: 0; color: black;">Last 12 Entries</h3> <!-- Verkleinertes h3 und weißer Text -->
                                 </td>
                             </tr>
                             <tr>

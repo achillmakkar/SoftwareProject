@@ -18,10 +18,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
+import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
@@ -61,7 +58,9 @@ public class MainController {
     }
 
     Pageable pageable = PageRequest.of(currentPage - 1, pageSize);
-    Page<Hotel> hotelPage = hotelService.getHotelsOrderedByZipAndName(pageable);
+    Page<Hotel> hotelPage = hotelService.findAllOrderedById(pageable);
+
+
 
     if (currentPage > hotelPage.getTotalPages()) {
       model.addAttribute("errorMessage", "Die angeforderte Seite existiert nicht.");
@@ -84,12 +83,17 @@ public class MainController {
     Map<Hotel, Map<Integer, List<Occupancy>>> hotelOccupancyMap = new HashMap<>();
     Map<Hotel, List<Occupancy>> last12MonthsMap = new HashMap<>();
     for (Hotel hotel : hotelPage.getContent()) {
-      Map<Integer, List<Occupancy>> yearlyData = new HashMap<>();
+
+
+      Map<Integer, List<Occupancy>> yearlyData = new TreeMap<>();
       for (Integer year : years) {
         List<Occupancy> occupancy = occupancyService.getOccupancyDataForHotelAndYear(hotel, year);
         yearlyData.put(year, occupancy);
       }
-      hotelOccupancyMap.put(hotel, yearlyData);
+      //wenn Hotel nicht deleted, boolean negieren Ane
+      if(!hotel.isDeleted()) {
+        hotelOccupancyMap.put(hotel, yearlyData);
+      }
       List<Occupancy> last12Months = occupancyService.getLast12MonthsForHotel(hotel);
       last12MonthsMap.put(hotel, last12Months);
     }

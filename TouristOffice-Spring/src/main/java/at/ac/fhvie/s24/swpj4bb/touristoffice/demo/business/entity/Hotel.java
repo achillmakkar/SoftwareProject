@@ -66,7 +66,7 @@ public class Hotel {
   private String  emailAddress;
   private boolean subscribed;
   //Codeend_Dominik_30.03.2024_Added variables e-mail_address and subscribed
-
+  private boolean deleted;
 
 
   public static HotelBuilder builder() {
@@ -97,7 +97,7 @@ public class Hotel {
     this.emailAddress = other.emailAddress;
     this.subscribed = other.subscribed;
     //Codeend_Dominik_30.03.2024_Added variables e-mail_address and subscribed
-
+    this.deleted = other.deleted;
     return this;
   }
 
@@ -127,7 +127,7 @@ public class Hotel {
     private String  emailAddress;
     private boolean subscribed;
     //Codeend_Dominik_30.03.2024_Added variables e-mail_address and subscribed
-
+    private boolean deleted;
 
     public HotelBuilder() {
     }
@@ -245,11 +245,14 @@ public class Hotel {
       }
     //Codeend_Dominik_30.03.2024_Added variables e-mail_address and subscribed
 
-
-
+    @SuppressWarnings("checkstyle:hiddenField")
+    public HotelBuilder deleted(final boolean deleted) {
+      this.deleted = deleted;
+      return this;
+      }
     public Hotel build() {
       return new Hotel(id, category, name, owner, contact, address, city, cityCode, phone,
-          noRooms, noBeds, url, familyFriendly, dogFriendly, spa, fitness, emailAddress, subscribed);
+          noRooms, noBeds, url, familyFriendly, dogFriendly, spa, fitness, emailAddress, subscribed, deleted);
     }
 
     public String toString() {
@@ -263,7 +266,7 @@ public class Hotel {
               + ", dogFriendly=" + this.dogFriendly + ", spa=" + this.spa + ", fitness=" + this.fitness
               //Codeend_#10_Dominik_30.03.2024_Add attributes (URL, family-friendly, dog-friendly, Spa, Fitness) to master data
               //Codestart_Dominik_30.03.2024_Added variables e-mail_address and subscribed
-              + ", emailAddress=" + this.emailAddress + ", subscribed=" + this.subscribed
+              + ", emailAddress=" + this.emailAddress + ", subscribed=" + this.subscribed+ ", deleted=" + this.deleted
               //Codeend_Dominik_30.03.2024_Added variables e-mail_address and subscribed
               + ")";
     }
