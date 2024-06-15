@@ -46,8 +46,6 @@ public class DataService {
     private final Path correctFilesPath = csvDirectoryPath.resolve("correct_files");
     private final Path problemFilesPath = csvDirectoryPath.resolve("problem_files");
 
-
-
     @Autowired
     public DataService(final OccupancyRepository occupancyRepository) {
         this.occupancyRepository = occupancyRepository;
@@ -140,5 +138,4 @@ public class DataService {
     }
 
 //  Codeende_Achill_ImportCsv_DataService/18.04.2024/19.04.2024/20.04.2024/23.04.2024/25.04.2024/26.04.2024
-
 }

@@ -63,7 +63,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
             .and() // Code_Achill_19.05.2024_H2Console_FIX
             .csrf().disable() // Code_Achill_19.05.2024_H2Console_FIX
             .headers().frameOptions().disable(); // Code_Achill_19.05.2024_H2Console_FIX
-
     ;
   }
 }

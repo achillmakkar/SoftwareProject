@@ -5,7 +5,7 @@ import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "import_events")
-// Codeanfang_Achill_02.05.2024/03.05.2024_ImportCsvEvent
+// Codeanfang_Achill_02.05.2024/03.05.2024_ImportCsvEvent_TimeStamp
 public class ImportCsvEvent {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -17,7 +17,6 @@ public class ImportCsvEvent {
 
     @Column(length = 50, nullable = false)
     private String status;
-
 
     @Column(length = 255, nullable = false)
     private String user;
@@ -54,7 +53,7 @@ public class ImportCsvEvent {
 
     public String getUser() {
         return user;
-    }
+    } // could not finalize it because user management was done in the last days
 
     public void setUser(String user) {
         this.user = user;

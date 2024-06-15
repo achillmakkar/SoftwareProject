@@ -92,8 +92,6 @@ public class HotelController {
 
   //Codeend_23.05.2024_08.06.2024_LANG_add_hotel
 
-
-
   // Here the form is called and the template is provided with an empty Hotel Instance
   @GetMapping("/hotelform")
   public String fooForm(final Model model) {
@@ -139,16 +137,12 @@ public class HotelController {
       model.addAttribute("error", error);
       return "hotelform";
     }
-
-
     ra.addFlashAttribute("command", command);
 
     // Redirect to the output page. The hotel data is stored in an FlashAttribute which is
     // maintained in the session
     return "redirect:/hotelresult";
-
   }
-
 
   // Output of the hotel data entered by the user
   @GetMapping("/hotelresult")
@@ -165,7 +159,6 @@ public class HotelController {
 
     return "hotelresult";
   }
-
 
   // Codeanfang_Achill_01.04.2024_fuerTestzweckeangelegt(StatisticsAsPDF)
   @GetMapping("/hotels")
@@ -234,6 +227,5 @@ public class HotelController {
 
     return "redirect:/index";
   }
-
 
 }

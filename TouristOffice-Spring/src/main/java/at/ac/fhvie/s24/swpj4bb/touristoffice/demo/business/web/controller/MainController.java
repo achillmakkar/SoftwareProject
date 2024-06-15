@@ -60,8 +60,6 @@ public class MainController {
     Pageable pageable = PageRequest.of(currentPage - 1, pageSize);
     Page<Hotel> hotelPage = hotelService.findAllOrderedById(pageable);
 
-
-
     if (currentPage > hotelPage.getTotalPages()) {
       model.addAttribute("errorMessage", "Die angeforderte Seite existiert nicht.");
       currentPage = 1;
@@ -107,7 +105,6 @@ public class MainController {
     boolean isCreator = currentUser.getRoles().stream().anyMatch(role -> role.getName().equals("CREATOR"));
     boolean isEditor = currentUser.getRoles().stream().anyMatch(role -> role.getName().equals("EDITOR"));
     boolean isAdminOrEditor = isAdmin || isEditor;
-
 
     model.addAttribute("isAdmin", isAdmin);
     model.addAttribute("isUser", isUser);

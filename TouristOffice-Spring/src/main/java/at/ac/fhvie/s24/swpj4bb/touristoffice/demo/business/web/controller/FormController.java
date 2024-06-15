@@ -23,8 +23,6 @@ import java.util.Map;
 public class FormController {
 
   private final OccupancyService occupancyService;
-
-
   @GetMapping("/sampleform")
   public String sampleForm(final Model model) {
     model.addAttribute("command", new FooData());
@@ -117,6 +115,4 @@ public class FormController {
 
     return "/";
   }
-
-
 }

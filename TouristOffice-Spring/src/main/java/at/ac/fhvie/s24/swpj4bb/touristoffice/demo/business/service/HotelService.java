@@ -29,6 +29,8 @@ import java.util.Optional;
  * continue writing on the GUI and business logic and be independent from the database
  * development-
  */
+
+// Codeanfang_Achill_HotelService
 @Service
 public class HotelService {
 
@@ -164,6 +166,6 @@ public class HotelService {
       exc.printStackTrace();
     }
   }
-
-
 }
+
+// Codeende_Achill_HotelService

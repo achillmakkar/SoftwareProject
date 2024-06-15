@@ -14,8 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class CsvFileHelper {
-
-    //  Codeanfang_Achill_ImportCsv_DataService/18.04.2024/19.04.2024/20.04.2024/23.04.2024/25.04.2024/26.04.2024
+    //  Codeanfang_Achill_ImportCsv_DataService/18.04.2024/19.04.2024/20.04.2024/23.04.2024/25.04.2024/26.04.2024/25.05.2024
     public static List<Occupancy> convertCsvToListOfOccupancy(InputStream is) throws CsvValidator {
         List<Occupancy> occupancies = new ArrayList<>();
         CSVParser parser = new CSVParserBuilder()
@@ -65,9 +64,6 @@ public class CsvFileHelper {
                     throw new CsvValidator("Das Monat muss zwischen 1 und 12 liegen in Zeile: " + lineNumber);
                 }
 
-                // aktuelles datum...
-                // fehlermeldung wenn ordner nicht existiert
-
                 Occupancy occupancy = new Occupancy();
                 occupancy.setHotel(hotel);
                 occupancy.setRooms(rooms);
@@ -91,5 +87,5 @@ public class CsvFileHelper {
             throw new CsvValidator("Ungültiger Wert für " + fieldName + " in Zeile " + lineNumber + ": " + value);
         }
     }
-    //  Codeende_Achill_ImportCsv_DataService/18.04.2024/19.04.2024/20.04.2024/23.04.2024/25.04.2024/26.04.2024
+    //  Codeende_Achill_ImportCsv_DataService/18.04.2024/19.04.2024/20.04.2024/23.04.2024/25.04.2024/26.04.2024/25.05.2024
 }
