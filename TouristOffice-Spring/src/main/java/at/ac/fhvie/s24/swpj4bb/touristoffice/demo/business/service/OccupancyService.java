@@ -77,11 +77,9 @@ public class OccupancyService
     }
 
     // Codeanfang_Nikola_07.04.2024_SaveOccupancy
-    // Occupancy-Objekt wird in der Datenbank gespeichert
-
 
     public void saveOccupancy(Occupancy occupancy) {
-        occupancyRepository.save(occupancy);  //nimmt Objekt aus FormController engegen
+        occupancyRepository.save(occupancy);
     }
     // Codeende_Nikola_07.04.2024_SaveOccupancy
 

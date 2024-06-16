@@ -71,9 +71,9 @@ public class HotelController {
     }
   }
   @GetMapping("/deletehotel")
-  public String deleteHotel(Model model) {              // Initialiserung des Formulars - "occupancy" Objekt wird erstellt und an Model gebunden
-    model.addAttribute("hotel", new Hotel());   // Model stellt bildlich dar (Datentransfer zw Controller und View)
-    return "deletehotel";                                    // Occupancy Objekt wird an 'model' gebunden - Userdaten werden gespeichert
+  public String deleteHotel(Model model) {
+    model.addAttribute("hotel", new Hotel());
+    return "deletehotel";
   }
   @GetMapping("/addhotel")
   public String addHotelForm(Model model) {
