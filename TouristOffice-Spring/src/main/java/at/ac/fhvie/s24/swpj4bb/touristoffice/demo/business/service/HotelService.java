@@ -111,9 +111,11 @@ public class HotelService {
     return true;
   }
 
+  //Codeanfang_Lang_add_hotel
   public void addHotel(Hotel hotel) {
     hotelRepository.save(hotel);
   }
+  //Codeende_Lang_add_hotel
 
   @Transactional
   public void update(final Hotel alteredHotel) {
@@ -124,6 +126,7 @@ public class HotelService {
       exportDatabase();
     }
   }
+
 
   /**
    * Dump the data as SQL file

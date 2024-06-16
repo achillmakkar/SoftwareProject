@@ -47,7 +47,6 @@ public class HotelController {
   public ResponseEntity<Boolean> updateSubscription(@PathVariable String hotelId, @RequestBody(required = false) String body) {
     boolean subscribed = subscriptionService.updateSubscription(hotelId);
 
-    //TO DO: besseren Code schreiben!!
     if (subscribed) {
       return ResponseEntity.ok(true);
     } else {
@@ -59,7 +58,7 @@ public class HotelController {
 
   //Codebegin_23.05.2024_08.06.2024_LANG_add_hotel
 
-  // Füge diese Methode hinzu, um die Hotelinformationen basierend auf der Hotel-ID abzurufen
+  // Methode um die Hotelinformationen basierend auf der Hotel-ID abzurufen
   @GetMapping("/hotelinfo/{id}")
   @ResponseBody
   public ResponseEntity<Hotel> getHotelInfo(@PathVariable int id) {
@@ -70,11 +69,15 @@ public class HotelController {
       return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
     }
   }
+  //Codeende_23.05.2024_08.06.2024_LANG_add_hotel
+
   @GetMapping("/deletehotel")
   public String deleteHotel(Model model) {
     model.addAttribute("hotel", new Hotel());
     return "deletehotel";
   }
+
+  //Codebegin_23.05.2024_08.06.2024_LANG_add_hotel
   @GetMapping("/addhotel")
   public String addHotelForm(Model model) {
     model.addAttribute("hotel", new Hotel());

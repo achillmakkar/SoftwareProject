@@ -11,8 +11,8 @@ import lombok.Setter;
 @Getter
 @Setter
 public class OccupancyHistogramData {
-    private String period;  // Zeitraum im Format "YYYY-MM to YYYY-MM"
-    private int totalUsedRooms;  // Gesamtzahl der genutzten Zimmer in diesem Zeitraum
+    private String period;
+    private int totalUsedRooms;
     private int totalUsedBeds;
 
     public OccupancyHistogramData(String period, int totalUsedRooms, int totalUsedBeds) {

@@ -151,48 +151,6 @@ public class OccupancyService
 
 }
 
-//VEREINFACHTER CODE mit vollen Jahren:
-    /*
-    public List<OccupancyHistogramData> calculateHistogramData() {
-        List<OccupancyHistogramData> result = new ArrayList<>();
-
-        // Get all occupancies
-        List<Occupancy> allOccupancies = (List<Occupancy>) occupancyRepository.findAll();
-
-        // Determine the oldest and youngest years
-        Integer oldestYear = Occupancy.findOldestYear(allOccupancies);
-        Integer youngestYear = Occupancy.findYoungestYear(allOccupancies);
-
-        // Loop through each year from the oldest to the most recent year
-        for (int year = oldestYear; year <= youngestYear; year++) {
-            // SQL query to sum used rooms and beds for the whole year
-            String sql = "SELECT " +
-                    "    SUM(usedrooms) AS totalUsedRooms, " +
-                    "    SUM(usedbeds) AS totalUsedBeds " +
-                    "FROM occupancy " +
-                    "WHERE year = ?";
-
-            // Execute the query and process the result
-            Map<String, Object> queryResult = jdbcTemplate.queryForMap(sql, year);
-
-            // Check for nulls before converting to int
-            Number totalUsedRoomsNum = (Number) queryResult.get("totalUsedRooms");
-            Number totalUsedBedsNum = (Number) queryResult.get("totalUsedBeds");
-
-            // Initialize to 0 if null
-            int totalUsedRooms = totalUsedRoomsNum != null ? totalUsedRoomsNum.intValue() : 0;
-            int totalUsedBeds = totalUsedBedsNum != null ? totalUsedBedsNum.intValue() : 0;
-
-            if (totalUsedRooms > 0 && totalUsedBeds > 0) {
-                String period = Integer.toString(year); // Create a period string like "2013"
-                result.add(new OccupancyHistogramData(period, totalUsedRooms, totalUsedBeds));
-            }
-        }
-
-        return result;
-    }
-*/
-
 //Codeende_Lang_30.04.2024/01.05.2024_Histogram_Data
 
 // Codeende_Achill_24.03.2024/16.04.2024_OccupancyService
